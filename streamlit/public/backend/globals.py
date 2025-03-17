@@ -87,9 +87,6 @@ API_REFERENCE = "APIReferences"
 RELOAD_EXECUTIONS_BUTTON = "Reload"
 
 # KEYS
-KEY_JIRA_ASSIGNEE = "63a204886f068efec8f4ec78"
-KEY_JIRA_GENERAL_ASSIGNEE = "63a204886f068efec8f4ec78"
-KEY_JIRA_COMPONENT_DS_TOOL = "20733"  # SMA IAA component
 KEY_JIRA_LABELS = []
 KEY_SCT_JIRA_PROJECT = "SCT"
 KEY_SUGGESTION = "SUGGESTION"
@@ -381,7 +378,6 @@ def get_import_status():
 
 
 SMA_OUTPUT_FILES_NAMES = [
-    "files",
     "ImportUsagesInventory",
     "InputFilesInventory",
     "IOFilesInventory",
@@ -390,7 +386,8 @@ SMA_OUTPUT_FILES_NAMES = [
     "NotebookCellInventory",
     "NotebookSizeInventory",
     "SparkUsagesInventory",
-    "SqlStatementsInventory",
+    "SqlElementsInventory",
+    "SqlFunctionsInventory",
     "ThirdPartyUsagesInventory",
 ]
 
