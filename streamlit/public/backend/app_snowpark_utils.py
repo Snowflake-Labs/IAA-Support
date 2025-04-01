@@ -173,6 +173,16 @@ _tables_metadata = {
         ("FILTER", sftype.STRING),
     ],
     JAVA_BUILTINS: [("NAME", sftype.STRING)],
+    TABLE_ARTIFACT_DEPENDENCY_INVENTORY:[
+        ("EXECUTION_ID", sftype.STRING),
+        ("FILE_ID", sftype.STRING),
+        ("DEPENDENCY", sftype.STRING),
+        ("TYPE", sftype.STRING),
+        ("SUCCESS", sftype.BOOLEAN),
+        ("STATUS_DETAIL", sftype.STRING),
+        ("ARGUMENTS", sftype.VARIANT),
+        ("LOCATION", sftype.VARIANT),
+    ],
 }
 
 
@@ -632,3 +642,9 @@ def register_app_log(session: Session,
         session.sql(query).collect()
     except Exception as e:
         print(e)
+
+def convert_to_int(value: str) -> int:
+    try:
+        return int(value)
+    except ValueError:
+        return 0

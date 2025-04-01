@@ -7,6 +7,7 @@ from public.backend import executions_backend
 def showData(df):
     if df is not None and df.shape[0] > 0:
         df = utils.reset_index(df)
+        df = df.drop_duplicates()
         edited_df = st.data_editor(
             df,
             column_config={
