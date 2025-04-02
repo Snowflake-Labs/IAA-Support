@@ -137,15 +137,15 @@ def get_user_code_file_dependency_detailed(dependency_df: SnowparkDataFrame) -> 
 
     user_code_file_detailed_df = user_code_file_dependency_df.select(
         col(COLUMN_DEPENDENCY).alias(FRIENDLY_NAME_DEPENDENCY),
-        parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_EXTENSION_KEY].alias(
+        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_EXTENSION_KEY],"\"","").alias(
             COLUMN_USER_CODE_FILE_EXTENSION_FRIENDLY_NAME),
-        parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_TECHNOLOGY_KEY].alias(
+        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_TECHNOLOGY_KEY],"\"","").alias(
             COLUMN_USER_CODE_FILE_TECHNOLOGY_FRIENDLY_NAME),
-        parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_BYTES_KEY].alias(
+        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_BYTES_KEY],"\"","").alias(
             COLUMN_USER_CODE_FILE_BYTES_FRIENDLY_NAME),
-        parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_CHARACTER_LENGTH_KEY].alias(
+        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_CHARACTER_LENGTH_KEY],"\"","").alias(
             COLUMN_USER_CODE_FILE_CHARACTER_LENGTH_FRIENDLY_NAME),
-        parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_LINES_OF_CODE_KEY].alias(
+        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_LINES_OF_CODE_KEY],"\"","").alias(
             COLUMN_USER_CODE_FILE_LINES_OF_CODE_FRIENDLY_NAME),
         when(col(COLUMN_STATUS_DETAIL) == lit(USER_CODE_FILE_PARSED_STATUS_KEY),
              concat(lit(DEPENDENCY_ARTIFACT_GREEN_ICON + " "), col(COLUMN_STATUS_DETAIL)))
@@ -164,7 +164,6 @@ def get_input_output_source_dependency_detailed(dependency_df: SnowparkDataFrame
         col(COLUMN_DEPENDENCY).alias(FRIENDLY_NAME_DEPENDENCY),
         replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_MODE_KEY],"\"","").alias(COLUMN_IO_SOURCES_MODE_FRIENDLY_NAME),
         replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_FORMAT_KEY],"\"","").alias(COLUMN_IO_SOURCES_FORMAT_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_SUPPORTED_KEY],"\"","").alias(COLUMN_IO_SOURCES_SUPPORTED_FRIENDLY_NAME),
         when(col(COLUMN_STATUS_DETAIL) == lit(IO_SOURCE_EXISTS_STATUS_KEY), LABEL_EXISTS)
         .otherwise(LABEL_NOT_EXISTS)
         .alias(COLUMN_IO_SOURCES_STATUS_FRIENDLY_NAME))
