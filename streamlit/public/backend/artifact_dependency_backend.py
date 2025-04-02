@@ -62,7 +62,7 @@ def get_artifacts_summary(execution_id_list:List, code_file_path_value: str, col
         .join(total_issues_df, on=[COLUMN_EXECUTION_ID, COLUMN_FILE_ID], how='left')
 
     validCriteriaOption = option_criteria in [ArtifactCriteriaOptions.MORE_THAN, ArtifactCriteriaOptions.LESS_THAN, ArtifactCriteriaOptions.EQUAL_TO]
-    validColumnOption = option_criteria in [
+    validColumnOption = column_to_search in [
         ArtifactColumnOptions.FRIENDLY_NAME_UNKNOWN_LIBRARIES,
         ArtifactColumnOptions.FRIENDLY_NAME_USER_CODE_FILES,
         ArtifactColumnOptions.FRIENDLY_NAME_THIRD_PARTY_LIBRARIES,
