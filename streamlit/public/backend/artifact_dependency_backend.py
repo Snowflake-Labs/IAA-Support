@@ -12,6 +12,8 @@ from public.backend.app_snowpark_utils import convert_to_int
 from public.backend.globals import *
 from public.backend.query_quality_handler import with_table_quality_handler
 
+double_quote = "\""
+empty_string = ""
 
 def get_artifacts_dependency_table_data_by_execution_id(execution_id_list: List, selected_files_list: Optional[List] = None) -> snowflake.snowpark.DataFrame:
 
@@ -135,22 +137,24 @@ def get_user_code_file_dependency_detailed(dependency_df: SnowparkDataFrame) -> 
     .where(col(COLUMN_TYPE) == lit(USER_CODE_FILE_ARTIFACT_DEPENDENCY_TYPE_KEY)) \
     .sort(col(COLUMN_STATUS_DETAIL))
 
+
     user_code_file_detailed_df = user_code_file_dependency_df.select(
-        col(COLUMN_DEPENDENCY).alias(FRIENDLY_NAME_DEPENDENCY),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_EXTENSION_KEY],"\"","").alias(
-            COLUMN_USER_CODE_FILE_EXTENSION_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_TECHNOLOGY_KEY],"\"","").alias(
-            COLUMN_USER_CODE_FILE_TECHNOLOGY_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_BYTES_KEY],"\"","").alias(
-            COLUMN_USER_CODE_FILE_BYTES_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_CHARACTER_LENGTH_KEY],"\"","").alias(
-            COLUMN_USER_CODE_FILE_CHARACTER_LENGTH_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_LINES_OF_CODE_KEY],"\"","").alias(
-            COLUMN_USER_CODE_FILE_LINES_OF_CODE_FRIENDLY_NAME),
-        when(col(COLUMN_STATUS_DETAIL) == lit(USER_CODE_FILE_PARSED_STATUS_KEY),
-             concat(lit(DEPENDENCY_ARTIFACT_GREEN_ICON + " "), col(COLUMN_STATUS_DETAIL)))
-        .otherwise(concat(lit(DEPENDENCY_ARTIFACT_RED_ICON + " "), col(COLUMN_STATUS_DETAIL)))
-        .alias(COLUMN_USER_CODE_FILE_STATUS_FRIENDLY_NAME))
+        parse_json(col(COLUMN_ARGUMENTS)).alias(COLUMN_ARGUMENTS), col(COLUMN_DEPENDENCY), col(COLUMN_STATUS_DETAIL)) \
+        .select( col(COLUMN_DEPENDENCY),
+            replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_EXTENSION_KEY], double_quote, empty_string).alias(
+                COLUMN_USER_CODE_FILE_EXTENSION_FRIENDLY_NAME),
+            replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_TECHNOLOGY_KEY], double_quote, empty_string).alias(
+                COLUMN_USER_CODE_FILE_TECHNOLOGY_FRIENDLY_NAME),
+            replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_BYTES_KEY], double_quote, empty_string).alias(
+                COLUMN_USER_CODE_FILE_BYTES_FRIENDLY_NAME),
+            replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_CHARACTER_LENGTH_KEY], double_quote, empty_string).alias(
+                COLUMN_USER_CODE_FILE_CHARACTER_LENGTH_FRIENDLY_NAME),
+            replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_LINES_OF_CODE_KEY], double_quote, empty_string).alias(
+                COLUMN_USER_CODE_FILE_LINES_OF_CODE_FRIENDLY_NAME),
+            when(col(COLUMN_STATUS_DETAIL) == lit(USER_CODE_FILE_PARSED_STATUS_KEY),
+                 concat(lit(DEPENDENCY_ARTIFACT_GREEN_ICON + " "), col(COLUMN_STATUS_DETAIL)))
+            .otherwise(concat(lit(DEPENDENCY_ARTIFACT_RED_ICON + " "), col(COLUMN_STATUS_DETAIL)))
+            .alias(COLUMN_USER_CODE_FILE_STATUS_FRIENDLY_NAME))
 
     return user_code_file_detailed_df
 
@@ -160,10 +164,13 @@ def get_input_output_source_dependency_detailed(dependency_df: SnowparkDataFrame
         .where(col(COLUMN_TYPE) == lit(IO_SOURCES_ARTIFACT_DEPENDENCY_TYPE_KEY)) \
         .sort(col(COLUMN_STATUS_DETAIL))
 
-    io_sources_detailed_df = io_sources_dependency_df.select(
+    io_sources_detailed_df = io_sources_dependency_df \
+        .select(
+        parse_json(col(COLUMN_ARGUMENTS)).alias(COLUMN_ARGUMENTS), col(COLUMN_DEPENDENCY), col(COLUMN_STATUS_DETAIL)) \
+        .select(
         col(COLUMN_DEPENDENCY).alias(FRIENDLY_NAME_DEPENDENCY),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_MODE_KEY],"\"","").alias(COLUMN_IO_SOURCES_MODE_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_FORMAT_KEY],"\"","").alias(COLUMN_IO_SOURCES_FORMAT_FRIENDLY_NAME),
+        replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_MODE_KEY], double_quote, empty_string).alias(COLUMN_IO_SOURCES_MODE_FRIENDLY_NAME),
+        replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_FORMAT_KEY], double_quote, empty_string).alias(COLUMN_IO_SOURCES_FORMAT_FRIENDLY_NAME),
         when(col(COLUMN_STATUS_DETAIL) == lit(IO_SOURCE_EXISTS_STATUS_KEY), LABEL_EXISTS)
         .otherwise(LABEL_NOT_EXISTS)
         .alias(COLUMN_IO_SOURCES_STATUS_FRIENDLY_NAME))
@@ -210,10 +217,13 @@ def get_sql_object_detailed(dependency_df: SnowparkDataFrame) -> SnowparkDataFra
             col(COLUMN_TYPE) == lit(SQL_OBJECT_ARTIFACT_DEPENDENCY_TYPE_KEY)) \
         .sort(col(COLUMN_STATUS_DETAIL))
 
-    sql_object_dependency_detailed_df = sql_object_dependency_df.select(
+    sql_object_dependency_detailed_df = sql_object_dependency_df \
+        .select(
+        parse_json(col(COLUMN_ARGUMENTS)).alias(COLUMN_ARGUMENTS), col(COLUMN_DEPENDENCY), col(COLUMN_STATUS_DETAIL)) \
+        .select(
         col(COLUMN_DEPENDENCY).alias(COLUMN_SQL_LIBRARY_OBJECT_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_CATEGORY_KEY],"\"","").alias(COLUMN_SQL_OBJECT_CATEGORY_FRIENDLY_NAME),
-        replace(parse_json(col(COLUMN_ARGUMENTS))[DEPENDENCY_ARGUMENT_DIALECT_KEY],"\"","").alias(COLUMN_SQL_OBJECT_DIALECT_FRIENDLY_NAME),
+        replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_CATEGORY_KEY], double_quote, empty_string).alias(COLUMN_SQL_OBJECT_CATEGORY_FRIENDLY_NAME),
+        replace(col(COLUMN_ARGUMENTS)[DEPENDENCY_ARGUMENT_DIALECT_KEY], double_quote, empty_string).alias(COLUMN_SQL_OBJECT_DIALECT_FRIENDLY_NAME),
         when(col(COLUMN_STATUS_DETAIL) == lit(SQL_OBJECT_EXISTS_STATUS_KEY), LABEL_EXISTS)
         .otherwise(LABEL_NOT_EXISTS)
         .alias(COLUMN_UNKNOWN_LIBRARIES_STATUS_FRIENDLY_NAME))
