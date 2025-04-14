@@ -183,6 +183,25 @@ _tables_metadata = {
         ("ARGUMENTS", sftype.VARIANT),
         ("LOCATION", sftype.VARIANT),
     ],
+    TABLE_DBX_ELEMENTS_INVENTORY: [
+        ("EXECUTION_ID", sftype.STRING),
+        ("ELEMENT", sftype.STRING),
+        ("PROJECT_ID", sftype.STRING),
+        ("FILE_ID", sftype.STRING),
+        ("COUNT", sftype.BIGINT),
+        ("CATEGORY", sftype.STRING),
+        ("ALIAS", sftype.STRING),
+        ("KIND", sftype.STRING),
+        ("LINE", sftype.BIGINT),
+        ("PACKAGE_NAME", sftype.STRING),
+        ("SUPPORTED", sftype.STRING),
+        ("AUTOMATED", sftype.STRING),
+        ("STATUS", sftype.STRING),
+        ("SNOWCONVERT_CORE_VERSION", sftype.STRING),
+        ("CELL_ID", sftype.BIGINT),
+        ("PARAMETERS_INFO", sftype.VARIANT),
+        ("TECHNOLOGY", sftype.STRING),
+    ],
 }
 
 

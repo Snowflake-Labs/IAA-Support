@@ -6,6 +6,7 @@ import public.frontend.empty_screen as empty_screen
 import public.backend.review_executions_backend as backend
 from public.backend import summary_metrics_backend, files_backend
 from public.frontend.app_artifact_dependency_review import artifact_dependency_review
+from public.frontend.app_dbx_elements_review import dbx_elements_review
 from public.frontend.app_snowpark_dependency_report import dependency_report
 from public.frontend.shared_components import load_header
 from public.frontend.app_snowpark_thirdparty import third_party_review
@@ -160,6 +161,7 @@ def create_side_bar():
         ("Third Party", _select_sidebar_option),
         ("Dependencies", _select_sidebar_option),
         ("Artifacts Dependencies", _select_sidebar_option),
+        ("Dbx Elements", _select_sidebar_option),
     ]
     st.sidebar.button(
         "Home", on_click=_home_landing_page, use_container_width=True, key="home_btn"
@@ -223,6 +225,12 @@ def _artifact_dependencies_reports(found_executions):
     st.markdown("<br/>", unsafe_allow_html=True)
     artifact_dependency_review(found_executions)
 
+def _dbx_elements_reports(found_executions):
+    title_section = f'<strong style="font-size: 24px;">Dbx Elements</strong>'
+    st.markdown(title_section, unsafe_allow_html=True)
+    st.markdown("<br/>", unsafe_allow_html=True)
+    dbx_elements_review(found_executions)
+
 
 def _handle_review_option(option, found_executions):
     if (found_executions is None or len(found_executions) <= 0) and st.session_state[
@@ -241,6 +249,7 @@ def _handle_review_option(option, found_executions):
             "Third Party": lambda: third_party_review(found_executions),
             "Dependencies": lambda: _dependencies_reports(found_executions),
             "Artifacts Dependencies": lambda: _artifact_dependencies_reports(found_executions),
+            "Dbx Elements": lambda: _dbx_elements_reports(found_executions),
         }
 
         if option in actions:
