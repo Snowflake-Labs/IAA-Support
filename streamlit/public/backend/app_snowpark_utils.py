@@ -190,7 +190,6 @@ _tables_metadata = {
         ("FILE_ID", sftype.STRING),
         ("COUNT", sftype.BIGINT),
         ("CATEGORY", sftype.STRING),
-        ("ALIAS", sftype.STRING),
         ("KIND", sftype.STRING),
         ("LINE", sftype.BIGINT),
         ("PACKAGE_NAME", sftype.STRING),
@@ -199,7 +198,6 @@ _tables_metadata = {
         ("STATUS", sftype.STRING),
         ("SNOWCONVERT_CORE_VERSION", sftype.STRING),
         ("CELL_ID", sftype.BIGINT),
-        ("PARAMETERS_INFO", sftype.VARIANT),
         ("TECHNOLOGY", sftype.STRING),
     ],
 }
