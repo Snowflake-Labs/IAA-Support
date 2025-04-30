@@ -1,10 +1,13 @@
-from typing import List
+
 import pandas
-from public.backend.globals import *
-from snowflake.snowpark.functions import col
-from public.backend.query_quality_handler import with_table_quality_handler
-import public.backend.app_snowpark_utils as utils
 import streamlit as st
+
+import public.backend.app_snowpark_utils as utils
+
+from public.backend.globals import *
+from public.backend.query_quality_handler import with_table_quality_handler
+from snowflake.snowpark.functions import col
+
 
 @st.cache_data(show_spinner=True)
 def get_unique_dependencies_by_execid(execution_ids):
@@ -46,7 +49,7 @@ def get_dependencies(execution_ids):
     dependencies_data_with_friendly_name = dependencies_data.withColumnRenamed(COLUMN_TOOL_EXECUTION_ID, FRIENDLY_NAME_EXECUTION_ID) \
                                                             .withColumnRenamed(COLUMN_SOURCE_FILE, FRIENDLY_NAME_SOURCE_FILE)
     dependencies = dependencies_data_with_friendly_name.to_pandas()
-    dependencies[COLUMN_IS_BUILTIN] = dependencies[COLUMN_ORIGIN] == 'BuiltIn'
+    dependencies[COLUMN_IS_BUILTIN] = dependencies[COLUMN_ORIGIN] == "BuiltIn"
     dependencies[COLUMN_IS_BUILTIN] = dependencies[COLUMN_IS_BUILTIN].astype(str)
     dependencies[COLUMN_IS_BUILTIN] = dependencies[COLUMN_IS_BUILTIN].str.lower()
 
@@ -57,23 +60,23 @@ def get_grouped_dependencies(df_dependencies):
     df_dependencies_filtered = df_dependencies[df_dependencies[COLUMN_DEPENDENCIES].notnull()]
     result = (
         df_dependencies_filtered.groupby(FRIENDLY_NAME_SOURCE_FILE).agg(
-            DEPENDENCIES_COUNT=(COLUMN_DEPENDENCIES, 'count'),
-            UNKNOWN_DEPENDENCIES_COUNT=(COLUMN_ORIGIN, lambda x: (x == 'Unknown').sum()),
+            DEPENDENCIES_COUNT=(COLUMN_DEPENDENCIES, "count"),
+            UNKNOWN_DEPENDENCIES_COUNT=(COLUMN_ORIGIN, lambda x: (x == "Unknown").sum()),
         )
     )
-    result['PERCENTAGE OF UNKNOWN'] = (
-            (result['UNKNOWN_DEPENDENCIES_COUNT'] * 100) / result['DEPENDENCIES_COUNT']
-    ).round(2).apply(lambda x: '0%' if x == 0 else f"{x:.2f}%")
+    result["PERCENTAGE OF UNKNOWN"] = (
+            (result["UNKNOWN_DEPENDENCIES_COUNT"] * 100) / result["DEPENDENCIES_COUNT"]
+    ).round(2).apply(lambda x: "0%" if x == 0 else f"{x:.2f}%")
 
     result = result.reset_index().rename(columns={
-        FRIENDLY_NAME_SOURCE_FILE: 'SOURCE FILE',
-        COLUMN_DEPENDECIES_COUNT: 'DEPENDENCIES COUNT',
-        'UNKNOWN_DEPENDENCIES_COUNT': 'UNKNOWN DEPENDENCIES'
+        FRIENDLY_NAME_SOURCE_FILE: "SOURCE FILE",
+        COLUMN_DEPENDECIES_COUNT: "DEPENDENCIES COUNT",
+        "UNKNOWN_DEPENDENCIES_COUNT": "UNKNOWN DEPENDENCIES",
     })
-    
+
     return result
 
-def get_pending_execution_list(execution_ids: List[str]) -> pandas.DataFrame:
+def get_pending_execution_list(execution_ids: list[str]) -> pandas.DataFrame:
     session = utils.get_session()
     pending_execution_list = session.table(TABLE_PENDING_EXECUTION_LIST) \
                                .where(col(COLUMN_EXECUTION_ID).isin(execution_ids))

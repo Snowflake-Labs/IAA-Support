@@ -1,11 +1,13 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+
 import public.backend.app_snowpark_utils as utils
+import public.frontend.error_handling as errorHandling
+
+from public.backend import tables_backend
 from public.backend.globals import *
 from snowflake.snowpark.functions import col
-import public.frontend.error_handling as errorHandling
-from public.backend import tables_backend
 
 
 @st.cache_data(show_spinner=True)
@@ -16,7 +18,7 @@ def get_treemap_data(execution_id_list, technology=utils.technologies):
         input_files_table_data.where(
             (col(COLUMN_EXECUTION_ID).isin(execution_id_list))
             & (col(COLUMN_IGNORED) == FALSE_KEY)
-            & (col(COLUMN_LINES_OF_CODE) > 0)
+            & (col(COLUMN_LINES_OF_CODE) > 0),
         )
         .select(COLUMN_ELEMENT, COLUMN_LINES_OF_CODE)
         .withColumnRenamed(COLUMN_ELEMENT, COLUMN_SOURCE_FILE)
@@ -44,7 +46,7 @@ def add_space(column):
 def buildTreemap(executionIds, technology=utils.technologies):
     files = get_treemap_data(executionIds, technology)
     files = pd.concat(
-        [files[COLUMN_SOURCE_FILE].str.split("/", expand=True), files], axis=1
+        [files[COLUMN_SOURCE_FILE].str.split("/", expand=True), files], axis=1,
     ).drop(columns=[COLUMN_SOURCE_FILE])
 
     files = files.fillna(SNOW_CONVERT_TEMPORATY_FOLDER_NAME)

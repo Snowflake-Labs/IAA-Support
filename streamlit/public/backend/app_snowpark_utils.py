@@ -1,22 +1,27 @@
 import base64
 import io
 import os.path
+import pathlib
 import re
 import time
-from datetime import datetime, timedelta
-from typing import Callable
 
+from collections.abc import Callable
+from datetime import datetime, timedelta
+
+import numpy as np
 import pandas as pd
 import streamlit as st
-import numpy as np
+
 from natsort import natsort_keygen
-from snowflake.snowpark import Session, Column
-from snowflake.snowpark import functions as F
 
 import public.backend.app_style_values as style
 import public.backend.snowflake_types as sftype
+
 from public.backend import executions_backend
 from public.backend.globals import *
+from snowflake.snowpark import Column, Session
+from snowflake.snowpark import functions as F
+
 
 last_refresh = ["00:00:00"]
 
@@ -236,7 +241,7 @@ def pagination_footer(dataset, key_prefix, need_color_legend=False, legend: Call
         with bottom_menu[2]:
             add_spacing()
             batch_size = st.selectbox(
-                "Row Count", key=f"pag_page_size_{key_prefix}", options=[25, 50, 100]
+                "Row Count", key=f"pag_page_size_{key_prefix}", options=[25, 50, 100],
             )
             with st.spinner("Loading..."):
                 time.sleep(2)
@@ -274,11 +279,11 @@ def paginated(
     key_prefix="",
     editable: bool = False,
     dropdown_cols: list = [],
-    legend: Callable = None
+    legend: Callable = None,
 ):
     if len(dataset) == 0:
         st.info("No information available.")
-        return
+        return None
 
     top_menu = st.columns(3)
     with top_menu[0]:
@@ -292,7 +297,7 @@ def paginated(
     if sort == "Yes":
         with top_menu[1]:
             sort_field = st.selectbox(
-                "Sort By", key=f"pag_sort_field_{key_prefix}", options=dataset.columns
+                "Sort By", key=f"pag_sort_field_{key_prefix}", options=dataset.columns,
             )
         with top_menu[2]:
             sort_direction = st.radio(
@@ -338,7 +343,7 @@ def paginated(
                     if col in [FRIENDLY_NAME_MAPPING_STATUS, COLUMN_STATUS]:
                         data = getMappingStatusList()
                     page_to_display[col] = page_to_display[col].astype(
-                        pd.CategoricalDtype(data)
+                        pd.CategoricalDtype(data),
                     )
                 with pagination:
                     dfEdited = st.data_editor(
@@ -353,7 +358,7 @@ def paginated(
                     )
                     if dfEdited.equals(page_to_display) == False:
                         dfEdited = dfEdited.compare(
-                            page_to_display, result_names=(KEY_SUGGESTION, KEY_ORIGINAL)
+                            page_to_display, result_names=(KEY_SUGGESTION, KEY_ORIGINAL),
                         )
                         dfEdited.columns = dfEdited.columns.map(",".join)
                         dfEdited = dfEdited.merge(
@@ -368,8 +373,7 @@ def paginated(
                             right_index=True,
                         )
                         return dfEdited
-                    else:
-                        return None
+                    return None
             except Exception as e:
                 st.error(f"An unexpected error occurred loading existing feedback: {e}")
                 return None
@@ -397,11 +401,14 @@ def looks_like_email(s):
     """
     Determines if the given string looks like an email address.
 
-    Parameters:
+    Parameters
+    ----------
     s (str): The string to check.
 
-    Returns:
+    Returns
+    -------
     bool: True if the string looks like an email address, False otherwise.
+
     """
     pattern = r"^\S+@\S+\.\S+$"
     return bool(re.match(pattern, s))
@@ -411,11 +418,14 @@ def looks_like_guid(s):
     """
     Determines if the given string looks like a GUID.
 
-    Parameters:
+    Parameters
+    ----------
     s (str): The string to check.
 
-    Returns:
+    Returns
+    -------
     bool: True if the string looks like a GUID, False otherwise.
+
     """
     pattern = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
     return bool(re.match(pattern, s))
@@ -446,7 +456,7 @@ def get_temp_stage():
     session = get_session()
     session.sql(f"""drop stage IF EXISTS {TEMP_STAGE_LOCATION}""").show()
     session.sql(
-        f"CREATE STAGE IF NOT EXISTS {TEMP_STAGE_LOCATION} ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')"
+        f"CREATE STAGE IF NOT EXISTS {TEMP_STAGE_LOCATION} ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')",
     ).show()
     return f"@{TEMP_STAGE_LOCATION}"
 
@@ -456,10 +466,10 @@ def get_downloadlink(label, filename, output):
     temp_stage = get_temp_stage()
     output.seek(0)
     session.file.put_stream(
-        output, f"{temp_stage}/{filename}", auto_compress=False, overwrite=True
+        output, f"{temp_stage}/{filename}", auto_compress=False, overwrite=True,
     )
     link = session.sql(
-        f"select GET_PRESIGNED_URL({temp_stage},'{filename}')"
+        f"select GET_PRESIGNED_URL({temp_stage},'{filename}')",
     ).collect()[0][0]
     st.markdown(f"[{label}]({link})")
 
@@ -469,10 +479,10 @@ def get_downloadlink_nomd(label, filename, output):
     temp_stage = get_temp_stage()
     output.seek(0)
     session.file.put_stream(
-        output, f"{temp_stage}/{filename}", auto_compress=False, overwrite=True
+        output, f"{temp_stage}/{filename}", auto_compress=False, overwrite=True,
     )
     link = session.sql(
-        f"select GET_PRESIGNED_URL({temp_stage},'{filename}')"
+        f"select GET_PRESIGNED_URL({temp_stage},'{filename}')",
     ).collect()[0][0]
     return f"[{label}]({link})"
 
@@ -505,19 +515,19 @@ def can_refresh(reference, reset=True):
 def generateExcelFile(dataFrame, sheetName, linkName, fileName):
     output = io.BytesIO()
     with pd.ExcelWriter(
-        output, engine="xlsxwriter", engine_kwargs={"options": {"in_memory": True}}
+        output, engine="xlsxwriter", engine_kwargs={"options": {"in_memory": True}},
     ) as writer:
         dataFrame.to_excel(writer, sheet_name=sheetName, index=False)
     st.info(
         """
         NOTE: If you click on the following link and it does not download the file, right-click and choose “Open in a New Tab”.
-    """
+    """,
     )
     get_downloadlink(linkName, fileName, output)
 
 
 def get_table_metadata(table_name):
-    return _tables_metadata.get(table_name, None)
+    return _tables_metadata.get(table_name)
 
 
 def get_decoded_asset(path: str):
@@ -567,12 +577,11 @@ def highlight_rows(row):
     status_row = row[COLUMN_ORIGIN]
     if status_row == THIRD_PARTY_LIB_KEY:
         return [style.getBackgroundColorProperty(style.LIGHT_GREEN_COLOR)] * len(row)
-    elif status_row == BUILTIN_KEY:
+    if status_row == BUILTIN_KEY:
         return [style.getBackgroundColorProperty(style.LIGHT_BLUE_COLOR)] * len(row)
-    elif status_row == USER_DEFINED_KEY:
+    if status_row == USER_DEFINED_KEY:
         return [style.getBackgroundColorProperty(style.LIGHT_GRAY_COLOR)] * len(row)
-    else:
-        return [style.getBackgroundColorProperty(style.LIGHT_RED_COLOR)] * len(row)
+    return [style.getBackgroundColorProperty(style.LIGHT_RED_COLOR)] * len(row)
 
 
 def paginated_import_dependency_table(dataset: pd.DataFrame, key_prefix):
@@ -589,7 +598,7 @@ def paginated_import_dependency_table(dataset: pd.DataFrame, key_prefix):
         if current_page == 1:
             page_to_display = reset_index(page_to_display)
         page_to_display = page_to_display.style.apply(
-            _highlight_dependencies_row, axis=1
+            _highlight_dependencies_row, axis=1,
         )
 
     pagination.dataframe(data=page_to_display, use_container_width=True)
@@ -613,13 +622,13 @@ def add_total_row(page_to_display):
             "DEPENDENCIES COUNT": [page_to_display["DEPENDENCIES COUNT"].sum()],
             "UNKNOWN DEPENDENCIES": [page_to_display["UNKNOWN DEPENDENCIES"].sum()],
             "PERCENTAGE OF UNKNOWN": [
-                f"{(page_to_display['UNKNOWN DEPENDENCIES'].sum() * 100.0) / page_to_display['DEPENDENCIES COUNT'].sum():.2f}%"
+                f"{(page_to_display['UNKNOWN DEPENDENCIES'].sum() * 100.0) / page_to_display['DEPENDENCIES COUNT'].sum():.2f}%",
             ],
-        }
+        },
     )
 
     page_to_display = pd.concat(
-        [page_to_display.reset_index(drop=True), total_row], ignore_index=True
+        [page_to_display.reset_index(drop=True), total_row], ignore_index=True,
     )
     return page_to_display
 

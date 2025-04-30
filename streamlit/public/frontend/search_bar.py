@@ -1,7 +1,9 @@
 import streamlit as st
+
 import public.backend.app_snowpark_utils as utils
-from public.backend.globals import *
+
 from public.backend import executions_backend
+from public.backend.globals import *
 
 
 def showData(df):
@@ -11,7 +13,7 @@ def showData(df):
         edited_df = st.data_editor(
             df,
             column_config={
-                FRIENDLY_NAME_TOOL_NAME: None
+                FRIENDLY_NAME_TOOL_NAME: None,
             },
             disabled=[
                 FRIENDLY_NAME_EXECUTION_ID,
@@ -28,12 +30,11 @@ def showData(df):
         found_executions = list(
             df.loc[edited_df[edited_df[FRIENDLY_NAME_SELECT] == True].index][
                 FRIENDLY_NAME_EXECUTION_ID
-            ]
+            ],
         )
         return found_executions
-    else:
-        st.info("No executions found.")
-        return []
+    st.info("No executions found.")
+    return []
 
 
 def show(use_expander=True):
@@ -68,7 +69,7 @@ def get_found_executions(input_value: int):
         found_executions = showData(df)
     elif len(input_value) > 0:
         df = executions_backend.get_execution_by_company_or_project_name_or_email(
-            input_value.lower()
+            input_value.lower(),
         )
         found_executions = showData(df)
     return found_executions

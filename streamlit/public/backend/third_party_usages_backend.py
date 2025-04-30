@@ -4,7 +4,7 @@ from public.backend.globals import *
 
 def get_third_party_usages_inventory_table_data_by_execution_id(execution_id_list):
     third_party_usages_inventory_table_data = tables_backend.get_third_party_usages_inventory_table_data_by_execution_id_with_timestamp_and_email(
-        execution_id_list
+        execution_id_list,
     )
     third_party_usages_inventory_table_data_friendly_name = (
         third_party_usages_inventory_table_data.select(
@@ -22,7 +22,7 @@ def get_third_party_usages_inventory_table_data_by_execution_id(execution_id_lis
         )
         .withColumnRenamed(COLUMN_EXECUTION_ID, FRIENDLY_NAME_EXECUTION_ID)
         .withColumnRenamed(
-            COLUMN_EXECUTION_TIMESTAMP, FRIENDLY_NAME_EXECUTION_TIMESTAMP
+            COLUMN_EXECUTION_TIMESTAMP, FRIENDLY_NAME_EXECUTION_TIMESTAMP,
         )
         .withColumnRenamed(COLUMN_CLIENT_EMAIL, FRIENDLY_NAME_CLIENT_EMAIL)
         .withColumnRenamed(COLUMN_PROJECT_ID, FRIENDLY_NAME_PROJECT_ID)

@@ -1,16 +1,19 @@
-import public.backend.app_snowpark_utils as utils
-import zipfile
 import io
+import zipfile
+
+import streamlit as st
+
+import public.backend.app_snowpark_utils as utils
+
 from public.backend.globals import (
-    TABLE_MANUAL_UPLOADED_ZIPS,
-    SMA_EXECUTIONS_STAGE,
     COLUMN_EXECUTION_ID,
     COLUMN_EXTRACT_DATE,
-    UPDATE_IAA_TABLES_TASK
+    SMA_EXECUTIONS_STAGE,
+    TABLE_MANUAL_UPLOADED_ZIPS,
+    UPDATE_IAA_TABLES_TASK,
 )
-from snowflake.snowpark.functions import regexp_extract, col
-from snowflake.snowpark.types import StructType, StructField, StringType
-import streamlit as st
+from snowflake.snowpark.functions import col, regexp_extract
+from snowflake.snowpark.types import StringType, StructField, StructType
 
 
 def refresh_executions():
@@ -20,9 +23,9 @@ def refresh_executions():
     dest_stage = SMA_EXECUTIONS_STAGE
     session.sql(f"ALTER TASK {UPDATE_IAA_TABLES_TASK} RESUME;").collect()
     zip_list = session.sql(
-        f"LIST @{dest_db}.{dest_schema}.{dest_stage} PATTERN='.*\.zip$';"
+        rf"LIST @{dest_db}.{dest_schema}.{dest_stage} PATTERN='.*\.zip$';",
     ).select(
-        regexp_extract(col('"name"'), "_([a-zA-Z0-9\-]+)\\.", 1).alias(COLUMN_EXECUTION_ID),
+        regexp_extract(col('"name"'), "_([a-zA-Z0-9\\-]+)\\.", 1).alias(COLUMN_EXECUTION_ID),
         col('"last_modified"').alias(COLUMN_EXTRACT_DATE),
     )
     processed_zips = session.sql(f"SELECT * FROM {TABLE_MANUAL_UPLOADED_ZIPS}")
@@ -58,17 +61,17 @@ def refresh_executions():
     count_failed_zips = len(zip_with_errors)
     if count_failed_zips > 0:
         st.toast(
-            f"{count_failed_zips} ZIP file(s) failed to upload.", icon="❗"
+            f"{count_failed_zips} ZIP file(s) failed to upload.", icon="❗",
         )
     uploaded_zips = len(folders_to_process) - count_failed_zips
     if uploaded_zips > 0:
         st.toast(
-            f"{uploaded_zips} ZIP file(s) uploaded successfully.", icon="✅"
+            f"{uploaded_zips} ZIP file(s) uploaded successfully.", icon="✅",
         )
 
 
 def upload_execution(
-    session, file_path, execution_id, execution_date, dest_db, dest_stage, dest_schema
+    session, file_path, execution_id, execution_date, dest_db, dest_stage, dest_schema,
 ):
     with session.file.get_stream(file_path) as file:
         zip_file = zipfile.ZipFile(file)
@@ -82,7 +85,7 @@ def upload_execution(
                 and (not x.filename.startswith("__MACOSX"))
                 and (not x.filename.endswith("\\")),
                 zip_file.filelist,
-            )
+            ),
         )
         destination_folder = f"{dest_stage}/{folder_name}/"
         files_content = [
@@ -96,7 +99,7 @@ def upload_execution(
             session.file.put_stream(data, path, auto_compress=False, overwrite=True)
 
         result = session.sql(
-            f"CALL {dest_db}.{dest_schema}.REFRESH_MANUAL_EXECUTION()"
+            f"CALL {dest_db}.{dest_schema}.REFRESH_MANUAL_EXECUTION()",
         ).collect()
 
         if result[0]["REFRESH_MANUAL_EXECUTION"] == None:
@@ -106,7 +109,7 @@ def upload_execution(
             [
                 StructField(COLUMN_EXECUTION_ID, StringType()),
                 StructField(COLUMN_EXTRACT_DATE, StringType()),
-            ]
+            ],
         )
         df_to_insert = session.createDataFrame(execution_info, schema)
         df_to_insert.write.saveAsTable("MANUAL_UPLOADED_ZIPS", mode="append")

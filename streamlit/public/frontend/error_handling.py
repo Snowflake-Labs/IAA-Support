@@ -1,8 +1,9 @@
-import streamlit as st
 import traceback
-import random
-import pandas as pd
+
+import streamlit as st
+
 from public.backend.globals import *
+
 
 def executeFunctionWithErrorHandling (func):
     def internalErrorHandler(*args, **kwargs):
@@ -12,7 +13,7 @@ def executeFunctionWithErrorHandling (func):
             show_error_message(error, traceback.format_exc())
             return None
     return internalErrorHandler
-    
+
 def show_error_message (error, stackTrace, processName = None):
     processName = f"\nProcess: {processName}." if processName is not None else ""
     showStackTrace = f"\n\nStackTrace: {stackTrace}" if stackTrace is not None and IS_DEBUG_MODE == True else ""

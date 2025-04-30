@@ -1,9 +1,12 @@
 import pandas as pd
-from snowflake.snowpark.functions import col, sum as _sum, round as _round, upper, cast, any_value, lit
-from snowflake.snowpark.types import DateType, BooleanType
-from snowflake.snowpark import Window
-from public.backend.globals import *
+
 from public.backend import tables_backend
+from public.backend.globals import *
+from snowflake.snowpark import Window
+from snowflake.snowpark.functions import any_value, cast, col, lit, upper
+from snowflake.snowpark.functions import round as _round
+from snowflake.snowpark.functions import sum as _sum
+from snowflake.snowpark.types import BooleanType, DateType
 
 
 def get_total(df, column):
@@ -15,7 +18,7 @@ def get_percentages(total, df, column):
     percentages = list()
     for i in range(len(df)):
         percentage = df[column][i] * 100 / total
-        percentage = "{:.2f}".format(percentage) + "%"
+        percentage = f"{percentage:.2f}" + "%"
         percentages.append(percentage)
     return percentages
 
@@ -23,7 +26,7 @@ def get_percentages(total, df, column):
 def get_spark_usages_by_execution_id_grouped_by_status(execution_id_list):
     spark_usages_inventory = (
         tables_backend.get_spark_usages_inventory_table_data_by_execution_id(
-            execution_id_list
+            execution_id_list,
         )
     )
 
@@ -38,7 +41,7 @@ def get_spark_usages_by_execution_id_grouped_by_status(execution_id_list):
     )
     total = get_total(spark_usages_group_by_status_pandas_dataframe, COLUMN_USAGES)
     percentages = get_percentages(
-        total, spark_usages_group_by_status_pandas_dataframe, COLUMN_USAGES
+        total, spark_usages_group_by_status_pandas_dataframe, COLUMN_USAGES,
     )
     spark_usages_group_by_status_pandas_dataframe[FRIENDLY_NAME_PERCENTAGES] = (
         percentages
@@ -48,17 +51,17 @@ def get_spark_usages_by_execution_id_grouped_by_status(execution_id_list):
         columns=[COLUMN_STATUS, COLUMN_USAGES, FRIENDLY_NAME_PERCENTAGES],
     )
     spark_usages_group_by_status_pandas_dataframe = pd.concat(
-        [spark_usages_group_by_status_pandas_dataframe, total_df], ignore_index=True
+        [spark_usages_group_by_status_pandas_dataframe, total_df], ignore_index=True,
     )
     spark_usages_group_by_status_pandas_dataframe[COLUMN_STATUS] = (
-        spark_usages_group_by_status_pandas_dataframe[COLUMN_STATUS].str.replace('WorkAround', 'Workaround')
+        spark_usages_group_by_status_pandas_dataframe[COLUMN_STATUS].str.replace("WorkAround", "Workaround")
     )
     spark_usages_group_by_status_pandas_dataframe = (
         spark_usages_group_by_status_pandas_dataframe.rename(
             columns={
                 COLUMN_STATUS: FRIENDLY_NAME_STATUS_CATEGORY,
                 COLUMN_USAGES: COLUMN_COUNT,
-            }
+            },
         )
     )
 
@@ -68,15 +71,15 @@ def get_spark_usages_by_execution_id_grouped_by_status(execution_id_list):
 def get_spark_usages_by_execution_id_filtered_by_status(execution_id_list, status):
     spark_usages_inventory = (
         tables_backend.get_spark_usages_inventory_table_data_by_execution_id(
-            execution_id_list
+            execution_id_list,
         )
     )
 
-    if status == 'Workaround':
-        status = 'WorkAround'
-        
+    if status == "Workaround":
+        status = "WorkAround"
+
     spark_usages_filtered_by_status = spark_usages_inventory.where(
-        col(COLUMN_STATUS) == status
+        col(COLUMN_STATUS) == status,
     )
     spark_usages_filtered_by_status_data = (
         spark_usages_filtered_by_status.select(
@@ -95,7 +98,7 @@ def get_spark_usages_by_execution_id_filtered_by_status(execution_id_list, statu
 
 def get_unsupported_spark_usages_inventory_by_execution_id(execution_id_list):
     spark_usages_table_data = tables_backend.get_spark_usages_inventory_table_data_by_execution_id_with_timestamp_and_email(
-        execution_id_list
+        execution_id_list,
     )
     spark_usages_unsupported = (
         spark_usages_table_data.where(col(COLUMN_SUPPORTED) == FALSE_KEY)

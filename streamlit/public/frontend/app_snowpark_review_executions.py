@@ -1,20 +1,21 @@
+import plotly.express as px
 import streamlit as st
-import public.frontend.app_snowpark_review as rw
-import public.frontend.error_handling as error_handling
-import public.frontend.search_bar as search_bar_component
-import public.frontend.empty_screen as empty_screen
+
+import public.backend.app_style_values as style
 import public.backend.review_executions_backend as backend
-from public.backend import summary_metrics_backend, files_backend
+import public.frontend.app_snowpark_review as rw
+import public.frontend.search_bar as search_bar_component
+
+from public.backend import files_backend, summary_metrics_backend
+from public.backend.color_bar import *
+from public.backend.globals import *
+from public.frontend import empty_screen, error_handling
 from public.frontend.app_artifact_dependency_review import artifact_dependency_review
 from public.frontend.app_dbx_elements_review import dbx_elements_review
 from public.frontend.app_snowpark_dependency_report import dependency_report
-from public.frontend.shared_components import load_header
-from public.frontend.app_snowpark_thirdparty import third_party_review
 from public.frontend.app_snowpark_reader_writers import review_readers_writers
-from public.backend.color_bar import *
-from public.backend.globals import *
-import public.backend.app_style_values as style
-import plotly.express as px
+from public.frontend.app_snowpark_thirdparty import third_party_review
+from public.frontend.shared_components import load_header
 
 
 @error_handling.executeFunctionWithErrorHandling
@@ -27,10 +28,10 @@ def execution_metrics(execution_ids):
         st.text(" ")
 
         last_execution_metric = summary_metrics_backend.get_date_last_execution(
-            execution_ids
+            execution_ids,
         )
         execution_count_metric = summary_metrics_backend.get_executions_selected_count(
-            execution_ids
+            execution_ids,
         )
 
         last_execution, unique_execution_count = st.columns(2, gap="large")
@@ -49,17 +50,19 @@ def execution_metrics(execution_ids):
             bar_color = get_bar_color(score)
             icon = get_icon(score)
             st.markdown(
-                custom_progress_bar(score, bar_color, icon), unsafe_allow_html=True
+                custom_progress_bar(score, bar_color, icon),
+                unsafe_allow_html=True,
             )
         with col2:
             st.markdown("Third Party API Readiness Score")
             score = summary_metrics_backend.get_third_party_readiness_score(
-                execution_ids
+                execution_ids,
             )
             bar_color = get_bar_color(score)
             icon = get_icon(score)
             st.markdown(
-                custom_progress_bar(score, bar_color, icon), unsafe_allow_html=True
+                custom_progress_bar(score, bar_color, icon),
+                unsafe_allow_html=True,
             )
         with col3:
             score = summary_metrics_backend.get_sql_readiness_score(execution_ids)
@@ -67,14 +70,13 @@ def execution_metrics(execution_ids):
             bar_color = get_bar_color(score)
             icon = get_icon(score)
             st.markdown(
-                custom_progress_bar(score, bar_color, icon), unsafe_allow_html=True
+                custom_progress_bar(score, bar_color, icon),
+                unsafe_allow_html=True,
             )
 
-        df_loc_technology = (
-            summary_metrics_backend.get_lines_of_code_count_by_technology(execution_ids)
-        )
+        df_loc_technology = summary_metrics_backend.get_lines_of_code_count_by_technology(execution_ids)
         df_files_technology = summary_metrics_backend.get_files_count_by_technology(
-            execution_ids
+            execution_ids,
         )
 
         loc_technology, files_technology = st.columns(2)
@@ -98,7 +100,9 @@ def execution_metrics(execution_ids):
             fig.update_traces(textangle=0, textfont_size=14)
             fig.update_traces(textposition="outside")
 
-            st.plotly_chart(fig, use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False})
+            st.plotly_chart(
+                fig, use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False}
+            )
 
         with files_technology:
             fig = px.bar(
@@ -114,12 +118,13 @@ def execution_metrics(execution_ids):
             fig.update_layout(
                 xaxis_title="",
                 yaxis_title="",
-
                 yaxis={"categoryorder": "total ascending"},
             )
             fig.update_traces(textangle=0, textfont_size=14)
             fig.update_traces(textposition="outside")
-            st.plotly_chart(fig, use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False})
+            st.plotly_chart(
+                fig, use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False}
+            )
 
 
 def select_execution():
@@ -133,7 +138,7 @@ def select_execution():
         url = "https://github.com/Snowflake-Labs/IAA-Support/blob/main/docs/UserGuide.md"
         st.markdown(
             "Execution data will only be available for assessment data that has been loaded into this Snowflake account. Instructions for how to upload this are available on the [Interactive Assessment Application (IAA) documentation](%s)"
-            % url
+            % url,
         )
         st.text(" ")
         st.session_state["found_executions"] = search_bar_component.show()
@@ -164,7 +169,10 @@ def create_side_bar():
         ("Dbx Elements", _select_sidebar_option),
     ]
     st.sidebar.button(
-        "Home", on_click=_home_landing_page, use_container_width=True, key="home_btn"
+        "Home",
+        on_click=_home_landing_page,
+        use_container_width=True,
+        key="home_btn",
     )
     st.sidebar.markdown(
         "<h3 style='text-align: center;'>Explore my executions</h3>",
@@ -211,7 +219,7 @@ def _home_landing_page():
 
 
 def _dependencies_reports(found_executions):
-    title_section = f'<strong style="font-size: 24px;">Dependencies</strong>'
+    title_section = '<strong style="font-size: 24px;">Dependencies</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     with st.expander("Import Library Dependency Data Table"):
@@ -220,7 +228,7 @@ def _dependencies_reports(found_executions):
 
 
 def _artifact_dependencies_reports(found_executions):
-    title_section = f'<strong style="font-size: 24px;">Artifacts Dependencies</strong>'
+    title_section = '<strong style="font-size: 24px;">Artifacts Dependencies</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     artifact_dependency_review(found_executions)
@@ -232,10 +240,15 @@ def _dbx_elements_reports(found_executions):
     dbx_elements_review(found_executions)
 
 
+def _dbx_elements_reports(found_executions):
+    title_section = f'<strong style="font-size: 24px;">Dbx Elements</strong>'
+    st.markdown(title_section, unsafe_allow_html=True)
+    st.markdown("<br/>", unsafe_allow_html=True)
+    dbx_elements_review(found_executions)
+
+
 def _handle_review_option(option, found_executions):
-    if (found_executions is None or len(found_executions) <= 0) and st.session_state[
-        "sidebar_option"
-    ] != "Execution":
+    if (found_executions is None or len(found_executions) <= 0) and st.session_state["sidebar_option"] != "Execution":
         empty_screen.show()
     else:
         actions = {
@@ -255,22 +268,26 @@ def _handle_review_option(option, found_executions):
         if option in actions:
             actions[option]()
 
-def _code_tree_map (found_executions):
+
+def _code_tree_map(found_executions):
     executions = files_backend.get_input_files_by_execution_id_grouped_by_technology(found_executions)
     total_files = executions[backend.COLUMN_FILES].sum()
-    title_section = f'<strong style="font-size: 24px;">Code Tree Map</strong>'
+    title_section = '<strong style="font-size: 24px;">Code Tree Map</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.info(
-        f"This assessment has a total of {total_files} files. This treemap can be used to identify folders were most of the code is grouped."
+        f"This assessment has a total of {total_files} files. This treemap can be used to identify folders were most of the code is grouped.",
     )
     st.plotly_chart(
-        rw.buildTreemap(found_executions), use_container_width=True,
-        config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False}
+        rw.buildTreemap(found_executions),
+        use_container_width=True,
+        config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False},
     )
+
 
 def run_public_review():
     create_side_bar()
     select_execution()
     _handle_review_option(
-        st.session_state["sidebar_option"], st.session_state["found_executions"]
+        st.session_state["sidebar_option"],
+        st.session_state["found_executions"],
     )

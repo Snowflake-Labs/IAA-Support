@@ -1,15 +1,16 @@
 import streamlit as st
+
 import public.backend.app_snowpark_utils as utils
 import public.frontend.empty_screen as emptyScreen
-import public.backend.telemetry as telemetry
-from public.backend.globals import *
 import public.frontend.error_handling as errorHandling
-from public.backend import third_party_usages_backend
+
+from public.backend import telemetry, third_party_usages_backend
+from public.backend.globals import *
 
 
 @errorHandling.executeFunctionWithErrorHandling
 def third_party_review(executionIds):
-    title_section = f'<strong style="font-size: 24px;">Third Party</strong>'
+    title_section = '<strong style="font-size: 24px;">Third Party</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     if executionIds is None or len(executionIds) <= 0:
@@ -18,11 +19,11 @@ def third_party_review(executionIds):
         st.markdown(
             """
         Here, you will see all the references to a third party library or function across the scanned code base.
-        """
+        """,
         )
         df_to_show = []
         df = third_party_usages_backend.get_third_party_usages_inventory_table_data_by_execution_id(
-            executionIds
+            executionIds,
         )
 
         if (

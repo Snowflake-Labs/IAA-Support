@@ -2,12 +2,14 @@ import streamlit as st
 
 import public.frontend.empty_screen as emptyScreen
 import public.frontend.error_handling as errorHandling
+
 from public.backend import artifact_dependency_backend as artifacts
 from public.backend.globals import *
 from public.backend.utils import get_nbsp_str
 
+
 def print_artifact_title():
-    title_section = f'<strong style="font-size: 24px;">Select a file</strong>'
+    title_section = '<strong style="font-size: 24px;">Select a file</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     st.markdown("""
@@ -16,15 +18,15 @@ def print_artifact_title():
 
 
 def initialize_input_element_values():
-    if 'search_by_file' not in st.session_state:
-        st.session_state["search_by_file"] = ''
-    if 'criteria' not in st.session_state:
+    if "search_by_file" not in st.session_state:
+        st.session_state["search_by_file"] = ""
+    if "criteria" not in st.session_state:
         st.session_state.criteria = CHOOSE_AN_OPTION
-    if 'total_issues' not in st.session_state:
-        st.session_state["total_issues"] = ''
-    if 'filter_by_column' not in st.session_state:
+    if "total_issues" not in st.session_state:
+        st.session_state["total_issues"] = ""
+    if "filter_by_column" not in st.session_state:
         st.session_state["filter_by_column"] = CHOOSE_AN_OPTION
-    if 'selected_files' not in st.session_state:
+    if "selected_files" not in st.session_state:
         st.session_state["selected_files"] = None
 
 
@@ -35,7 +37,7 @@ def print_summary_table(execution_list, code_file_path_value, filter_by_column_o
     if df is None or df.shape[0] <= 0:
         st.info("No dependencies detected.")
         return False
-    elif df.shape[0] > 1000:
+    if df.shape[0] > 1000:
         st.warning(f"{df.shape[0]} rows found. Showing first 1000.")
         files_df_to_show = df.head(1000)
     else:
@@ -44,7 +46,7 @@ def print_summary_table(execution_list, code_file_path_value, filter_by_column_o
     edited_df = st.data_editor(
         files_df_to_show,
         column_config={
-            FRIENDLY_NAME_TOOL_NAME: None
+            FRIENDLY_NAME_TOOL_NAME: None,
         },
         disabled=[
             FRIENDLY_NAME_UNKNOWN_LIBRARIES,
@@ -61,7 +63,7 @@ def print_summary_table(execution_list, code_file_path_value, filter_by_column_o
     selected_files = list(
         files_df_to_show.loc[edited_df[edited_df[FRIENDLY_NAME_SELECT] == True].index][
             FRIENDLY_NAME_CODE_FILE_PATH
-        ]
+        ],
     )
     st.session_state["selected_files"] = selected_files
     return True
@@ -93,7 +95,7 @@ def print_details(execution_list):
 
         raw_file_data = artifacts.get_artifacts_dependency_table_data_by_execution_id(execution_list, st.session_state["selected_files"])
         selected_file_raw_data = raw_file_data
-        title_section = f'<strong style="font-size: 24px;">Dependencies details</strong>'
+        title_section = '<strong style="font-size: 24px;">Dependencies details</strong>'
         st.markdown(title_section, unsafe_allow_html=True)
         st.markdown("<b>Total dependencies status</b>", unsafe_allow_html=True)
 
@@ -163,7 +165,7 @@ def artifact_dependency_review(execution_list):
                     FRIENDLY_NAME_INPUT_OUTPUT_SOURCES,
                     FRIENDLY_NAME_SQL_OBJECTS,
                     FRIENDLY_NAME_TOTAL_DEPENDENCIES,
-                    FRIENDLY_NAME_TOTAL_ISSUES
+                    FRIENDLY_NAME_TOTAL_ISSUES,
                  ]
                 filter_by_column_option = st.selectbox("Select Column", key="filter_by_column", options=filter_options)
             with col3:
@@ -180,7 +182,7 @@ def artifact_dependency_review(execution_list):
             print_details(execution_list)
 
 def reset_filters():
-    st.session_state["search_by_file"] = ''
+    st.session_state["search_by_file"] = ""
     st.session_state["criteria"] = CHOOSE_AN_OPTION
     st.session_state["filter_by_column"] = CHOOSE_AN_OPTION
-    st.session_state["total_issues"] = ''
+    st.session_state["total_issues"] = ""

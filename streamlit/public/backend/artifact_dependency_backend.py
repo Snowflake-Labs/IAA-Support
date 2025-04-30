@@ -1,21 +1,21 @@
-from typing import List, Optional
 
 import pandas
+
 import snowflake
-from snowflake.snowpark.dataframe import DataFrame
-from snowflake.snowpark.dataframe import DataFrame as SnowparkDataFrame
-from snowflake.snowpark.functions import col, lit, when, concat, count
-from snowflake.snowpark.functions import col, lower, ifnull, parse_json, replace
 
 from public.backend import app_snowpark_utils as utils
 from public.backend.app_snowpark_utils import convert_to_int
 from public.backend.globals import *
 from public.backend.query_quality_handler import with_table_quality_handler
+from snowflake.snowpark.dataframe import DataFrame
+from snowflake.snowpark.dataframe import DataFrame as SnowparkDataFrame
+from snowflake.snowpark.functions import col, concat, count, ifnull, lit, lower, parse_json, replace, when
 
-double_quote = "\""
+
+double_quote = '"'
 empty_string = ""
 
-def get_artifacts_dependency_table_data_by_execution_id(execution_id_list: List, selected_files_list: Optional[List] = None) -> snowflake.snowpark.DataFrame:
+def get_artifacts_dependency_table_data_by_execution_id(execution_id_list: list, selected_files_list: list | None = None) -> snowflake.snowpark.DataFrame:
 
     data = get_artifacts_dependency_tabla_data(execution_id_list, selected_files_list)
     data_friendly_name = data.select(
@@ -32,7 +32,7 @@ def get_artifacts_dependency_table_data_by_execution_id(execution_id_list: List,
 def get_correct_column_to_search(column_to_search: str) -> str:
     return ARTIFACT_COLUMN_MAPPING.get(column_to_search, column_to_search)
 
-def get_artifacts_summary(execution_id_list:List, code_file_path_value: str, column_to_search:str, option_criteria:str, total_to_filter:str) -> pandas.DataFrame:
+def get_artifacts_summary(execution_id_list:list, code_file_path_value: str, column_to_search:str, option_criteria:str, total_to_filter:str) -> pandas.DataFrame:
 
     dependency_data = get_artifacts_dependency_tabla_data(execution_id_list)
 
@@ -41,7 +41,7 @@ def get_artifacts_summary(execution_id_list:List, code_file_path_value: str, col
             lower(col(COLUMN_FILE_ID)).like(f"%{code_file_path_value.lower()}%"))
 
     pivot_df =  dependency_data.groupBy(COLUMN_EXECUTION_ID, COLUMN_TYPE, COLUMN_FILE_ID) \
-        .agg(count('*').alias(COLUMN_COUNT_BY_TYPE)) \
+        .agg(count("*").alias(COLUMN_COUNT_BY_TYPE)) \
         .pivot(COLUMN_TYPE, [
             COLUMN_USER_CODE_FILE,
             COLUMN_IO_FILES,
@@ -51,17 +51,17 @@ def get_artifacts_summary(execution_id_list:List, code_file_path_value: str, col
         .sum(COLUMN_COUNT_BY_TYPE)
 
     # join total count
-    totals_df = dependency_data.groupBy(COLUMN_EXECUTION_ID, COLUMN_FILE_ID).agg(count('*').alias(COLUMN_TOTAL_DEPENDENCIES))
+    totals_df = dependency_data.groupBy(COLUMN_EXECUTION_ID, COLUMN_FILE_ID).agg(count("*").alias(COLUMN_TOTAL_DEPENDENCIES))
 
     # get total issues
     total_issues_df = dependency_data \
-        .filter(lower(col(COLUMN_STATUS_DETAIL)).isin(['notparsed', 'notsupported', 'doesnotexists', 'unknown'])) \
+        .filter(lower(col(COLUMN_STATUS_DETAIL)).isin(["notparsed", "notsupported", "doesnotexists", "unknown"])) \
         .groupBy(COLUMN_EXECUTION_ID, COLUMN_FILE_ID) \
-        .agg(count('*').alias(COLUMN_TOTAL_ISSUES))
+        .agg(count("*").alias(COLUMN_TOTAL_ISSUES))
 
     # join dfs
-    joined_df = pivot_df.join(totals_df, on=[COLUMN_EXECUTION_ID, COLUMN_FILE_ID], how='left') \
-        .join(total_issues_df, on=[COLUMN_EXECUTION_ID, COLUMN_FILE_ID], how='left')
+    joined_df = pivot_df.join(totals_df, on=[COLUMN_EXECUTION_ID, COLUMN_FILE_ID], how="left") \
+        .join(total_issues_df, on=[COLUMN_EXECUTION_ID, COLUMN_FILE_ID], how="left")
 
     validCriteriaOption = option_criteria in [ArtifactCriteriaOptions.MORE_THAN, ArtifactCriteriaOptions.LESS_THAN, ArtifactCriteriaOptions.EQUAL_TO]
     validColumnOption = column_to_search in [
@@ -114,11 +114,11 @@ def generate_artifacts_summary_dataframe_with_selected_column(artifacts_df: Data
     return selected_executions_friendly_name
 
 
-def  get_artifacts_dependency_tabla_data(execution_id_list:List, selected_files_list: List = None) -> DataFrame:
+def  get_artifacts_dependency_tabla_data(execution_id_list:list, selected_files_list: list = None) -> DataFrame:
     session = utils.get_session()
     artifactsTable = session.table(TABLE_ARTIFACT_DEPENDENCY_INVENTORY)
     table_data = with_table_quality_handler(artifactsTable, TABLE_ARTIFACT_DEPENDENCY_INVENTORY) \
-        .where((col(COLUMN_EXECUTION_ID).isin(execution_id_list)))
+        .where(col(COLUMN_EXECUTION_ID).isin(execution_id_list))
 
     if selected_files_list is not None and len(selected_files_list) > 0:
         table_data = table_data.where(col(COLUMN_FILE_ID).isin(selected_files_list))
@@ -265,5 +265,4 @@ def get_count_from_df(df: SnowparkDataFrame) -> int:
     df_value = df.collect()
     if df_value:
         return df_value[0][0]
-    else:
-        return 0
+    return 0

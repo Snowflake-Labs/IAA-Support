@@ -1,17 +1,20 @@
-import plotly.express as px
+import re
 import urllib.parse
+
+import pandas as pd
+import plotly.express as px
 import streamlit as st
+
 import public.backend.review_executions_backend as backend
 import public.frontend.empty_screen as emptyScreen
-from public.backend import spark_usages_backend, files_backend, import_backend, report_url_backend
-from public.frontend.app_snowpark_treemap import buildTreemap
-import public.backend.telemetry as telemetry
-from public.backend.globals import *
-from public.backend import app_snowpark_utils as utils
 import public.frontend.error_handling as errorHandling
+
+from public.backend import app_snowpark_utils as utils
+from public.backend import files_backend, import_backend, report_url_backend, spark_usages_backend, telemetry
+from public.backend.globals import *
 from public.frontend.app_snowpark_dependency_report import dependency_report
-import pandas as pd
-import re
+from public.frontend.app_snowpark_treemap import buildTreemap
+
 
 feedbackCreationResponses = []
 
@@ -29,13 +32,13 @@ def generateInventories(executionIds):
 
 
 def additional_inventory(executionIds):
-    title_additional_inventory = f'<strong style="font-size: 20px;">Additional Inventories</strong>'
+    title_additional_inventory = '<strong style="font-size: 20px;">Additional Inventories</strong>'
     st.markdown(title_additional_inventory, unsafe_allow_html=True)
     st.markdown(
-        """The Snowpark Migration Accelerator (SMA) generates multiple inventory files every time the tool is executed. These inventory files are available to the user in the local “Reports” output folder. All of these files are also available by clicking the Generate Additional Inventory Files checkbox below. After selecting the checkbox, a link to each file will be made available. Click on the filename to download it locally."""
+        """The Snowpark Migration Accelerator (SMA) generates multiple inventory files every time the tool is executed. These inventory files are available to the user in the local “Reports” output folder. All of these files are also available by clicking the Generate Additional Inventory Files checkbox below. After selecting the checkbox, a link to each file will be made available. Click on the filename to download it locally.""",
     )
     if st.checkbox(
-            "Generate Additional Inventory Files", key="generateAdditionalFiles"
+            "Generate Additional Inventory Files", key="generateAdditionalFiles",
     ):
         execid = st.selectbox("Execution", executionIds)
         with st.spinner("Getting SMA output download links..."):
@@ -47,14 +50,14 @@ def additional_inventory(executionIds):
 
 
 def inventory_file(executionIds):
-    title_section = f'<strong style="font-size: 24px;">Inventories</strong>'
+    title_section = '<strong style="font-size: 24px;">Inventories</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
-    title_inventory_file = f'<strong style="font-size: 20px;">Inventory File</strong>'
+    title_inventory_file = '<strong style="font-size: 20px;">Inventory File</strong>'
     st.markdown(title_inventory_file, unsafe_allow_html=True)
     st.markdown(
         """
                 The Inventory File is a list of all files found in this codebase. The number of code lines, comment lines, blank lines, and size (in bytes) is given in this spreadsheet.
-                """
+                """,
     )
     if st.button(label="Generate Inventory File", key="btnGenerateInventories"):
         df_inventory = files_backend.get_input_files_by_execution_id(executionIds)
@@ -70,12 +73,12 @@ def inventory_file(executionIds):
 
 @errorHandling.executeFunctionWithErrorHandling
 def assesmentReport(executionIds):
-    title_section = f'<strong style="font-size: 24px;">Assessment Report</strong>'
+    title_section = '<strong style="font-size: 24px;">Assessment Report</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     dfAllExecutions = (
         files_backend.get_input_files_by_execution_id_grouped_by_technology(
-            executionIds
+            executionIds,
         )
     )
     selectedExecutionId = st.selectbox(
@@ -85,7 +88,7 @@ def assesmentReport(executionIds):
     )
     df_filtered_executions = (
         files_backend.get_input_files_by_execution_id_grouped_by_technology(
-            [selectedExecutionId]
+            [selectedExecutionId],
         )
     )
     df_filtered_executions = utils.reset_index(df_filtered_executions)
@@ -96,7 +99,7 @@ def assesmentReport(executionIds):
 
     if df_docx is None or len(df_docx) == 0 or df_docx[0][COLUMN_RELATIVE_REPORT_PATH] is None:
         st.warning(
-            "The detailed report could not be generated. Please email us at sma-support@snowflake.com."
+            "The detailed report could not be generated. Please email us at sma-support@snowflake.com.",
         )
 
     if len(df_docx) > 0:
@@ -111,11 +114,11 @@ def assesmentReport(executionIds):
 
 @errorHandling.executeFunctionWithErrorHandling
 def mappings(execution_ids):
-    title_section = f'<strong style="font-size: 24px;">Mappings</strong>'
+    title_section = '<strong style="font-size: 24px;">Mappings</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     df = spark_usages_backend.get_spark_usages_by_execution_id_grouped_by_status(
-        execution_ids
+        execution_ids,
     )
     total_count_value = df[df["STATUS CATEGORY"] == "Total"]["COUNT"].values[0]
     if not df.empty and total_count_value > 0:
@@ -132,11 +135,11 @@ def mappings(execution_ids):
 
         df_filtered = (
             spark_usages_backend.get_spark_usages_by_execution_id_filtered_by_status(
-                execution_ids, category
+                execution_ids, category,
             )
         )
         if df_filtered is not None:
-            df_filtered.rename(columns={'TOOLVERSION': 'TOOL VERSION'}, inplace=True)
+            df_filtered.rename(columns={"TOOLVERSION": "TOOL VERSION"}, inplace=True)
             df_suggestions = utils.paginated(
                 df_filtered,
                 (backend.color, [backend.COLUMN_SUPPORTED, backend.COLUMN_STATUS], 1),
@@ -213,7 +216,7 @@ def sparkInfo(df, executionIds, title_font_size=20):
             st.metric(label="Average Readiness", value=avg_readiness)
     df = utils.reset_index(df)
     styled_df = df.style.applymap(
-        backend.getReadinessBackAndForeColorsStyle, subset=[backend.COLUMN_READINESS]
+        backend.getReadinessBackAndForeColorsStyle, subset=[backend.COLUMN_READINESS],
     )
 
     readyToMigrateCount = len(df[df[backend.COLUMN_READINESS] >= 80])
@@ -268,11 +271,11 @@ def sparkInfo(df, executionIds, title_font_size=20):
 @errorHandling.executeFunctionWithErrorHandling
 def readinessFile(executionIds, title_font_size=20):
     files_with_spark_usages = files_backend.get_files_with_spark_usages_by_execution_id(
-        executionIds
+        executionIds,
     )
     input_files_by_execution_id_and_counted_by_technology = (
         files_backend.get_input_files_by_execution_id_and_counted_by_technology(
-            executionIds
+            executionIds,
         )
     )
 
@@ -333,7 +336,7 @@ def review(execution_ids):
         with st.expander("Code TreeMap"):
             if total_files is not None and total_files > 30:
                 st.info(
-                    f"This assessment has a total of {total_files} files. This treemap can be used to identify folders were most of the code is grouped."
+                    f"This assessment has a total of {total_files} files. This treemap can be used to identify folders were most of the code is grouped.",
                 )
                 st.plotly_chart(buildTreemap(execution_ids), use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False})
         with st.expander("Mappings"):
@@ -351,7 +354,7 @@ def get_report_download_button(report_path):
             st.download_button(
                 label="Download Detailed Report",
                 data=file,
-                file_name="DetailedReport.docx"
+                file_name="DetailedReport.docx",
             )
     except:
         st.warning(

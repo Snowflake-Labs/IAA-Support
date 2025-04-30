@@ -1,10 +1,13 @@
+from string import capwords
+
+import streamlit as st
+
+import public.backend.app_snowpark_utils as utils
+
+from public.backend.globals import *
 from snowflake.snowpark import Session
 from snowflake.snowpark.functions import col, when
-import streamlit as st
-import public.backend.app_snowpark_utils as utils
-from public.backend.globals import *
 from snowflake.snowpark.table import Table
-from string import capwords
 
 
 class mappings_review_backend:
@@ -33,21 +36,21 @@ class mappings_review_backend:
         current_schema = self._session.get_current_schema()
         if mapping_table_name == "third_party":
             self._mappings = self._session.table(
-                f"{current_schema}.{TABLE_MAPPINGS_CORE_LIBRARIES}"
+                f"{current_schema}.{TABLE_MAPPINGS_CORE_LIBRARIES}",
             )
             self._mappings = self._mappings.rename(col(COLUMN_ORIGIN), COLUMN_CATEGORY)
         else:
             if mapping_table_name == "spark" or mapping_table_name is None:
                 self._mappings = self._session.table(
-                    f"{current_schema}.{TABLE_MAPPINGS_CORE_SPARK}"
+                    f"{current_schema}.{TABLE_MAPPINGS_CORE_SPARK}",
                 )
             if mapping_table_name == "pyspark":
                 self._mappings = self._session.table(
-                    f"{current_schema}.{TABLE_MAPPINGS_CORE_PYSPARK }"
+                    f"{current_schema}.{TABLE_MAPPINGS_CORE_PYSPARK }",
                 )
             if mapping_table_name == "pandas":
                 self._mappings = self._session.table(
-                    f"{current_schema}.{TABLE_MAPPINGS_CORE_PANDAS }"
+                    f"{current_schema}.{TABLE_MAPPINGS_CORE_PANDAS }",
                 )
 
             self._normalize_mapping_status()
@@ -57,7 +60,7 @@ class mappings_review_backend:
             self._mappings = self._mappings.with_column(
                 COLUMN_MAPPING_STATUS,
                 when(col(COLUMN_MAPPING_STATUS) == old_status, new_status).otherwise(
-                    col(COLUMN_MAPPING_STATUS)
+                    col(COLUMN_MAPPING_STATUS),
                 ),
             )
 
@@ -102,9 +105,9 @@ class mappings_review_backend:
                 col(COLUMN_CATEGORY),
                 col(COLUMN_SPARK_FULLY_QUALIFIED_NAME),
                 col(COLUMN_SNOWPARK_FULLY_QUALIFIED_NAME),
-                col(COLUMN_MAPPING_STATUS)
+                col(COLUMN_MAPPING_STATUS),
                 )
-        techonolgy = st.session_state[KEY_LOADED_MAPPINGS] if st.session_state[KEY_LOADED_MAPPINGS] != 'pandas' else 'SOURCE'
+        techonolgy = st.session_state[KEY_LOADED_MAPPINGS] if st.session_state[KEY_LOADED_MAPPINGS] != "pandas" else "SOURCE"
         return self._normalize_columns_name(dataframe, techonolgy)
 
     def get_migration_status(self) -> Table:
@@ -113,7 +116,7 @@ class mappings_review_backend:
         version = st.session_state[KEY_MAPPING_TOOL_VERSION]
         if version != "ALL":
             migration_status_df = migration_status_df.filter(
-                col(COLUMN_VERSION) == version
+                col(COLUMN_VERSION) == version,
             )
         mapping_status = (
             COLUMN_STATUS
@@ -122,7 +125,7 @@ class mappings_review_backend:
         )
         migration_status_df = migration_status_df.groupBy(mapping_status).count()
         migration_status_df = migration_status_df.rename(
-            col(mapping_status), FRIENDLY_NAME_MAPPING_STATUS
+            col(mapping_status), FRIENDLY_NAME_MAPPING_STATUS,
         )
         return migration_status_df
 
@@ -148,7 +151,7 @@ class mappings_review_backend:
         self,
         category: str = None,
         version: str = None,
-        show_changes_from_last_release: bool = None
+        show_changes_from_last_release: bool = None,
     ) -> Table:
         tool_version = version if version is not None else self.get_latest_version()
         filtered_df = self._mappings

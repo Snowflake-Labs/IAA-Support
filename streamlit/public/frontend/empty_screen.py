@@ -1,7 +1,9 @@
 import os.path
 
 import streamlit as st
+
 import public.frontend.error_handling as errorHandling
+
 from public.backend.app_snowpark_utils import _get_base_path, get_decoded_asset
 
 
@@ -22,4 +24,3 @@ def show(message = None):
           </div>
       """
     st.markdown(no_data_component, unsafe_allow_html=True)
-    

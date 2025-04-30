@@ -1,9 +1,13 @@
+import io
+
+import pandas as pd
+import streamlit as st
+
+from pandas import DataFrame
+
 import public.backend.app_snowpark_utils as utils
 import public.backend.app_style_values as style
-import streamlit as st
-import pandas as pd
-import io
-from pandas import DataFrame
+
 from public.backend.globals import *
 from snowflake.snowpark.functions import col, lit
 
@@ -19,7 +23,7 @@ def getReadinessBackAndForeColorsStyle(readinessValue):
         backColor = style.ERROR_COLOR
         foreColor = style.WHITE_COLOR
 
-    return f'background-color: {backColor}; color: {foreColor}'
+    return f"background-color: {backColor}; color: {foreColor}"
 
 def generate_output_file_table (download_urls:list):
     urlTable = """
@@ -29,7 +33,7 @@ def generate_output_file_table (download_urls:list):
     if (len(download_urls) == 0):
         urlTable += "|No data|"
         return urlTable
-    
+
     for url in download_urls:
         urlTable += f"|{url}|\n"
     return urlTable
@@ -44,7 +48,7 @@ def getOutputFileTable(execution_id: str, table: str):
 @st.cache_data(show_spinner=False)
 def getXlsxOutputBytes(df: DataFrame):
     output = io.BytesIO()
-    with pd.ExcelWriter(output, engine="xlsxwriter", engine_kwargs={'options': {'in_memory': True}}) as writer:
+    with pd.ExcelWriter(output, engine="xlsxwriter", engine_kwargs={"options": {"in_memory": True}}) as writer:
         df.to_excel(writer, sheet_name="additional", index=False)
     return output
 
@@ -52,7 +56,7 @@ def getXlsxOutputBytes(df: DataFrame):
 def get_sma_output_download_urls(execution_id: str):
     urls = []
     utils.get_temp_stage.clear()
-    for file_name, table_name in zip(SMA_OUTPUT_FILES_NAMES, SMA_OUTPUT_FILES_TABLES):
+    for file_name, table_name in zip(SMA_OUTPUT_FILES_NAMES, SMA_OUTPUT_FILES_TABLES, strict=False):
         table_df = getOutputFileTable(execution_id, table_name)
         if table_df.shape[0] > 0:
             output_bytes = getXlsxOutputBytes(table_df)
@@ -63,7 +67,7 @@ def get_sma_output_download_urls(execution_id: str):
 
 
 def getReportType(selectedReportTypeName):
-    return f'REPORT_{selectedReportTypeName.upper()}_URL'
+    return f"REPORT_{selectedReportTypeName.upper()}_URL"
 
 
 def color(row):

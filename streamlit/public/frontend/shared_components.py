@@ -1,11 +1,12 @@
 import streamlit as st
+
 from public.backend.app_snowpark_utils import IAAIcon
-from public.backend.refresh_executions import refresh_executions
 from public.backend.globals import RELOAD_EXECUTIONS_BUTTON
+from public.backend.refresh_executions import refresh_executions
 
 
 def load_header():
-    col1, col2, col3 = st.columns([0.1, 1, 0.4], gap='small')
+    col1, col2, col3 = st.columns([0.1, 1, 0.4], gap="small")
     with col1:
         IAAIcon()
     with col2:
@@ -23,5 +24,5 @@ def load_header():
     st.markdown(
         """
                This portal provides information related to your SMA executions, Snowpark Parity Metadata, API metrics and others 
-               """
+               """,
     )

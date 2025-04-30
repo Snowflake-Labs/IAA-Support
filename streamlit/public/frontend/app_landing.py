@@ -1,28 +1,31 @@
 import os.path
-from public.backend.globals import *
-import streamlit as st
 import time
-from public.backend.app_snowpark_utils import IAAIcon, get_decoded_asset, _get_base_path
-from typing import Callable
-from public.backend.refresh_executions import refresh_executions
+
+from collections.abc import Callable
+
+import streamlit as st
+
+from public.backend.app_snowpark_utils import IAAIcon, _get_base_path, get_decoded_asset
+from public.backend.globals import *
 from public.backend.globals import RELOAD_EXECUTIONS_BUTTON
+from public.backend.refresh_executions import refresh_executions
 
 
 def run_portal():
-    col1, col2, col3, col4 = st.columns([0.1, 1, 0.5, 0.3], gap='small')
+    col1, col2, col3, col4 = st.columns([0.1, 1, 0.5, 0.3], gap="small")
     with col1:
         IAAIcon()
     with col2:
         st.markdown("""# Interactive Assessment Application""")
     with col4:
-        if not st.session_state['disable_private_version']:
+        if not st.session_state["disable_private_version"]:
             st.markdown("<br/>", unsafe_allow_html=True)
-            st.button('Switch to private version', on_click=_switch_to_public_version, key='back_private_preview_btn',  use_container_width=True)
+            st.button("Switch to private version", on_click=_switch_to_public_version, key="back_private_preview_btn",  use_container_width=True)
             st.button(RELOAD_EXECUTIONS_BUTTON, on_click=refresh_executions, use_container_width=True,
-                      key='refresh_manual_executions', )
+                      key="refresh_manual_executions" )
     if "show_jira_message_success" in st.session_state:
         st.success(f"The {st.session_state.show_jira_message_success} has been sent successfully!")
-        del st.session_state['show_jira_message_success']
+        del st.session_state["show_jira_message_success"]
         time.sleep(0.5)
         st.rerun()
 
@@ -35,12 +38,12 @@ def run_portal():
 def _load_interactive_options():
     st.markdown("<br/>", unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
-    left_col, right_col = st.columns(2, gap='medium')
+    left_col, right_col = st.columns(2, gap="medium")
     with left_col:
         inner_container = st.container(border=True, height=100)
         with inner_container:
             # Pending: Open Executions page.
-            st.markdown('')
+            st.markdown("")
             _display_option_box(os.path.join(_get_base_path(), "public", "assets", "insert_chart.svg"),
                                 "Explore my executions",
                                 "select_explore_executions_btn",
@@ -48,7 +51,7 @@ def _load_interactive_options():
     with right_col:
         inner_container = st.container(border=True, height=100)
         with inner_container:
-            st.markdown('')
+            st.markdown("")
             _display_option_box(os.path.join(_get_base_path(), "public", "assets", "search.svg"),
                                 "Explore the compatibility between Spark and Snowpark",
                                 "select_explore_compatibility_btn",
@@ -75,15 +78,15 @@ def _display_option_box(icon_path: str, text: str, button_id: str, on_click: Cal
         st.button("Select", key=button_id, on_click=on_click)
 
 def _switch_to_public_version():
-    st.session_state['Page'] = 'Private'
+    st.session_state["Page"] = "Private"
     if "selected_option" in st.session_state:
         del st.session_state.selected_option
 
 def _explore_my_executions():
-    st.session_state['Page'] = 'Review'
-    st.session_state['sidebar_option'] = "Execution"
+    st.session_state["Page"] = "Review"
+    st.session_state["sidebar_option"] = "Execution"
 
 def _explore_spark_compatibility():
     st.session_state[KEY_MAPPING_TOOL_VERSION] = None
-    st.session_state['Page'] = 'Mappings'
-    st.session_state[KEY_LOADED_MAPPINGS] = 'third_party'
+    st.session_state["Page"] = "Mappings"
+    st.session_state[KEY_LOADED_MAPPINGS] = "third_party"

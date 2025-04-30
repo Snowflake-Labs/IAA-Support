@@ -1,7 +1,10 @@
-from public.backend.globals import *
-import streamlit as st
 from datetime import datetime
+
+import streamlit as st
+
 import public.backend.app_snowpark_utils as utils
+
+from public.backend.globals import *
 from snowflake.snowpark.functions import col, lit
 
 
@@ -14,7 +17,7 @@ def logEvent(session, eventName):
                                                                                    & (col(COLUMN_USER) == lit(UserEmail))\
                                                                                    & (col(COLUMN_NAME) == lit(eventName)))\
                                                                                    .collect()[0].ID
-    return eventId                                                                                    
+    return eventId
 
 
 def logEventAttribute(session, eventId, attName, attValue):

@@ -1,17 +1,18 @@
+
+import plotly.express as px
 import streamlit as st
+
 from streamlit import session_state
 
-from public.backend.globals import *
-import time
-import plotly.express as px
-import pandas as pd
-import public.backend.app_style_values as style
 import public.backend.app_snowpark_utils as utils
-from public.frontend.shared_components import load_header
+import public.backend.app_style_values as style
+
 from public.backend.app_mappings_review_backend import mappings_review_backend
-from public.frontend.column_painter import paint_mapping_status
-from public.frontend.app_snowpark_review_executions import _home_landing_page
 from public.backend.app_snowpark_utils import color_label_component
+from public.backend.globals import *
+from public.frontend.app_snowpark_review_executions import _home_landing_page
+from public.frontend.column_painter import paint_mapping_status
+from public.frontend.shared_components import load_header
 
 
 def _create_side_bar():
@@ -28,7 +29,7 @@ def _create_side_bar():
         key="home_btn_mappings",
     )
     st.sidebar.markdown(
-        "<h4 style='text-align: center;'>Mapping Tables</h4>", unsafe_allow_html=True
+        "<h4 style='text-align: center;'>Mapping Tables</h4>", unsafe_allow_html=True,
     )
 
     for label, mapping_table in options:
@@ -99,7 +100,7 @@ def open_reviews():
     ):
         st.session_state[KEY_MAPPING_TOOL_VERSION] = backend.get_latest_version()
     st.markdown(
-        "<h3 style='padding-top: 45px;'>Summary Metrics</h3>", unsafe_allow_html=True
+        "<h3 style='padding-top: 45px;'>Summary Metrics</h3>", unsafe_allow_html=True,
     )
     st.markdown(f"Table Version Number: {st.session_state[KEY_MAPPING_TOOL_VERSION]}")
 
@@ -123,13 +124,13 @@ def open_reviews():
         """ 
         The Snowpark Migration Accelerator (SMA) team keeps a set of mapping tables based on a source's compatibility with Snowpark. Each of these mapping tables are researched by the SMA team and should reflect the current compatibility status for each of the unique elements shown below. For more information on the mapping tables, view [the mapping tables section of the SMA documentation](%s).
     """
-        % documentation_url
+        % documentation_url,
     )
 
     st.markdown(
         """
         However, your feedback is essential to keeping these tables accurate! If you notice something that is not correct or have a suggestion about something, use the built-in feedback mechanism that is built into this product. For more information on how to provide feedback, please click in the link below.
-       """
+       """,
     )
     st.info(icon="💡", body= f"[Click here to give us feedback about mappings]({MAPPINGS_FEEDBACK_URL})")
     mapping_title = st.session_state[KEY_LOADED_MAPPINGS].capitalize()
@@ -153,7 +154,7 @@ def open_reviews():
     categories = backend.get_categories()
     categories.insert(0, "ALL")
     category = st.selectbox(
-        "Category", categories, index=0, key=KEY_ON_CHANGE_SELECT_CATEGORY
+        "Category", categories, index=0, key=KEY_ON_CHANGE_SELECT_CATEGORY,
     )
 
     versions = backend.get_tool_versions()
@@ -169,13 +170,13 @@ def open_reviews():
     )
 
     mappings = backend.get_mappings_using_filters(
-        category, version, show_changes_from_last_release
+        category, version, show_changes_from_last_release,
     )
 
     if mappings is None or mappings.count() == 0:
         st.markdown("No data found")
     else:
-        style = (paint_mapping_status, ['Mapping Status'], 1)
+        style = (paint_mapping_status, ["Mapping Status"], 1)
         utils.paginated(mappings.toPandas(), styled= style, key_prefix="mapping_tables", legend=color_legend_mapping_tables)
 
 def split_frame(_input_df, rows):

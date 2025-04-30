@@ -1,20 +1,19 @@
 import public.backend.app_style_values as sv
 
+
 def get_bar_color(score):
     if score >= 80:
         return sv.BAR_GREEN_COLOR
-    elif 60 <= score < 80:
+    if 60 <= score < 80:
         return sv.BAR_YELLOW_COLOR
-    else:
-        return sv.BAR_RED_COLOR
+    return sv.BAR_RED_COLOR
 
 def get_icon(score):
     if score > 80:
-        return '✅'
-    elif 60 <= score <= 80:
-        return '⚠️'
-    else:
-        return '❌'
+        return "✅"
+    if 60 <= score <= 80:
+        return "⚠️"
+    return "❌"
 
 def custom_progress_bar(score, bar_color, icon):
     return f"""

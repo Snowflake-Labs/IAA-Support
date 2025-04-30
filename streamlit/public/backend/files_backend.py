@@ -1,15 +1,19 @@
-from public.backend.globals import *
 from public.backend import tables_backend
+from public.backend.globals import *
 from snowflake.snowpark.functions import (
     col,
+    count,
     lit,
+    sql_expr,
+    substring_index,
     upper,
     when,
-    count,
-    substring_index,
-    sql_expr,
-    sum as _sum,
+)
+from snowflake.snowpark.functions import (
     round as _round,
+)
+from snowflake.snowpark.functions import (
+    sum as _sum,
 )
 
 
@@ -31,7 +35,7 @@ def get_input_files_by_execution_id(execution_id_list):
 
 def get_input_files_by_execution_id_grouped_by_technology(execution_id_list):
     input_files_inventory = get_input_files_by_execution_id_and_grouped_by_dbc_files(
-        execution_id_list
+        execution_id_list,
     ).where((col(COLUMN_IGNORED) != TRUE_KEY) | (col(COLUMN_IGNORED).isNull()))
 
     input_files_inventory_with_new_technology = input_files_inventory.withColumn(
@@ -42,7 +46,7 @@ def get_input_files_by_execution_id_grouped_by_technology(execution_id_list):
                 ~substring_index(col(COLUMN_ELEMENT), "/", -1).like("%.%"),
                 lit(KEY_UNKNOWN),
             )
-            .otherwise(sql_expr("SPLIT_PART(ELEMENT, '.', -1)"))
+            .otherwise(sql_expr("SPLIT_PART(ELEMENT, '.', -1)")),
         ),
     )
 
@@ -59,13 +63,13 @@ def get_input_files_by_execution_id_grouped_by_technology(execution_id_list):
 def get_input_files_by_execution_id_and_counted_by_technology(execution_id_list):
     input_files_inventory = (
         tables_backend.get_input_files_inventory_table_data_by_execution_id(
-            execution_id_list
+            execution_id_list,
         )
     )
     input_files_with_new_column_technology = input_files_inventory.withColumn(
         COLUMN_TECHNOLOGY,
         when(col(COLUMN_TECHNOLOGY).isNotNull(), col(COLUMN_TECHNOLOGY)).otherwise(
-            lit(KEY_OTHER)
+            lit(KEY_OTHER),
         ),
     )
     input_files_by_execution_id_counted_by_technology = (
@@ -80,12 +84,12 @@ def get_input_files_by_execution_id_and_counted_by_technology(execution_id_list)
 def get_files_with_spark_usages_by_execution_id(execution_id_list):
     spark_usages_inventory = (
         tables_backend.get_spark_usages_inventory_table_data_by_execution_id(
-            execution_id_list
+            execution_id_list,
         )
     )
     input_files_inventory = (
         tables_backend.get_input_files_inventory_table_data_with_timestamp_and_email(
-            execution_id_list
+            execution_id_list,
         )
     )
     input_files_with_new_column_technology = input_files_inventory.select(
@@ -98,7 +102,7 @@ def get_files_with_spark_usages_by_execution_id(execution_id_list):
     ).withColumn(
         COLUMN_TECHNOLOGY,
         when(col(COLUMN_TECHNOLOGY).isNotNull(), col(COLUMN_TECHNOLOGY)).otherwise(
-            lit(KEY_OTHER)
+            lit(KEY_OTHER),
         ),
     )
 
@@ -106,10 +110,10 @@ def get_files_with_spark_usages_by_execution_id(execution_id_list):
         spark_usages_inventory.groupBy(COLUMN_FILE_ID)
         .agg(
             _sum(
-                when(col(COLUMN_SUPPORTED) == TRUE_KEY, col(COLUMN_COUNT)).otherwise(0)
+                when(col(COLUMN_SUPPORTED) == TRUE_KEY, col(COLUMN_COUNT)).otherwise(0),
             ).alias(COLUMN_SUPPORTED),
             _sum(
-                when(col(COLUMN_SUPPORTED) == FALSE_KEY, col(COLUMN_COUNT)).otherwise(0)
+                when(col(COLUMN_SUPPORTED) == FALSE_KEY, col(COLUMN_COUNT)).otherwise(0),
             ).alias(COLUMN_NOT_SUPPORTED),
         )
         .withColumn(
@@ -117,13 +121,13 @@ def get_files_with_spark_usages_by_execution_id(execution_id_list):
             _round(
                 col(COLUMN_SUPPORTED)
                 * 100
-                / (col(COLUMN_SUPPORTED) + col(COLUMN_NOT_SUPPORTED))
+                / (col(COLUMN_SUPPORTED) + col(COLUMN_NOT_SUPPORTED)),
             ),
         )
     )
 
     spark_usages_by_file_join_input_files = spark_usages_by_file.join(
-        right=input_files_with_new_column_technology, on=COLUMN_FILE_ID, how="left"
+        right=input_files_with_new_column_technology, on=COLUMN_FILE_ID, how="left",
     ).sort(col(COLUMN_FILE_ID))
 
     spark_usages_by_file_with_loc_and_friendly_name = (
@@ -149,13 +153,13 @@ def get_files_with_spark_usages_by_execution_id(execution_id_list):
 def get_input_files_by_execution_id_and_grouped_by_dbc_files(execution_id_list):
     input_files_inventory = (
         tables_backend.get_input_files_inventory_table_data_with_timestamp_and_email(
-            execution_id_list
+            execution_id_list,
         )
     )
 
     no_dbc_files = input_files_inventory.where(
         (col(COLUMN_ORIGIN_FILE_PATH).isNull())
-        & (col(COLUMN_TECHNOLOGY) != DBC_TECHNOLOGY_KEY)
+        & (col(COLUMN_TECHNOLOGY) != DBC_TECHNOLOGY_KEY),
     ).select(
         COLUMN_EXECUTION_ID,
         COLUMN_EXECUTION_TIMESTAMP,
@@ -169,7 +173,7 @@ def get_input_files_by_execution_id_and_grouped_by_dbc_files(execution_id_list):
 
     dbc_files_table_data = input_files_inventory.where(
         (col(COLUMN_ORIGIN_FILE_PATH).is_not_null())
-        | (col(COLUMN_TECHNOLOGY) == DBC_TECHNOLOGY_KEY)
+        | (col(COLUMN_TECHNOLOGY) == DBC_TECHNOLOGY_KEY),
     ).select(
         COLUMN_EXECUTION_ID,
         COLUMN_EXECUTION_TIMESTAMP,
