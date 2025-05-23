@@ -7,8 +7,8 @@ dependencies:
   - plotly=5.9.0
   - pydotplus=2.0.2
   - pyyaml=6.0.2
-  - snowflake-snowpark-python
+  - snowflake-snowpark-python=1.30.0
   - xlsxwriter=3.1.1
-  - streamlit=1.39.1
+  - streamlit=1.44.0
   - jira=2.0.0
   - google-api-python-client=2.159.0
