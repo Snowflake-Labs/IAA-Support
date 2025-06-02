@@ -47,85 +47,6 @@ AS 'concat(split_part(tool_version,''.'',1),
 
 COMMENT ON FUNCTION "SNOW_DB"."SNOW_SCHEMA"."GET_VERSION"(VARCHAR) IS '';
 
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS" (
-)
-RETURNS TABLE (
-      "PACKAGE_NAME" VARCHAR(16777216)
-    , "VERSIONS" VARCHAR(16777216)
-    , "STATUS" VARCHAR(16777216)
-    , "SUPPORTED" BOOLEAN
-)
-LANGUAGE python
-RUNTIME_VERSION = '3.8'
-PACKAGES = ('snowflake-snowpark-python')
-HANDLER = 'main'
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}}'
-AS 'import snowflake.snowpark as snowpark
-import os
-import sys
-import sysconfig
-from pydoc import ModuleScanner
-from snowflake.snowpark.functions import  col, lit, iff, lower, listagg
-
-        
-def main(session: snowpark.Session): 
-      
-
-
-    def load_standard_library_modules():
-        std_lib_dir = sysconfig.get_paths()["stdlib"]
-        modules = []
-        for f in os.listdir(std_lib_dir):
-          if f.endswith(".py") and not f.startswith("_"):
-            modules.append(f[:-3])
-
-        return modules
-
-    def load_builtin_modules():
-        modules = []
-        for x in sys.builtin_module_names:
-          modules.append(x[1:])
-
-        return modules
-          
-    def load_additional_modules():
-        modules = []
-        def callback(path, modname, desc, modules=modules):
-          if modname and modname[-9:] == ''.__init__'':
-            modname = modname[:-9] + '' (package)''
-          if modname.find(''.'') < 0:
-            modules.append(modname)
-        def onerror(modname):
-          callback(None, modname, None)
-
-
-        ModuleScanner().run(callback, onerror=onerror)
-        return modules
-
-    
-    standard_library_modules = load_standard_library_modules()
-    builtins_modules = load_builtin_modules()
-    additional_modules = load_additional_modules()
-    all_modules = set(standard_library_modules + builtins_modules + additional_modules)
-    dfSupported = session.table(["snowpark_analysis","information_schema","packages"]).where(col("language") == lit("python")).select("PACKAGE_NAME", "VERSION")
-    dfSupported = dfSupported.group_by(col("PACKAGE_NAME")).agg(listagg(col("VERSION"), ",", is_distinct= True).alias("VERSIONS"))
-    dfSupported = dfSupported.withColumn("STATUS", lit("Supported")).withColumn("SUPPORTED", lit(True))      
-    dfBase = session.create_dataframe(list(all_modules), schema = ["PACKAGE_NAME"])
-    dfBase = dfBase.withColumn("PACKAGE_NAME", lower(col("PACKAGE_NAME"))) \\
-                        .withColumn("VERSIONS", lit(None))\\
-                        .withColumn("STATUS", lit("Base"))\\
-                        .withColumn("SUPPORTED", lit(True))
-
-    dfAdditionalBase = dfBase.filter(dfBase["PACKAGE_NAME"].isin(dfSupported.select("PACKAGE_NAME"))).select("PACKAGE_NAME")
-    dfBase = dfBase.where(~col("PACKAGE_NAME").isin(dfAdditionalBase))
-    dfSupported = dfSupported.select("PACKAGE_NAME","VERSIONS", iff(col("PACKAGE_NAME").isin(dfAdditionalBase), lit("Base"), col("STATUS")).alias("STATUS"), "SUPPORTED" )
-    df = dfSupported.union(dfBase)
-    df.show()
-
-    return df';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
-
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_APP_LOG" (
       "APPLICATION" VARCHAR(16777216)
     , "MESSAGE" VARCHAR(16777216)
@@ -405,6 +326,85 @@ END;';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_JAVA_BUILTINS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS" (
+)
+RETURNS TABLE (
+      "PACKAGE_NAME" VARCHAR(16777216)
+    , "VERSIONS" VARCHAR(16777216)
+    , "STATUS" VARCHAR(16777216)
+    , "SUPPORTED" BOOLEAN
+)
+LANGUAGE python
+RUNTIME_VERSION = '3.8'
+PACKAGES = ('snowflake-snowpark-python')
+HANDLER = 'main'
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}}'
+AS 'import snowflake.snowpark as snowpark
+import os
+import sys
+import sysconfig
+from pydoc import ModuleScanner
+from snowflake.snowpark.functions import  col, lit, iff, lower, listagg
+
+        
+def main(session: snowpark.Session): 
+      
+
+
+    def load_standard_library_modules():
+        std_lib_dir = sysconfig.get_paths()["stdlib"]
+        modules = []
+        for f in os.listdir(std_lib_dir):
+          if f.endswith(".py") and not f.startswith("_"):
+            modules.append(f[:-3])
+
+        return modules
+
+    def load_builtin_modules():
+        modules = []
+        for x in sys.builtin_module_names:
+          modules.append(x[1:])
+
+        return modules
+          
+    def load_additional_modules():
+        modules = []
+        def callback(path, modname, desc, modules=modules):
+          if modname and modname[-9:] == ''.__init__'':
+            modname = modname[:-9] + '' (package)''
+          if modname.find(''.'') < 0:
+            modules.append(modname)
+        def onerror(modname):
+          callback(None, modname, None)
+
+
+        ModuleScanner().run(callback, onerror=onerror)
+        return modules
+
+    
+    standard_library_modules = load_standard_library_modules()
+    builtins_modules = load_builtin_modules()
+    additional_modules = load_additional_modules()
+    all_modules = set(standard_library_modules + builtins_modules + additional_modules)
+    dfSupported = session.table(["snowpark_analysis","information_schema","packages"]).where(col("language") == lit("python")).select("PACKAGE_NAME", "VERSION")
+    dfSupported = dfSupported.group_by(col("PACKAGE_NAME")).agg(listagg(col("VERSION"), ",", is_distinct= True).alias("VERSIONS"))
+    dfSupported = dfSupported.withColumn("STATUS", lit("Supported")).withColumn("SUPPORTED", lit(True))      
+    dfBase = session.create_dataframe(list(all_modules), schema = ["PACKAGE_NAME"])
+    dfBase = dfBase.withColumn("PACKAGE_NAME", lower(col("PACKAGE_NAME"))) \\
+                        .withColumn("VERSIONS", lit(None))\\
+                        .withColumn("STATUS", lit("Base"))\\
+                        .withColumn("SUPPORTED", lit(True))
+
+    dfAdditionalBase = dfBase.filter(dfBase["PACKAGE_NAME"].isin(dfSupported.select("PACKAGE_NAME"))).select("PACKAGE_NAME")
+    dfBase = dfBase.where(~col("PACKAGE_NAME").isin(dfAdditionalBase))
+    dfSupported = dfSupported.select("PACKAGE_NAME","VERSIONS", iff(col("PACKAGE_NAME").isin(dfAdditionalBase), lit("Base"), col("STATUS")).alias("STATUS"), "SUPPORTED" )
+    df = dfSupported.union(dfBase)
+    df.show()
+
+    return df';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
+
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_EWI_CATALOG" (
       "TABLE_NAME" VARCHAR(16777216)
 )
@@ -623,7 +623,7 @@ END;';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_PYSPARK"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_SPARK" (
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_CHECKPOINTS_INVENTORY" (
       "TABLE_NAME" VARCHAR(16777216)
 )
 RETURNS VARCHAR(16777216)
@@ -631,60 +631,57 @@ LANGUAGE SQL
 COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}}'
 AS '
 DECLARE
-
-SCALA_FOLDER := ''Scala'';
-CONVERSION_INVENTORY := ''ConversionStatusSclSpark.json'';
+   BACKSLASH_TOKEN := ''\\\\'';
+   SLASH_TOKEN := ''/'';
+   CHECKPOINTS_INVENTORY_NAME := ''CheckpointsInventory%.json'';
 
 BEGIN
 
--- INSERT INTO SPARK CONVERSION STATUS
+    INSERT INTO CHECKPOINTS_INVENTORY(
+      EXECUTION_ID,
+      CELL_ID,
+      "COLUMN",
+      DATAFRAME_NAME,
+      ENABLED,
+      ENTRY_POINT,
+      FILE_ID,
+      LINE,
+      LOCATION,
+      MODE,
+      NAME,
+      "SAMPLE",
+      TYPE
+    )
+    SELECT
+      EXECUTION_ID,
+      INVENTORY_CONTENT:CellId,
+      INVENTORY_CONTENT:Column,
+      INVENTORY_CONTENT:DataFrameName,
+      INVENTORY_CONTENT:Enabled,
+      INVENTORY_CONTENT:EntryPoint,
+      REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
+      INVENTORY_CONTENT:Line,
+      INVENTORY_CONTENT:Location,
+      INVENTORY_CONTENT:Mode,
+      INVENTORY_CONTENT:Name,
+      INVENTORY_CONTENT:Sample,
+      INVENTORY_CONTENT:Type
+    FROM (
+      SELECT 
+          EXECUTION_ID,
+          INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
+      FROM (
+        SELECT 
+          EXECUTION_ID, INVENTORY_CONTENT
+        FROM IDENTIFIER(:TABLE_NAME)
+        WHERE FILE_NAME ILIKE :CHECKPOINTS_INVENTORY_NAME
+      ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
+    );
 
-INSERT INTO MAPPINGS_CORE_SPARK(
-VERSION,
-CATEGORY,
-SPARK_FULLY_QUALIFIED_NAME,
-SPARK_NAME,
-SPARK_CLASS,
-SPARK_DEF,
-SNOWPARK_FULLY_QUALIFIED_NAME,
-SNOWPARK_NAME,
-SNOWPARK_CLASS,
-SNOWPARK_DEF,
-TOOL_SUPPORTED,
-SNOWFLAKE_SUPPORTED,
-MAPPING_STATUS,
-WORKAROUND_COMMENT,
-EWICode)
-
-SELECT
-GET_VERSION(VERSION),
-JSON_VALUES:CATEGORY,
-JSON_VALUES:SPARK_FULLY_QUALIFIED_NAME,
-JSON_VALUES:SPARK_NAME,
-JSON_VALUES:SPARK_CLASS,
-JSON_VALUES:SPARK_DEF,
-JSON_VALUES:SNOWPARK_FULLY_QUALIFIED_NAME,
-JSON_VALUES:SNOWPARK_NAME,
-JSON_VALUES:SNOWPARK_CLASS,
-JSON_VALUES:SNOWPARK_DEF,
-JSON_VALUES:TOOL_SUPPORTED,
-JSON_VALUES:SNOWFLAKE_SUPPORTED,
-JSON_VALUES:MAPPING_STATUS,
-JSON_VALUES:WORKAROUND_COMMENT,
-JSON_VALUES:EWICode
-FROM (
-SELECT VERSION, FILE_CONTENT_JSON.VALUE AS JSON_VALUES
-FROM (
-SELECT VERSION, FILE_CONTENT
-FROM IDENTIFIER(:TABLE_NAME)
-WHERE FILE_NAME = :CONVERSION_INVENTORY AND FOLDER = :SCALA_FOLDER
-), TABLE(FLATTEN(FILE_CONTENT)) FILE_CONTENT_JSON
-);
-
-RETURN ''INSERT_MAPPINGS_SCALA FINISHED'';
+RETURN ''MERGE_CHECKPOINTS_INVENTORY FINISHED'';
 END;';
 
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_SPARK"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_CHECKPOINTS_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATAFRAMES_INVENTORY" (
       "TABLE_NAME" VARCHAR(16777216)
@@ -1041,7 +1038,7 @@ END;';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_IMPORT_USAGES_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_INPUT_FILE_INVENTORY" (
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_SPARK" (
       "TABLE_NAME" VARCHAR(16777216)
 )
 RETURNS VARCHAR(16777216)
@@ -1049,57 +1046,60 @@ LANGUAGE SQL
 COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}}'
 AS '
 DECLARE
-    BACKSLASH_TOKEN := ''\\\\'';
-    SLASH_TOKEN := ''/'';
-    INPUT_FILES_INVENTORY_NAME := ''InputFilesInventory%.json'';
+
+SCALA_FOLDER := ''Scala'';
+CONVERSION_INVENTORY := ''ConversionStatusSclSpark.json'';
 
 BEGIN
 
-   INSERT INTO INPUT_FILES_INVENTORY(
-    EXECUTION_ID,
-    ELEMENT,
-    PROJECT_ID,
-    FILE_ID,
-    COUNT,
-    EXTENSION,
-    BYTES,
-    CHARACTER_LENGTH,
-    LINES_OF_CODE,
-    PARSE_RESULT,
-    TECHNOLOGY,
-    IGNORED,
-    ORIGIN_FILE_PATH
-    )
-    SELECT
-    EXECUTION_ID,
-    REPLACE(INVENTORY_CONTENT:Element, :BACKSLASH_TOKEN, :SLASH_TOKEN),
-    INVENTORY_CONTENT:ProjectId,
-    REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
-    INVENTORY_CONTENT:Count,
-    INVENTORY_CONTENT:Extension,
-    INVENTORY_CONTENT:Bytes,
-    INVENTORY_CONTENT:CharacterLength,
-    INVENTORY_CONTENT:LinesOfCode,
-    INVENTORY_CONTENT:ParseResult,
-    INVENTORY_CONTENT:Technology,
-    INVENTORY_CONTENT:Ignored,
-    CASE
-    WHEN INVENTORY_CONTENT:OriginFilePath = '''' THEN NULL
-    ELSE REPLACE(INVENTORY_CONTENT:OriginFilePath, :BACKSLASH_TOKEN, :SLASH_TOKEN)
-    END,
-    FROM (
-    SELECT EXECUTION_ID, INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
-    FROM (
-    SELECT EXECUTION_ID, INVENTORY_CONTENT
-    FROM IDENTIFIER(:TABLE_NAME)
-    WHERE FILE_NAME ILIKE :INPUT_FILES_INVENTORY_NAME
-    ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
-    );
+-- INSERT INTO SPARK CONVERSION STATUS
 
-RETURN ''MERGE_INPUT_FILES_INVENTORY FINISHED'';
+INSERT INTO MAPPINGS_CORE_SPARK(
+VERSION,
+CATEGORY,
+SPARK_FULLY_QUALIFIED_NAME,
+SPARK_NAME,
+SPARK_CLASS,
+SPARK_DEF,
+SNOWPARK_FULLY_QUALIFIED_NAME,
+SNOWPARK_NAME,
+SNOWPARK_CLASS,
+SNOWPARK_DEF,
+TOOL_SUPPORTED,
+SNOWFLAKE_SUPPORTED,
+MAPPING_STATUS,
+WORKAROUND_COMMENT,
+EWICode)
+
+SELECT
+GET_VERSION(VERSION),
+JSON_VALUES:CATEGORY,
+JSON_VALUES:SPARK_FULLY_QUALIFIED_NAME,
+JSON_VALUES:SPARK_NAME,
+JSON_VALUES:SPARK_CLASS,
+JSON_VALUES:SPARK_DEF,
+JSON_VALUES:SNOWPARK_FULLY_QUALIFIED_NAME,
+JSON_VALUES:SNOWPARK_NAME,
+JSON_VALUES:SNOWPARK_CLASS,
+JSON_VALUES:SNOWPARK_DEF,
+JSON_VALUES:TOOL_SUPPORTED,
+JSON_VALUES:SNOWFLAKE_SUPPORTED,
+JSON_VALUES:MAPPING_STATUS,
+JSON_VALUES:WORKAROUND_COMMENT,
+JSON_VALUES:EWICode
+FROM (
+SELECT VERSION, FILE_CONTENT_JSON.VALUE AS JSON_VALUES
+FROM (
+SELECT VERSION, FILE_CONTENT
+FROM IDENTIFIER(:TABLE_NAME)
+WHERE FILE_NAME = :CONVERSION_INVENTORY AND FOLDER = :SCALA_FOLDER
+), TABLE(FLATTEN(FILE_CONTENT)) FILE_CONTENT_JSON
+);
+
+RETURN ''INSERT_MAPPINGS_SCALA FINISHED'';
 END;';
 
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_INPUT_FILE_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_SPARK"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_SQL_ELEMENTS" (
       "TABLE_NAME" VARCHAR(16777216)
@@ -1285,7 +1285,7 @@ END;';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ARTIFACT_DEPENDENCY_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_CHECKPOINTS_INVENTORY" (
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_INPUT_FILE_INVENTORY" (
       "TABLE_NAME" VARCHAR(16777216)
 )
 RETURNS VARCHAR(16777216)
@@ -1293,57 +1293,57 @@ LANGUAGE SQL
 COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}}'
 AS '
 DECLARE
-   BACKSLASH_TOKEN := ''\\\\'';
-   SLASH_TOKEN := ''/'';
-   CHECKPOINTS_INVENTORY_NAME := ''CheckpointsInventory%.json'';
+    BACKSLASH_TOKEN := ''\\\\'';
+    SLASH_TOKEN := ''/'';
+    INPUT_FILES_INVENTORY_NAME := ''InputFilesInventory%.json'';
 
 BEGIN
 
-    INSERT INTO CHECKPOINTS_INVENTORY(
-      EXECUTION_ID,
-      CELL_ID,
-      "COLUMN",
-      DATAFRAME_NAME,
-      ENABLED,
-      ENTRY_POINT,
-      FILE_ID,
-      LINE,
-      LOCATION,
-      MODE,
-      NAME,
-      "SAMPLE",
-      TYPE
+   INSERT INTO INPUT_FILES_INVENTORY(
+    EXECUTION_ID,
+    ELEMENT,
+    PROJECT_ID,
+    FILE_ID,
+    COUNT,
+    EXTENSION,
+    BYTES,
+    CHARACTER_LENGTH,
+    LINES_OF_CODE,
+    PARSE_RESULT,
+    TECHNOLOGY,
+    IGNORED,
+    ORIGIN_FILE_PATH
     )
     SELECT
-      EXECUTION_ID,
-      INVENTORY_CONTENT:CellId,
-      INVENTORY_CONTENT:Column,
-      INVENTORY_CONTENT:DataFrameName,
-      INVENTORY_CONTENT:Enabled,
-      INVENTORY_CONTENT:EntryPoint,
-      REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
-      INVENTORY_CONTENT:Line,
-      INVENTORY_CONTENT:Location,
-      INVENTORY_CONTENT:Mode,
-      INVENTORY_CONTENT:Name,
-      INVENTORY_CONTENT:Sample,
-      INVENTORY_CONTENT:Type
+    EXECUTION_ID,
+    REPLACE(INVENTORY_CONTENT:Element, :BACKSLASH_TOKEN, :SLASH_TOKEN),
+    INVENTORY_CONTENT:ProjectId,
+    REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
+    INVENTORY_CONTENT:Count,
+    INVENTORY_CONTENT:Extension,
+    INVENTORY_CONTENT:Bytes,
+    INVENTORY_CONTENT:CharacterLength,
+    INVENTORY_CONTENT:LinesOfCode,
+    INVENTORY_CONTENT:ParseResult,
+    INVENTORY_CONTENT:Technology,
+    INVENTORY_CONTENT:Ignored,
+    CASE
+    WHEN INVENTORY_CONTENT:OriginFilePath = '''' THEN NULL
+    ELSE REPLACE(INVENTORY_CONTENT:OriginFilePath, :BACKSLASH_TOKEN, :SLASH_TOKEN)
+    END,
     FROM (
-      SELECT 
-          EXECUTION_ID,
-          INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
-      FROM (
-        SELECT 
-          EXECUTION_ID, INVENTORY_CONTENT
-        FROM IDENTIFIER(:TABLE_NAME)
-        WHERE FILE_NAME ILIKE :CHECKPOINTS_INVENTORY_NAME
-      ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
+    SELECT EXECUTION_ID, INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
+    FROM (
+    SELECT EXECUTION_ID, INVENTORY_CONTENT
+    FROM IDENTIFIER(:TABLE_NAME)
+    WHERE FILE_NAME ILIKE :INPUT_FILES_INVENTORY_NAME
+    ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
     );
 
-RETURN ''MERGE_CHECKPOINTS_INVENTORY FINISHED'';
+RETURN ''MERGE_INPUT_FILES_INVENTORY FINISHED'';
 END;';
 
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_CHECKPOINTS_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_INPUT_FILE_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_IO_FILES_INVENTORY" (
       "TABLE_NAME" VARCHAR(16777216)
