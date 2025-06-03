@@ -47,6 +47,85 @@ AS 'concat(split_part(tool_version,''.'',1),
 
 COMMENT ON FUNCTION "SNOW_DB"."SNOW_SCHEMA"."GET_VERSION"(VARCHAR) IS '';
 
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS" (
+)
+RETURNS TABLE (
+      "PACKAGE_NAME" VARCHAR(16777216)
+    , "VERSIONS" VARCHAR(16777216)
+    , "STATUS" VARCHAR(16777216)
+    , "SUPPORTED" BOOLEAN
+)
+LANGUAGE python
+RUNTIME_VERSION = '3.8'
+PACKAGES = ('snowflake-snowpark-python')
+HANDLER = 'main'
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}}'
+AS 'import snowflake.snowpark as snowpark
+import os
+import sys
+import sysconfig
+from pydoc import ModuleScanner
+from snowflake.snowpark.functions import  col, lit, iff, lower, listagg
+
+        
+def main(session: snowpark.Session): 
+      
+
+
+    def load_standard_library_modules():
+        std_lib_dir = sysconfig.get_paths()["stdlib"]
+        modules = []
+        for f in os.listdir(std_lib_dir):
+          if f.endswith(".py") and not f.startswith("_"):
+            modules.append(f[:-3])
+
+        return modules
+
+    def load_builtin_modules():
+        modules = []
+        for x in sys.builtin_module_names:
+          modules.append(x[1:])
+
+        return modules
+          
+    def load_additional_modules():
+        modules = []
+        def callback(path, modname, desc, modules=modules):
+          if modname and modname[-9:] == ''.__init__'':
+            modname = modname[:-9] + '' (package)''
+          if modname.find(''.'') < 0:
+            modules.append(modname)
+        def onerror(modname):
+          callback(None, modname, None)
+
+
+        ModuleScanner().run(callback, onerror=onerror)
+        return modules
+
+    
+    standard_library_modules = load_standard_library_modules()
+    builtins_modules = load_builtin_modules()
+    additional_modules = load_additional_modules()
+    all_modules = set(standard_library_modules + builtins_modules + additional_modules)
+    dfSupported = session.table(["snowpark_analysis","information_schema","packages"]).where(col("language") == lit("python")).select("PACKAGE_NAME", "VERSION")
+    dfSupported = dfSupported.group_by(col("PACKAGE_NAME")).agg(listagg(col("VERSION"), ",", is_distinct= True).alias("VERSIONS"))
+    dfSupported = dfSupported.withColumn("STATUS", lit("Supported")).withColumn("SUPPORTED", lit(True))      
+    dfBase = session.create_dataframe(list(all_modules), schema = ["PACKAGE_NAME"])
+    dfBase = dfBase.withColumn("PACKAGE_NAME", lower(col("PACKAGE_NAME"))) \\
+                        .withColumn("VERSIONS", lit(None))\\
+                        .withColumn("STATUS", lit("Base"))\\
+                        .withColumn("SUPPORTED", lit(True))
+
+    dfAdditionalBase = dfBase.filter(dfBase["PACKAGE_NAME"].isin(dfSupported.select("PACKAGE_NAME"))).select("PACKAGE_NAME")
+    dfBase = dfBase.where(~col("PACKAGE_NAME").isin(dfAdditionalBase))
+    dfSupported = dfSupported.select("PACKAGE_NAME","VERSIONS", iff(col("PACKAGE_NAME").isin(dfAdditionalBase), lit("Base"), col("STATUS")).alias("STATUS"), "SUPPORTED" )
+    df = dfSupported.union(dfBase)
+    df.show()
+
+    return df';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
+
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_APP_LOG" (
       "APPLICATION" VARCHAR(16777216)
     , "MESSAGE" VARCHAR(16777216)
@@ -325,85 +404,6 @@ AS 'BEGIN
 END;';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_JAVA_BUILTINS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS" (
-)
-RETURNS TABLE (
-      "PACKAGE_NAME" VARCHAR(16777216)
-    , "VERSIONS" VARCHAR(16777216)
-    , "STATUS" VARCHAR(16777216)
-    , "SUPPORTED" BOOLEAN
-)
-LANGUAGE python
-RUNTIME_VERSION = '3.8'
-PACKAGES = ('snowflake-snowpark-python')
-HANDLER = 'main'
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}}'
-AS 'import snowflake.snowpark as snowpark
-import os
-import sys
-import sysconfig
-from pydoc import ModuleScanner
-from snowflake.snowpark.functions import  col, lit, iff, lower, listagg
-
-        
-def main(session: snowpark.Session): 
-      
-
-
-    def load_standard_library_modules():
-        std_lib_dir = sysconfig.get_paths()["stdlib"]
-        modules = []
-        for f in os.listdir(std_lib_dir):
-          if f.endswith(".py") and not f.startswith("_"):
-            modules.append(f[:-3])
-
-        return modules
-
-    def load_builtin_modules():
-        modules = []
-        for x in sys.builtin_module_names:
-          modules.append(x[1:])
-
-        return modules
-          
-    def load_additional_modules():
-        modules = []
-        def callback(path, modname, desc, modules=modules):
-          if modname and modname[-9:] == ''.__init__'':
-            modname = modname[:-9] + '' (package)''
-          if modname.find(''.'') < 0:
-            modules.append(modname)
-        def onerror(modname):
-          callback(None, modname, None)
-
-
-        ModuleScanner().run(callback, onerror=onerror)
-        return modules
-
-    
-    standard_library_modules = load_standard_library_modules()
-    builtins_modules = load_builtin_modules()
-    additional_modules = load_additional_modules()
-    all_modules = set(standard_library_modules + builtins_modules + additional_modules)
-    dfSupported = session.table(["snowpark_analysis","information_schema","packages"]).where(col("language") == lit("python")).select("PACKAGE_NAME", "VERSION")
-    dfSupported = dfSupported.group_by(col("PACKAGE_NAME")).agg(listagg(col("VERSION"), ",", is_distinct= True).alias("VERSIONS"))
-    dfSupported = dfSupported.withColumn("STATUS", lit("Supported")).withColumn("SUPPORTED", lit(True))      
-    dfBase = session.create_dataframe(list(all_modules), schema = ["PACKAGE_NAME"])
-    dfBase = dfBase.withColumn("PACKAGE_NAME", lower(col("PACKAGE_NAME"))) \\
-                        .withColumn("VERSIONS", lit(None))\\
-                        .withColumn("STATUS", lit("Base"))\\
-                        .withColumn("SUPPORTED", lit(True))
-
-    dfAdditionalBase = dfBase.filter(dfBase["PACKAGE_NAME"].isin(dfSupported.select("PACKAGE_NAME"))).select("PACKAGE_NAME")
-    dfBase = dfBase.where(~col("PACKAGE_NAME").isin(dfAdditionalBase))
-    dfSupported = dfSupported.select("PACKAGE_NAME","VERSIONS", iff(col("PACKAGE_NAME").isin(dfAdditionalBase), lit("Base"), col("STATUS")).alias("STATUS"), "SUPPORTED" )
-    df = dfSupported.union(dfBase)
-    df.show()
-
-    return df';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."GET_IMPORTS_MAPPINGS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":7,"patch":9}} ';
 
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_EWI_CATALOG" (
       "TABLE_NAME" VARCHAR(16777216)
