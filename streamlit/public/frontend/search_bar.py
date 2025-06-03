@@ -19,6 +19,7 @@ def showData(df):
                 FRIENDLY_NAME_EXECUTION_ID,
                 FRIENDLY_NAME_EXECUTION_TIMESTAMP,
                 FRIENDLY_NAME_READINESS_SCORE,
+                FRIENDLY_NAME_SAS_READINESS_SCORE,
                 FRIENDLY_NAME_CLIENT_EMAIL,
                 FRIENDLY_NAME_TOTAL_CODE_FILES,
                 FRIENDLY_NAME_LINES_OF_CODE,
@@ -28,9 +29,7 @@ def showData(df):
             ],
         )
         found_executions = list(
-            df.loc[edited_df[edited_df[FRIENDLY_NAME_SELECT] == True].index][
-                FRIENDLY_NAME_EXECUTION_ID
-            ],
+            df.loc[edited_df[edited_df[FRIENDLY_NAME_SELECT] == True].index][FRIENDLY_NAME_EXECUTION_ID],
         )
         return found_executions
     st.info("No executions found.")

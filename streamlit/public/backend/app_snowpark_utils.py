@@ -47,6 +47,7 @@ _tables_metadata = {
         ("SCALA_READINESS_SCORE", sftype.STRING),
         ("SQL_READINESS_SCORE", sftype.STRING),
         ("THIRD_PARTY_READINESS_SCORE", sftype.STRING),
+        ("SAS_READINESS_SCORE", sftype.STRING),
     ],
     TABLE_INPUT_FILES_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -80,6 +81,7 @@ _tables_metadata = {
         ("SNOWPARK_VERSION", sftype.STRING),
         ("CELL_ID", sftype.BIGINT),
         ("PARAMETERS_INFO", sftype.VARIANT),
+        ("IS_SAS_SUPPORTED", sftype.STRING),
     ],
     TABLE_IMPORT_USAGES_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -125,7 +127,7 @@ _tables_metadata = {
         ("PARAMETERS_INFO", sftype.VARIANT),
     ],
     ## --------
-    TABLE_COMPUTED_DEPENDENCIES : [
+    TABLE_COMPUTED_DEPENDENCIES: [
         ("TOOL_EXECUTION_ID", sftype.STRING),
         ("TOOL_EXECUTION_TIMESTAMP", sftype.TIMESTAMP),
         ("SOURCE_FILE", sftype.STRING),
@@ -151,6 +153,7 @@ _tables_metadata = {
         ("SNOWFLAKE_SUPPORTED", sftype.BOOLEAN),
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
+        ("IS_SAS_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_MAPPINGS_CORE_PYSPARK: [
         ("CATEGORY", sftype.STRING),
@@ -167,6 +170,7 @@ _tables_metadata = {
         ("SNOWFLAKE_SUPPORTED", sftype.BOOLEAN),
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
+        ("IS_SAS_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_REPORT_URL: [
         ("EXECUTION_ID", sftype.STRING),
@@ -178,7 +182,7 @@ _tables_metadata = {
         ("FILTER", sftype.STRING),
     ],
     JAVA_BUILTINS: [("NAME", sftype.STRING)],
-    TABLE_ARTIFACT_DEPENDENCY_INVENTORY:[
+    TABLE_ARTIFACT_DEPENDENCY_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
         ("FILE_ID", sftype.STRING),
         ("DEPENDENCY", sftype.STRING),
@@ -236,22 +240,20 @@ def pagination_footer(dataset, key_prefix, need_color_legend=False, legend: Call
 
     if len(dataset) > 0:
         if need_color_legend and key_prefix == "import_dependency_table":
-                color_legend_import()
+            color_legend_import()
         bottom_menu = st.columns((4, 1, 1))
         with bottom_menu[2]:
             add_spacing()
             batch_size = st.selectbox(
-                "Row Count", key=f"pag_page_size_{key_prefix}", options=[25, 50, 100],
+                "Row Count",
+                key=f"pag_page_size_{key_prefix}",
+                options=[25, 50, 100],
             )
             with st.spinner("Loading..."):
                 time.sleep(2)
         with bottom_menu[1]:
             add_spacing()
-            total_pages = (
-                int(len(dataset) / batch_size)
-                if int(len(dataset) / batch_size) > 0
-                else 1
-            )
+            total_pages = int(len(dataset) / batch_size) if int(len(dataset) / batch_size) > 0 else 1
             col1, col2 = st.columns(2)
             with col2:
                 current_page = st.number_input(
@@ -297,7 +299,9 @@ def paginated(
     if sort == "Yes":
         with top_menu[1]:
             sort_field = st.selectbox(
-                "Sort By", key=f"pag_sort_field_{key_prefix}", options=dataset.columns,
+                "Sort By",
+                key=f"pag_sort_field_{key_prefix}",
+                options=dataset.columns,
             )
         with top_menu[2]:
             sort_direction = st.radio(
@@ -358,7 +362,8 @@ def paginated(
                     )
                     if dfEdited.equals(page_to_display) == False:
                         dfEdited = dfEdited.compare(
-                            page_to_display, result_names=(KEY_SUGGESTION, KEY_ORIGINAL),
+                            page_to_display,
+                            result_names=(KEY_SUGGESTION, KEY_ORIGINAL),
                         )
                         dfEdited.columns = dfEdited.columns.map(",".join)
                         dfEdited = dfEdited.merge(
@@ -451,6 +456,7 @@ def create_session():
     session = Session.builder.getOrCreate()
     return session
 
+
 @st.cache_resource(ttl=600)
 def get_temp_stage():
     session = get_session()
@@ -466,7 +472,10 @@ def get_downloadlink(label, filename, output):
     temp_stage = get_temp_stage()
     output.seek(0)
     session.file.put_stream(
-        output, f"{temp_stage}/{filename}", auto_compress=False, overwrite=True,
+        output,
+        f"{temp_stage}/{filename}",
+        auto_compress=False,
+        overwrite=True,
     )
     link = session.sql(
         f"select GET_PRESIGNED_URL({temp_stage},'{filename}')",
@@ -479,7 +488,10 @@ def get_downloadlink_nomd(label, filename, output):
     temp_stage = get_temp_stage()
     output.seek(0)
     session.file.put_stream(
-        output, f"{temp_stage}/{filename}", auto_compress=False, overwrite=True,
+        output,
+        f"{temp_stage}/{filename}",
+        auto_compress=False,
+        overwrite=True,
     )
     link = session.sql(
         f"select GET_PRESIGNED_URL({temp_stage},'{filename}')",
@@ -515,7 +527,9 @@ def can_refresh(reference, reset=True):
 def generateExcelFile(dataFrame, sheetName, linkName, fileName):
     output = io.BytesIO()
     with pd.ExcelWriter(
-        output, engine="xlsxwriter", engine_kwargs={"options": {"in_memory": True}},
+        output,
+        engine="xlsxwriter",
+        engine_kwargs={"options": {"in_memory": True}},
     ) as writer:
         dataFrame.to_excel(writer, sheet_name=sheetName, index=False)
     st.info(
@@ -598,7 +612,8 @@ def paginated_import_dependency_table(dataset: pd.DataFrame, key_prefix):
         if current_page == 1:
             page_to_display = reset_index(page_to_display)
         page_to_display = page_to_display.style.apply(
-            _highlight_dependencies_row, axis=1,
+            _highlight_dependencies_row,
+            axis=1,
         )
 
     pagination.dataframe(data=page_to_display, use_container_width=True)
@@ -628,7 +643,8 @@ def add_total_row(page_to_display):
     )
 
     page_to_display = pd.concat(
-        [page_to_display.reset_index(drop=True), total_row], ignore_index=True,
+        [page_to_display.reset_index(drop=True), total_row],
+        ignore_index=True,
     )
     return page_to_display
 
@@ -648,26 +664,32 @@ def IAAIcon():
         unsafe_allow_html=True,
     )
 
+
 def reset_index(df: pd.DataFrame) -> pd.DataFrame:
     df_indexed = df.copy()
-    df_indexed.index = np.arange(1, len(df)+1)
+    df_indexed.index = np.arange(1, len(df) + 1)
     return df_indexed
 
 
-def register_app_log(session: Session,
-                     message: str,
-                     application: str = Applications.IAA,
-                     customer_email: str = None,
-                     execution_id: str = None):
+def register_app_log(
+    session: Session,
+    message: str,
+    application: str = Applications.IAA,
+    customer_email: str = None,
+    execution_id: str = None,
+):
     try:
         final_message = message.replace("'", "")
         db = session.get_current_database()
         schema = session.get_current_schema()
-        query = f"CALL {db}.{schema}.INSERT_APP_LOG('{application}','{final_message}','{customer_email}','{execution_id}')"
+        query = (
+            f"CALL {db}.{schema}.INSERT_APP_LOG('{application}','{final_message}','{customer_email}','{execution_id}')"
+        )
 
         session.sql(query).collect()
     except Exception as e:
         print(e)
+
 
 def convert_to_int(value: str) -> int:
     try:
