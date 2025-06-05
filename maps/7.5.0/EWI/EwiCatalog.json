@@ -1,0 +1,1739 @@
+[
+  {
+    "EWI_CODE": "SPRKPY1000",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Source project spark-core version is {0}, the spark-core version supported by snowpark is 2.12:3.1.2 so there may be functional differences between the existing mappings",
+    "GENERAL_DESCRIPTION": "The current source project spark-core version is not supported version. The spark-core version supported by snowpark is 2.12:3.1.2 so there may be functional differences between the existing mappings",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1001",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "This code section has parsing errors",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1002",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not supported",
+    "GENERAL_DESCRIPTION": "Spark element is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1003",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "An error occurred when loading the symbol table",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1004",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The symbol table could not be loaded",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1005",
+    "ELEMENT": "pyspark.conf.SparkConf",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.8.0",
+    "SHORT_DESCRIPTION": "{0} is not required",
+    "GENERAL_DESCRIPTION": "Element is not required",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1006",
+    "ELEMENT": "pyspark.context.SparkContext",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.8.0",
+    "SHORT_DESCRIPTION": "{0} is not required",
+    "GENERAL_DESCRIPTION": "Element is not required",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1007",
+    "ELEMENT": "pyspark.sql.context.SQLContext",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.8.0",
+    "SHORT_DESCRIPTION": "{0} is not required",
+    "GENERAL_DESCRIPTION": "Element is not required",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1008",
+    "ELEMENT": "pyspark.sql.context.HiveContext",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not required",
+    "GENERAL_DESCRIPTION": "Element is not required",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1009",
+    "ELEMENT": "pyspark.sql.dataframe.DataFrame.approxQuantile",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1010",
+    "ELEMENT": "pyspark.sql.dataframe.DataFrame.checkpoint",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1011",
+    "ELEMENT": "pyspark.sql.dataframe.DataFrameStatFunctions.approxQuantile",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1012",
+    "ELEMENT": "pyspark.sql.dataframe.DataFrameStatFunctions.writeTo",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1013",
+    "ELEMENT": "pyspark.sql.functions.acosh",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "7.2.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1014",
+    "ELEMENT": "pyspark.sql.functions.asinh",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "7.2.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1015",
+    "ELEMENT": "pyspark.sql.functions.atanh",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1016",
+    "ELEMENT": "pyspark.sql.functions.collect_set",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.11.7",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1017",
+    "ELEMENT": "pyspark.sql.functions.date_add",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.8.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1018",
+    "ELEMENT": "pyspark.sql.functions.date_sub",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.8.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1019",
+    "ELEMENT": "pyspark.sql.functions.datediff",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.8.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1020",
+    "ELEMENT": "pyspark.sql.functions.instr",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "7.2.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1021",
+    "ELEMENT": "pyspark.sql.functions.last",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1022",
+    "ELEMENT": "pyspark.sql.functions.log10",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "7.2.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1023",
+    "ELEMENT": "pyspark.sql.functions.log1p",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "7.2.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1024",
+    "ELEMENT": "pyspark.sql.functions.log2",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "7.2.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1025",
+    "ELEMENT": "pyspark.sql.functions.ntile",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1026",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.csv",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.3.2",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1027",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.json",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.5.2",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1028",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.orc",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1029",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.parquet",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "This issue appears when the tool detects the usage of pyspark.sql.readwriter.DataFrameReader.parquet. This function is supported, but some of the differences between Snowpark and the Spark API might require making some manual changes.",
+    "GENERAL_DESCRIPTION": "The parquet function require adjustments.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1030",
+    "ELEMENT": "pyspark.sql.session.SparkSession.Builder.appName",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1031",
+    "ELEMENT": "pyspark.sql.column.Column.contains",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.7.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1032",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not defined",
+    "GENERAL_DESCRIPTION": "Spark element is not defined",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1033",
+    "ELEMENT": "pyspark.sql.functions.asc",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1034",
+    "ELEMENT": "pyspark.sql.functions.desc",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1035",
+    "ELEMENT": "pyspark.sql.functions.reverse",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1036",
+    "ELEMENT": "pyspark.sql.column.Column.getField",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1037",
+    "ELEMENT": "pyspark.sql.functions.sort_array",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1038",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not yet recognized",
+    "GENERAL_DESCRIPTION": "Package is not yet recognized",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1039",
+    "ELEMENT": "pyspark.sql.column.Column.getItem",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1040",
+    "ELEMENT": "pyspark.sql.functions.explode",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1041",
+    "ELEMENT": "pyspark.sql.functions.explode_outer",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.9.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1042",
+    "ELEMENT": "pyspark.sql.functions.posexplode",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1043",
+    "ELEMENT": "pyspark.sql.functions.posexplode_outer",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1044",
+    "ELEMENT": "pyspark.sql.functions.split",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.4.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1045",
+    "ELEMENT": "pyspark.sql.functions.map_values",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1046",
+    "ELEMENT": "pyspark.sql.functions.monotonically_increasing_id",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.1.22",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1047",
+    "ELEMENT": "pyspark.context.SparkContext.setLogLevel",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.6.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1048",
+    "ELEMENT": "pyspark.sql.session.SparkSession.conf",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.4.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1049",
+    "ELEMENT": "pyspark.sql.session.SparkSession.sparkContext",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.1.9",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1050",
+    "ELEMENT": "pyspark.conf.SparkConf.set",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1051",
+    "ELEMENT": "pyspark.sql.session.SparkSession.Builder.master",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.4.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1052",
+    "ELEMENT": "pyspark.sql.session.SparkSession.Builder.enableHiveSupport",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.8.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1053",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "An error occurred when extracting the dbc files. Additional message: {0}",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1054",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.format",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "pyspark.sql.readwriter.DataFrameReader.format with argument value {1} is not supported.",
+    "GENERAL_DESCRIPTION": "This issue appears when the pyspark.sql.readwriter.DataFrameReader.format argument is not supported by SnowFlake.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1055",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.option",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "pyspark.sql.readwriter.DataFrameReader.option with key value {0} is not supported.",
+    "GENERAL_DESCRIPTION": "This issue appears when the pyspark.sql.readwriter.DataFrameReader.option key value is not supported by SnowFlake.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1056",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.option",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "pyspark.sql.readwriter.DataFrameReader.option argument {0} is not a literal and can't be evaluated",
+    "GENERAL_DESCRIPTION": "Option argument contains a value that is not a literal, therefore cannot be evaluated",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1057",
+    "ELEMENT": "pyspark.sql.DataFrameReader.option",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.8.0",
+    "SHORT_DESCRIPTION": "{0} with argument(s) value(s) ({1}) is not supported",
+    "GENERAL_DESCRIPTION": "Function with argument(s) value(s) (args) is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1058",
+    "ELEMENT": "spark.conf.get",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} Platform specific key is not supported.",
+    "GENERAL_DESCRIPTION": "Key is not supported with Platform specific key.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1059",
+    "ELEMENT": "pyspark.storagelevel.StorageLevel",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.45.1",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1060",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The authentication mechanism is connection.json (template provided).",
+    "GENERAL_DESCRIPTION": "Spark element requires assistance",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1061",
+    "ELEMENT": "pyspark.sql.functions.unix_timestamp",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Snowpark does not support unix_timestamp functions with more than two parameters or with no parameters. See documentation for more info.",
+    "GENERAL_DESCRIPTION": "unix_timestamp function parameters is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1062",
+    "ELEMENT": "pyspark.sql.group.GroupedData.pivot",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Some parameters of {0} are not supported. See documentation for more info.",
+    "GENERAL_DESCRIPTION": "Some parameters of Function are not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1063",
+    "ELEMENT": "pyspark.sql.pandas.functions.pandas_udf",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "pyspark.sql.pandas.functions.pandas_udf has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1064",
+    "ELEMENT": "pyspark.streaming",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The element does not apply since snowflake uses snowpipe mechanism instead.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1065",
+    "ELEMENT": "pyspark.context.SparkContext.broadcast",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The element does not apply since snowflake use data-clustering mechanism to compute the data.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1066",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The element does not apply since snowflake use micro-partitioning mechanism are created automatically.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1067",
+    "ELEMENT": "pyspark.sql.functions.split",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Snowpark does not support split functions with more than two parameters or containing regex pattern. See documentation for more info.",
+    "GENERAL_DESCRIPTION": "Split function parameter is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1068",
+    "ELEMENT": "pyspark.sql.DataFrame.toPandas",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "\"{0} is not supported if there are columns of type ArrayType, but it has a workaround. See documentation for more info.\"",
+    "GENERAL_DESCRIPTION": "toPandas function that is not supported when it has columns of type ArrayType",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1069",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameWriter.parquet",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "If partitionBy parameter is a list, Snowpark will throw and error.",
+    "GENERAL_DESCRIPTION": "Partition by parameter does not support list value",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1070",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The 'mode' argument is transformed to 'overwrite', check the variable value and set the corresponding bool value.",
+    "GENERAL_DESCRIPTION": "Overwrite value must be bool",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1071",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The getNumPartitions are not required in Snowpark. So, you should remove all references.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1072",
+    "ELEMENT": "pyspark.StorageLevel",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The storage level is not required in Snowpark. So, you should remove all references.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1073",
+    "ELEMENT": "pyspark.sql.functions.udf ",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} {1} without {2} is not supported. See documentation for more info.",
+    "GENERAL_DESCRIPTION": "Udf function without parameters or return type is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1074",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "File has mixed indentation (spaces and tabs).",
+    "GENERAL_DESCRIPTION": "File has mixed indentation",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1075",
+    "ELEMENT": "pyspark.sql.functions.from_json",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The parse_json does not apply schema validation, if you need to filter/validate based on schema you might need to introduce some logic. Please check the documentation for more detail.",
+    "GENERAL_DESCRIPTION": "the parse_json function does not apply schema validation",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1076",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Some of the included parameters are not supported in the {0} function, the supported ones will be added into a option method.",
+    "GENERAL_DESCRIPTION": "Some Parameters are not supported.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1077",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "SQL embedded code cannot be processed.",
+    "GENERAL_DESCRIPTION": "There is a SQL embedded that can not be processed.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1078",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not a literal value and therefore could not be evaluated. Make sure the value of {0} is a valid level in Snowpark. Valid log levels are: logging.CRITICAL, logging.DEBUG, logging.ERROR, logging.INFO, logging.NOTSET, logging.WARNING",
+    "GENERAL_DESCRIPTION": "The argument of the setLogLevel function is not a literal value and therefore could not be evaluated",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1079",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not a valid PySpark log level, therefore an equivalent could not be determined in Snowpark. Valid PySpark log levels are: ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN",
+    "GENERAL_DESCRIPTION": "The argument of the setLogLevel function is not a valid PySpark log level.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1080",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The value of SparkContext is replaced with 'session' variable.",
+    "GENERAL_DESCRIPTION": "The value of SparkContext is replaced with 'session' variable.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1081",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameWriter.partitionBy",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.12.0",
+    "SHORT_DESCRIPTION": "The partitionBy function is not supported. The workaround is to use copy_into_location instead. See the documentation for more info.",
+    "GENERAL_DESCRIPTION": "The partitionBy function has a workaround.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1082",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameReader.load",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The pyspark.sql.readwriter.DataFrameReader.load function is not supported. A workaround is to use Snowpark DataFrameReader format specific method instead (avro csv, json, orc, parquet). The path parameter should be a stage location.",
+    "GENERAL_DESCRIPTION": "The load function has a workaround.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1083",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameWriter.save",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The pyspark.sql.readwriter.DataFrameWriter.save function is not supported. A workaround is to use Snowpark DataFrameWriter copy_into_location method instead.",
+    "GENERAL_DESCRIPTION": "The save function has a workaround.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1084",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameWriter.option",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.12.0",
+    "SHORT_DESCRIPTION": "The pyspark.sql.readwriter.DataFrameWriter.option function is not supported.",
+    "GENERAL_DESCRIPTION": "The DataFrameWriter.option function is not supported.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1085",
+    "ELEMENT": "pyspark.ml.feature.VectorAssembler",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The pyspark.ml.feature.VectorAssembler function is not supported.",
+    "GENERAL_DESCRIPTION": "The pyspark.ml.feature.VectorAssembler function is not supported.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1086",
+    "ELEMENT": "pyspark.ml.linalg.VectorUDT",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The pyspark.ml.linalg.VectorUDT function is not supported.",
+    "GENERAL_DESCRIPTION": "The pyspark.ml.linalg.VectorUDT function is not supported.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1087",
+    "ELEMENT": "pyspark.sql.dataframe.DataFrame.writeTo",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The pyspark.sql.dataframe.DataFrame.writeTo function is not supported, but it has a workaround.",
+    "GENERAL_DESCRIPTION": "The DataFrame.writeTo function has a workaround.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1088",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameWriter.option",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The pyspark.sql.readwriter.DataFrameWriter.option values in Snowpark may be different, so required validation might be needed.",
+    "GENERAL_DESCRIPTION": "Option values in Snowpark may be different, so required validation might be needed.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1089",
+    "ELEMENT": "pyspark.sql.readwriter.DataFrameWriter.options",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The pyspark.sql.readwriter.DataFrameWriter.options values in Snowpark may be different, so required validation might be needed.",
+    "GENERAL_DESCRIPTION": "Option values in Snowpark may be different, so required validation might be needed.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1090",
+    "ELEMENT": "pyspark.sql.types.StructType.fieldNames",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The returned list of field names is in uppercase.",
+    "GENERAL_DESCRIPTION": "The returned list of field names is in uppercase and is not case-sensitive.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1091",
+    "ELEMENT": "pyspark.sql.functions.concat_ws",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The _concat_ws_ignore_nulls function converts column aliases to uppercase and encloses them in double quotes.",
+    "GENERAL_DESCRIPTION": "Column name is in upper case and wrapped in double quotes.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1101",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "This code section has recovery from parsing errors {0}",
+    "GENERAL_DESCRIPTION": "This code section has recovery from parsing errors.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "PNDSPY1001",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not supported, Pandas element is not supported yet.",
+    "GENERAL_DESCRIPTION": "Pandas element is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "PNDSPY1002",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a partial mapping, with few scenarios not supported in Snowpark. Check Snowpark Pandas documentation for more detail.",
+    "GENERAL_DESCRIPTION": "There are scenarios not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "PNDSPY1003",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not recognized, Pandas element is not recognized yet.",
+    "GENERAL_DESCRIPTION": "Package is not yet recognized",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "PNDSPY1004",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a direct mapping, but it's restricted to running on a single node. As a result, performance may be impacted,\nespecially with large datasets.",
+    "GENERAL_DESCRIPTION": "This elements has a low performance",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1000",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Source project spark-core version is {0}, the spark-core version supported by snowpark is 2.12:3.1.2 so there may be functional differences between the existing mappings",
+    "GENERAL_DESCRIPTION": "The current source project spark-core version is not supported version. The spark-core version supported by snowpark is 2.12:3.1.2 so there may be functional differences between the existing mappings",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1001",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "This code section has parsing errors",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1002",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "This code section has recovery from parsing errors {0}",
+    "GENERAL_DESCRIPTION": "This code section has recovery from parsing errors.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1100",
+    "ELEMENT": "org.apache.spark.sql.DataFrame.repartition",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "2.3.22",
+    "SHORT_DESCRIPTION": "org.apache.spark.sql.DataFrame.repartition is not supported",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1101",
+    "ELEMENT": "org.apache.spark.sql.functions.broadcast",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "2.3.22",
+    "SHORT_DESCRIPTION": "Broadcast is not supported",
+    "GENERAL_DESCRIPTION": "Broadcast function has workarounds",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1102",
+    "ELEMENT": "org.apache.spark.sql.functions.explode",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "2.3.22",
+    "SHORT_DESCRIPTION": "org.apache.spark.sql.functions.explode is not supported",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1103",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "SparkBuilder method is not supported {0}",
+    "GENERAL_DESCRIPTION": "SparkBuilder method is not supported ***method name***",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1104",
+    "ELEMENT": "org.apache.spark.sql.SparkSession.Builder.config",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "Spark Session builder option is not supported.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1105",
+    "ELEMENT": "org.apache.spark.sql.DataframeWriter.format",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "Writer format value is not supported.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1106",
+    "ELEMENT": "org.apache.spark.sql.DataframeWriter.option",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "1.0.1",
+    "SHORT_DESCRIPTION": "Writer option is not supported.",
+    "GENERAL_DESCRIPTION": "This issue appears when the tool detects, in writer statement, the usage of an option not supported by Snowpark.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1107",
+    "ELEMENT": "org.apache.spark.sql.DataframeWriter.save",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "1.0.1",
+    "SHORT_DESCRIPTION": "Writer save is not supported.",
+    "GENERAL_DESCRIPTION": "This issue appears when the tool detects, in writer statement, the usage of save method not supported by Snowpark.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1108",
+    "ELEMENT": "org.apache.spark.sql.DataFrameReader.format",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "org.apache.spark.sql.DataFrameReader.format",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1109",
+    "ELEMENT": "org.apache.spark.sql.DataFrameReader.option",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "The parameter of org.apache.spark.sql.DataFrameReader.option function is not defined.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1110",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "The method on DataFrameReader method chaining is not supported.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1111",
+    "ELEMENT": "org.apache.spark.sql.types.DataTypes.CreateDecimalType",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "org.apache.spark.sql.types.DataTypes.CreateDecimalType function is not supported.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1112",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not supported",
+    "GENERAL_DESCRIPTION": "Spark element is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1113",
+    "ELEMENT": "org.apache.spark.sql.functions.next_day",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1114",
+    "ELEMENT": "org.apache.spark.sql.functions.repeat",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1115",
+    "ELEMENT": "org.apache.spark.sql.functions.round",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.6.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1116",
+    "ELEMENT": "org.apache.spark.sql.functions.split",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.40.1",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1117",
+    "ELEMENT": "org.apache.spark.sql.functions.translate",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.40.1",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1118",
+    "ELEMENT": "org.apache.spark.sql.functions.trunc",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1119",
+    "ELEMENT": "org.apache.spark.sql.Column.endsWith",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1120",
+    "ELEMENT": "org.apache.spark.sql.functions.asin",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1121",
+    "ELEMENT": "org.apache.spark.sql.functions.atan",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1122",
+    "ELEMENT": "org.apache.spark.sql.functions.corr",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1123",
+    "ELEMENT": "org.apache.spark.sql.functions.cos",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1124",
+    "ELEMENT": "org.apache.spark.sql.functions.cosh",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1125",
+    "ELEMENT": "org.apache.spark.sql.functions.count",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "2.9.0",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1126",
+    "ELEMENT": "org.apache.spark.sql.functions.covar_pop",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1127",
+    "ELEMENT": "org.apache.spark.sql.functions.covar_samp",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1128",
+    "ELEMENT": "org.apache.spark.sql.functions.exp",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1129",
+    "ELEMENT": "org.apache.spark.sql.functions.floor",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1130",
+    "ELEMENT": "org.apache.spark.sql.functions.greatest",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1131",
+    "ELEMENT": "org.apache.spark.sql.functions.grouping",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1132",
+    "ELEMENT": "org.apache.spark.sql.functions.grouping_id",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1133",
+    "ELEMENT": "org.apache.spark.sql.functions.least",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1134",
+    "ELEMENT": "org.apache.spark.sql.functions.log",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1135",
+    "ELEMENT": "org.apache.spark.sql.functions.mean",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.3.2",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1136",
+    "ELEMENT": "org.apache.spark.sql.functions.min",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.3.2",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1137",
+    "ELEMENT": "org.apache.spark.sql.functions.sin",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1138",
+    "ELEMENT": "org.apache.spark.sql.functions.sinh",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1139",
+    "ELEMENT": "org.apache.spark.sql.functions.sqrt",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1140",
+    "ELEMENT": "org.apache.spark.sql.functions.stddev",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1141",
+    "ELEMENT": "org.apache.spark.sql.functions.stddev_pop",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1142",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not defined",
+    "GENERAL_DESCRIPTION": "Spark element is not defined",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1143",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "An error occurred when loading the symbol table",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1144",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The symbol table could not be loaded",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1145",
+    "ELEMENT": "org.apache.spark.sql.functions.sumDistinct",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1146",
+    "ELEMENT": "org.apache.spark.sql.functions.tan",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1147",
+    "ELEMENT": "org.apache.spark.sql.functions.tanh",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1148",
+    "ELEMENT": "org.apache.spark.sql.functions.toDegrees",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1149",
+    "ELEMENT": "org.apache.spark.sql.functions.toRadians",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1150",
+    "ELEMENT": "org.apache.spark.sql.functions.var_pop",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1151",
+    "ELEMENT": "org.apache.spark.sql.functions.var_samp",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1152",
+    "ELEMENT": "org.apache.spark.sql.functions.variance",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1153",
+    "ELEMENT": "org.apache.spark.sql.functions.max",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.3.2",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1154",
+    "ELEMENT": "org.apache.spark.sql.functions.ceil",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1155",
+    "ELEMENT": "org.apache.spark.sql.functions.countDistinct",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.3.2",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1156",
+    "ELEMENT": "org.apache.spark.sql.functions.degrees",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1157",
+    "ELEMENT": "org.apache.spark.sql.functions.kurtosis",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1158",
+    "ELEMENT": "org.apache.spark.sql.functions.skewness",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1159",
+    "ELEMENT": "org.apache.spark.sql.functions.stddev_samp",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} has a workaround, see documentation for more info",
+    "GENERAL_DESCRIPTION": "Spark element has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1160",
+    "ELEMENT": "org.apache.spark.sql.functions.sum",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "4.1.0",
+    "SHORT_DESCRIPTION": "org.apache.spark.sql.functions.sum has a workaround",
+    "GENERAL_DESCRIPTION": "org.apache.spark.sql.functions.sum has a workaround",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1161",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Failed to add {0} dependency",
+    "GENERAL_DESCRIPTION": "Failed to add some SnowConvert dependency",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1162",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "An error occurred when extracting the dbc files.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1163",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not a literal and can't be evaluated",
+    "GENERAL_DESCRIPTION": "Option argument contains a value that is not a literal, therefore cannot be evaluated",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1164",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "The parameter {0} is not defined for org.apache.spark.sql.DataFrameReader.option",
+    "GENERAL_DESCRIPTION": "The parameter for org.apache.spark.sql.DataFrameReader.option is not defined",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1165",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Reader format on DataFrameReader method chaining can't be defined",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1166",
+    "ELEMENT": "org.apache.spark.sql.DataFrameReader.format",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "org.apache.spark.sql.DataFrameReader.format is not supported",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1167",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Project file not found on input folder",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1168",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} with argument(s) value(s) ({1}) is not supported",
+    "GENERAL_DESCRIPTION": "Function with argument(s) value(s) (args) is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1169",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Function '{0}' is missing on the method chaining",
+    "GENERAL_DESCRIPTION": "Some function is missing on the method chaining",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1170",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "0.0.0",
+    "SHORT_DESCRIPTION": "{0} is not supported with Platform specific key.",
+    "GENERAL_DESCRIPTION": "Key is not supported with Platform specific key.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1171",
+    "ELEMENT": "org.apache.spark.sql.functions.split",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Snowpark does not support split functions with more than two parameters or containing regex pattern. See documentation for more info.",
+    "GENERAL_DESCRIPTION": "Split function parameter is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1172",
+    "ELEMENT": "org.apache.spark.sql.types.StructField.apply",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Snowpark does not support StructFiled with metadata parameter.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1173",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "SQL embedded code cannot be processed.",
+    "GENERAL_DESCRIPTION": "There is a SQL embedded that can not be processed.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKHVSQL1001",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Unrecognized token on line {0} column {1} of the source code starting at '{2}'",
+    "GENERAL_DESCRIPTION": "Unrecognized token of the source code",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKHVSQL1002",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not supported",
+    "GENERAL_DESCRIPTION": "SQL statement is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKHVSQL1003",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Snowflake does not support the following command",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKHVSQL1004",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Information from underlying data files can not be recovered",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKHVSQL1005",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "TblProperty is not supported. {0}",
+    "GENERAL_DESCRIPTION": "TblProperty is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKHVSQL1006",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The element {0} is not mapped yet.",
+    "GENERAL_DESCRIPTION": "The element is not mapped yet",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSPSQL1001",
+    "ELEMENT": "",
+    "CATEGORY": "ParsingError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Unrecognized token on line {0} column {1} of the source code starting at '{2}'",
+    "GENERAL_DESCRIPTION": "Unrecognized token of the source code.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSPSQL1002",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "{0} is not supported",
+    "GENERAL_DESCRIPTION": "SQL statement is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSPSQL1003",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The name expression {0} is currently not supported.",
+    "GENERAL_DESCRIPTION": "",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSPSQL1004",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Pending functional equivalence for binary expression",
+    "GENERAL_DESCRIPTION": "Pending functional equivalence for binary expression",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSPSQL1005",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "TblProperty is not supported. {0}",
+    "GENERAL_DESCRIPTION": "TblProperty is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSPSQL1006",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The element {0} is not mapped yet.",
+    "GENERAL_DESCRIPTION": "The element is not mapped yet",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSPSQL1007",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Create Widget is not supported",
+    "GENERAL_DESCRIPTION": "Create Widget is not supported",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1174",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The single-parameter udf function is supported in Snowpark but it might require manual intervention. Please check the documentation to learn how to manually modify the code to make it work in Snowpark.",
+    "GENERAL_DESCRIPTION": "The single-parameter udf function is supported in Snowpark but it might require manual intervention.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKSCL1175",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The two-parameter udf function is not supported in Snowpark. It should be converted into a single-parameter udf function. Please check the documentation to learn how to manually modify the code to make it work in Snowpark.",
+    "GENERAL_DESCRIPTION": "The two-parameter udf function is not supported in Snowpark.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKDBX1000",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Then %{0} magic command is not supported in Snowsight. It is necessary to rewrite code.",
+    "GENERAL_DESCRIPTION": "Magic commands are not supported in Snowsight. It is necessary to rewrite the code.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKDBX1001",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "The %run command has a partial mapping, because it has a different behavior in Snowpark.",
+    "GENERAL_DESCRIPTION": "This element has a partial mapping. Its behavior may be different in Snowpark",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKDBX1002",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Scala cells code are not supported in Snowsight. It is necessary to rewrite the Scala code in Python.",
+    "GENERAL_DESCRIPTION": "Only SQL, Python and Markdown are available in Snowsight. It is necessary to rewrite the Scala code in Python.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKDBX1003",
+    "ELEMENT": "",
+    "CATEGORY": "ConversionError",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "R cells code are not supported in Snowsight. It is necessary to rewrite the R code in Python.",
+    "GENERAL_DESCRIPTION": "Only SQL, Python and Markdown are available in Snowsight. It is necessary to rewrite the Scala code in Python.",
+    "LONG_DESCRIPTION": ""
+  }
+]
