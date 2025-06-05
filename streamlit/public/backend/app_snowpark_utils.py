@@ -47,7 +47,6 @@ _tables_metadata = {
         ("SCALA_READINESS_SCORE", sftype.STRING),
         ("SQL_READINESS_SCORE", sftype.STRING),
         ("THIRD_PARTY_READINESS_SCORE", sftype.STRING),
-        ("SAS_READINESS_SCORE", sftype.STRING),
     ],
     TABLE_INPUT_FILES_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -81,7 +80,6 @@ _tables_metadata = {
         ("SNOWPARK_VERSION", sftype.STRING),
         ("CELL_ID", sftype.BIGINT),
         ("PARAMETERS_INFO", sftype.VARIANT),
-        ("IS_SAS_SUPPORTED", sftype.STRING),
     ],
     TABLE_IMPORT_USAGES_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -153,7 +151,6 @@ _tables_metadata = {
         ("SNOWFLAKE_SUPPORTED", sftype.BOOLEAN),
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
-        ("IS_SAS_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_MAPPINGS_CORE_PYSPARK: [
         ("CATEGORY", sftype.STRING),
@@ -170,7 +167,6 @@ _tables_metadata = {
         ("SNOWFLAKE_SUPPORTED", sftype.BOOLEAN),
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
-        ("IS_SAS_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_REPORT_URL: [
         ("EXECUTION_ID", sftype.STRING),

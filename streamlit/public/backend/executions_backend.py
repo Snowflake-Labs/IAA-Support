@@ -92,18 +92,22 @@ def generate_selected_executions_dataframe(executions_dataframe, selected=False)
             COLUMN_TOTAL_LINES_OF_CODE,
             COLUMN_TOTAL_CODE_FILES,
             COLUMN_SPARK_API_READINESS_SCORE,
-            COLUMN_SAS_READINESS_SCORE,
         )
         .withColumnRenamed(COLUMN_EXECUTION_ID, FRIENDLY_NAME_EXECUTION_ID)
-        .withColumnRenamed(COLUMN_EXECUTION_TIMESTAMP, FRIENDLY_NAME_EXECUTION_TIMESTAMP)
+        .withColumnRenamed(
+            COLUMN_EXECUTION_TIMESTAMP,
+            FRIENDLY_NAME_EXECUTION_TIMESTAMP,
+        )
         .withColumnRenamed(COLUMN_PROJECT_NAME, FRIENDLY_NAME_PROJECT_NAME)
         .withColumnRenamed(COLUMN_PROJECT_ID, FRIENDLY_NAME_PROJECT_ID)
         .withColumnRenamed(COLUMN_CLIENT_EMAIL, FRIENDLY_NAME_CLIENT_EMAIL)
         .withColumnRenamed(COLUMN_TOOL_NAME, FRIENDLY_NAME_TOOL_NAME)
         .withColumnRenamed(COLUMN_TOTAL_LINES_OF_CODE, FRIENDLY_NAME_LINES_OF_CODE)
         .withColumnRenamed(COLUMN_TOTAL_CODE_FILES, FRIENDLY_NAME_TOTAL_CODE_FILES)
-        .withColumnRenamed(COLUMN_SPARK_API_READINESS_SCORE, FRIENDLY_NAME_READINESS_SCORE)
-        .withColumnRenamed(COLUMN_SAS_READINESS_SCORE, FRIENDLY_NAME_SAS_READINESS_SCORE)
+        .withColumnRenamed(
+            COLUMN_SPARK_API_READINESS_SCORE,
+            FRIENDLY_NAME_READINESS_SCORE,
+        )
     )
     return selected_executions_friendly_name
 
