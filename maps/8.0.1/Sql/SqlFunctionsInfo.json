@@ -1,0 +1,3914 @@
+[
+  {
+    "Element": "ANY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ANY_VALUE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "APPROX_COUNT_DISTINCT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "APPROX_PERCENTILE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_AGG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AVG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIT_AND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIT_OR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIT_XOR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BITMAP_CONSTRUCT_AGG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BITMAP_OR_AGG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BOOL_AND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BOOL_OR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COLLECT_LIST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COLLECT_SET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CORR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COUNT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COUNT_IF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COUNT_MIN_SKETCH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COVAR_POP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COVAR_SAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EVERY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FIRST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FIRST_VALUE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GROUPING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GROUPING_ID",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HISTOGRAM_NUMERIC",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HLL_SKETCH_AGG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HLL_UNION_AGG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "KURTOSIS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LAST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LAST_VALUE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAX_BY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MEAN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MEDIAN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MIN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MIN_BY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PERCENTILE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PERCENTILE_APPROX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_AVGX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_AVGY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_COUNT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_INTERCEPT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_R2",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_SLOPE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_SXX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_SXY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGR_SYY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SKEWNESS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SOME",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STDDEV",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STDDEV_POP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STDDEV_SAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SUM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_AVG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_SUM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VAR_POP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VAR_SAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VARIANCE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ABS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ACOS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ACOSH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ADD_MONTHS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AES_DECRYPT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AES_ENCRYPT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AGGREGATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_ANALYZE_SENTIMENT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_CLASSIFY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_EXTRACT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_FIX_GRAMMAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_FORECAST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_GEN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_GENERATE_TEXT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_MASK",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_QUERY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_SIMILARITY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_SUMMARIZE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AI_TRANSLATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "APPROX_TOP_K",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_APPEND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_COMPACT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_CONTAINS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_DISTINCT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_EXCEPT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_INSERT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_INTERSECT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_JOIN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_MAX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_MIN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_POSITION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_PREPEND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_REMOVE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_REPEAT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_SIZE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_SORT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_UNION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAYS_OVERLAP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAYS_ZIP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ASCII",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ASIN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ASINH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ASSERT_TRUE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ATAN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ATAN2",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ATANH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BASE64",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BETWEEN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIGINT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BINARY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIT_COUNT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIT_GET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIT_LENGTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIT_REVERSE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BITMAP_BIT_POSITION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BITMAP_BUCKET_NUMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BITMAP_COUNT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BOOLEAN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BROUND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BTRIM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CARDINALITY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CAST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CBRT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CEIL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CEILING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CHAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CHAR_LENGTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CHARACTER_LENGTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CHARINDEX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CHR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CLOUD_FILES_STATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COALESCE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONCAT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONCAT_WS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONTAINS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONV",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONVERT_TIMEZONE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COSH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CRC32",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CSC",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CUBE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CUME_DIST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURDATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_CATALOG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_DATABASE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_DATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_METASTORE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_RECIPIENT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_SCHEMA",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_TIMEZONE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_USER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_VERSION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_ADD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_DIFF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_FORMAT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_FROM_UNIX_DATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_PART",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_SUB",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_TRUNC",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATEADD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATEDIFF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DAY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DAYOFMONTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DAYOFWEEK",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DAYOFYEAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DECIMAL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DECODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DEGREES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DENSE_RANK",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DIV",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DOUBLE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "E",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ELEMENT_AT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ELT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ENCODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ENDSWITH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EQUAL_NULL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EVENT_LOG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXISTS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXPLODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXPLODE_OUTER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXPM1",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXTRACT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FACTORIAL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FILTER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FIND_IN_SET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FLATTEN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FLOAT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FLOOR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FORALL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FORMAT_NUMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FORMAT_STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FROM_CSV",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FROM_JSON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FROM_UNIXTIME",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FROM_UTC_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FROM_XML",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GET_JSON_OBJECT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GETBIT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GETDATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GREATEST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_BOUNDARYASGEOJSON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_BOUNDARYASWKB",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_BOUNDARYASWKT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_CENTERASGEOJSON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_CENTERASWKB",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_CENTERASWKT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_COMPACT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_COVERASH3",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_COVERASH3STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_DISTANCE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_H3TOSTRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_HEXRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_ISCHILDOF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_ISPENTAGON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_ISVALID",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_KRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_KRINGDISTANCES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_LONGLATASH3",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_LONGLATASH3STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_MAXCHILD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_MINCHILD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_POINTASH3",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_POINTASH3STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_POLYFILLASH3",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_POLYFILLASH3STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_RESOLUTION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_STRINGTOH3",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_TESSELLATEASWKB",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_TOCHILDREN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_TOPARENT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_TRY_DISTANCE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_TRY_POLYFILLASH3",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_TRY_POLYFILLASH3STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_TRY_VALIDATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_UNCOMPACT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "H3_VALIDATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HASH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HEX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HLL_SKETCH_ESTIMATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HLL_UNION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HOUR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HYPOT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IFF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IFNULL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ILIKE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INITCAP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INLINE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INLINE_OUTER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INPUT_FILE_BLOCK_LENGTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INPUT_FILE_BLOCK_START",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INPUT_FILE_NAME",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INSTR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IS_ACCOUNT_GROUP_MEMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IS_MEMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IS_VARIANT_NULL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ISNAN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ISNOTNULL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ISNULL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "JAVA_METHOD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "JSON_ARRAY_LENGTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "JSON_OBJECT_KEYS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "JSON_TUPLE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LAG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LAST_DAY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LCASE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LEAD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LEAST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LEFT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LEN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LENGTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LEVENSHTEIN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LIKE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LIST_SECRETS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOCATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOG10",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOG1P",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOG2",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOWER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LPAD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LTRIM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LUHN_CHECK",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAKE_DATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAKE_DT_INTERVAL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAKE_INTERVAL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAKE_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAKE_YM_INTERVAL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_CONCAT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_CONTAINS_KEY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_ENTRIES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_FILTER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_FROM_ARRAYS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_FROM_ENTRIES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_KEYS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_VALUES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_ZIP_WITH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MASK",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MD5",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MINUTE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MOD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MONOTONICALLY_INCREASING_ID",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MONTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MONTHS_BETWEEN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NAMED_STRUCT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NANVL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NEGATIVE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NEXT_DAY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NOT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NOW",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NTH_VALUE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NTILE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NULLIF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NVL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NVL2",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "OCTET_LENGTH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "OR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "OVERLAY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PARSE_JSON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PARSE_URL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PERCENT_RANK",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PERCENTILE_CONT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PERCENTILE_DISC",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PI",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PMOD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POSEXPLODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POSEXPLODE_OUTER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POSITION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POSITIVE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POW",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POWER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PRINTF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "QUARTER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RADIANS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RAISE_ERROR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RAND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RANDN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RANDOM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "READ_FILES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "READ_KAFKA",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "READ_KINESIS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "READ_PUBSUB",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "READ_PULSAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "READ_STATE_METADATA",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "READ_STATESTORE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REDUCE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REFLECT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_COUNT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_EXTRACT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_EXTRACT_ALL",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_INSTR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_LIKE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_REPLACE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_SUBSTR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REPEAT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REPLACE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REVERSE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RIGHT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RINT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RLIGHT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ROW_NUMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RPAD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RTRIM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SCHEMA_OF_CSV",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SCHEMA_OF_JSON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SCHEMA_OF_JSON_AGG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SCHEMA_OF_VARIANT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SCHEMA_OF_VARIANT_AGG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SCHEMA_OF_XML",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SEC",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SECOND",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SECRET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SENTENCES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SEQUENCE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SESSION_USER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SESSION_WINDOW",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHA",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHA1",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHA2",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHIFTLEFT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHIFTRIGHT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHIFTRIGHTUNSIGNED",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHUFFLE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SIGN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SIGNUM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SIN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SINH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SIZE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SLICE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SMALLINT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SORT_ARRAY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SOUNDEX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SPACE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SPARK_PARTITION_ID",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SPLIT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SPLIT_PART",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SQL_KEYWORDS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SQRT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STACK",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STARTSWITH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STR_TO_MAP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STRUCT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SUBSTR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SUBSTRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SUBSTRING_INDEX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TABLE_CHANGES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TAN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TANH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TIMEDIFF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TIMESTAMP_MICROS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TIMESTAMP_MILLIS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TIMESTAMP_SECONDS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TIMESTAMPADD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TIMESTAMPDIFF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TINYINT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_BINARY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_CHAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_CSV",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_DATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_JSON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_NUMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_UNIX_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_UTC_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_VARCHAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_XML",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRANSFORM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRANSFORM_KEYS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRANSFORM_VALUES",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRANSLATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRIM",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRUNC",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_ADD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_AES_DECRYPT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_CAST",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_DIVIDE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_ELEMENT_AT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_MOD",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_MULTIPLY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_PARSE_JSON",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_REFLECT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_SECRET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_SUBTRACT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_TO_BINARY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_TO_NUMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_TO_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_URL_DECODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_VARIANT_GET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRY_ZSTD_DECOMPRESS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TYPEOF",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UCASE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNBASE64",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNHEX",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNIX_DATE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNIX_MICROS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNIX_MILLIS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNIX_SECONDS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNIX_TIMESTAMP",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UPPER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "URL_DECODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "URL_ENCODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "USER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UUID",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VARIANT_EXPLODE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VARIANT_EXPLODE_OUTER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VARIANT_GET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VECTOR_SEARCH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VERSION",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "WEEKDAY",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "WEEKOYEAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "WIDTH_BUCKET",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "WINDOW_TIME",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_BOOLEAN",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_DOUBLE",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_FLOAT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_INT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_LONG",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_NUMBER",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_SHORT",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XPATH_STRING",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "XXHASH64",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "YEAR",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ZIP_WITH",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ZSTD_COMPRESS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ZSTD_DECOMPRESS",
+    "Flavor": "SparkSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ROUND",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BROUND",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FLOOR",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CEIL",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CEILING",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RAND",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXP",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOG10",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOG2",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOG",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POW",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POWER",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SQRT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BIN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HEX",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNHEX",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONV",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ABS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PMOD",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SIN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ASIN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ACOS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TAN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ATAN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DEGREES",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RADIANS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "POSITIVE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NEGATIVE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SIGN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "E",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PI",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FACTORIAL",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CBRT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHIFTLEFT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHIFTRIGHT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHIFTRIGHTUNSIGNED",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GREATEST",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LEAST",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "WIDTH_BUCKET",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SIZE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_KEYS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MAP_VALUES",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ARRAY_CONTAINS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SORT_ARRAY",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BINARY",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CAST",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FROM_UNIXTIME",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNIX_TIMESTAMP",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_DATE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "YEAR",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "QUARTER",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MONTH",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DAY",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HOUR",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MINUTE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SECOND",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "WEEKOFYEAR",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "EXTRACT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATEDIFF",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_ADD",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_SUB",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FROM_UTC_TIMESTAMP",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TO_UTC_TIMESTAMP",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_DATE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_TIMESTAMP",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ADD_MONTHS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LAST_DAY",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NEXT_DAY",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRUNC",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MONTHS_BETWEEN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DATE_FORMAT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IF",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ISNULL",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ISNOTNULL",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NVL",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "COALESCE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NULLIF",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ASSERT_TRUE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ASCII",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "BASE64",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CHARACTER_LENGTH",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CHR",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONCAT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONTEXT_NGRAMS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CONCAT_WS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "DECODE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ELT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "ENCODE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FIELD",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FIND_IN_SET",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "FORMAT_NUMBER",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "GET_JSON_OBJECT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "IN_FILE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INSTR",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LENGTH",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOCATE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOWER",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LPAD",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LTRIM",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "NGRAMS",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "OCTET_LENGTH",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PARSE_URL",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "PRINTF",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "QUOTE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_EXTRACT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REGEXP_REPLACE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REPEAT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REPLACE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REVERSE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RPAD",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "RTRIM",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SENTENCES",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SPACE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SPLIT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "STR_TO_MAP",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SUBSTR",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SUBSTRING_INDEX",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRANSLATE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "TRIM",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UNBASE64",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "UPPER",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "INITCAP",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LEVENSHTEIN",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SOUNDEX",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MASK",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MASK_FIRST_N",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MASK_HASH",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MASK_LAST_N",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MASK_SHOW_FIRST_N",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MASK_SHOW_LAST_N",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "JAVA_METHOD",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "REFLECT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "HASH",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_USER",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "LOGGED_IN_USER",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CURRENT_DATABASE",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "MD5",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHA1",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHA",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "CRC32",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SHA2",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AES_ENCRYPT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "AES_DECRYPT",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "VERSION",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  },
+  {
+    "Element": "SURROGATE_KEY",
+    "Flavor": "HiveSql",
+    "Category": "Built-In",
+    "MigrationStatus": "Pending"
+  }
+]
