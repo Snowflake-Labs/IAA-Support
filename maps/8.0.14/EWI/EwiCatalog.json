@@ -828,6 +828,33 @@
     "LONG_DESCRIPTION": ""
   },
   {
+    "EWI_CODE": "SPRKPY1092",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "At least one statement with backslash was removed, a manual backslash addition may be needed.",
+    "GENERAL_DESCRIPTION": "A statement with backslash was removed.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1093",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "Jdbc connection option {0} is not supported. Try adding it manually to the pyodbc connection placeholders.",
+    "GENERAL_DESCRIPTION": "Jdbc option is not supported.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
+    "EWI_CODE": "SPRKPY1094",
+    "ELEMENT": "",
+    "CATEGORY": "Warning",
+    "DEPRECATED_VERSION": "",
+    "SHORT_DESCRIPTION": "PyOdbc connection requires the installment of the following driver: {0}.",
+    "GENERAL_DESCRIPTION": "Driver installment is required.",
+    "LONG_DESCRIPTION": ""
+  },
+  {
     "EWI_CODE": "SPRKPY1101",
     "ELEMENT": "",
     "CATEGORY": "ParsingError",
