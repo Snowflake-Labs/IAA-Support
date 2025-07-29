@@ -6,6 +6,7 @@ from public.backend import app_snowpark_utils as utils
 from public.backend.app_snowpark_utils import convert_to_int
 from public.backend.globals import *
 from public.backend.query_quality_handler import with_table_quality_handler
+from public.backend.utils import normalize_path_column
 from snowflake.snowpark.dataframe import DataFrame
 from snowflake.snowpark.dataframe import DataFrame as SnowparkDataFrame
 from snowflake.snowpark.functions import col, concat, count, ifnull, lit, lower, parse_json, replace, when
@@ -166,8 +167,19 @@ def get_user_code_files_information(execution_id_list: list) -> pandas.DataFrame
 def get_artifacts_dependency_table_data(execution_id_list: list, selected_files_list: list = None) -> DataFrame:
     session = utils.get_session()
     artifactsTable = session.table(TABLE_ARTIFACT_DEPENDENCY_INVENTORY)
-    table_data = with_table_quality_handler(artifactsTable, TABLE_ARTIFACT_DEPENDENCY_INVENTORY).where(
-        col(COLUMN_EXECUTION_ID).isin(execution_id_list),
+    table_data = (
+        with_table_quality_handler(artifactsTable, TABLE_ARTIFACT_DEPENDENCY_INVENTORY)
+        .where(
+            col(COLUMN_EXECUTION_ID).isin(execution_id_list),
+        )
+        .with_column(
+            COLUMN_FILE_ID,
+            normalize_path_column(COLUMN_FILE_ID),
+        )
+        .with_column(
+            COLUMN_DEPENDENCY,
+            normalize_path_column(COLUMN_DEPENDENCY),
+        )
     )
 
     if selected_files_list is not None and len(selected_files_list) > 0:
@@ -415,8 +427,15 @@ def get_islands_summary(islands: list, execution_id: str, selected: bool = False
 def get_artifacts_summary_table_data(execution_id_list: list, selected_files_list: list = None) -> DataFrame:
     session = utils.get_session()
     artifactsSummaryTable = session.table(TABLE_ARTIFACT_DEPENDENCY_SUMMARY)
-    table_data = with_table_quality_handler(artifactsSummaryTable, TABLE_ARTIFACT_DEPENDENCY_SUMMARY).where(
-        col(COLUMN_EXECUTION_ID).isin(execution_id_list),
+    table_data = (
+        with_table_quality_handler(artifactsSummaryTable, TABLE_ARTIFACT_DEPENDENCY_SUMMARY)
+        .where(
+            col(COLUMN_EXECUTION_ID).isin(execution_id_list),
+        )
+        .with_column(
+            COLUMN_FILE_ID,
+            normalize_path_column(COLUMN_FILE_ID),
+        )
     )
 
     if selected_files_list is not None and len(selected_files_list) > 0:
@@ -438,7 +457,7 @@ def update_island_column(islands: list, execution_id: str):
             artifactsSummaryTable.update(
                 {
                     COLUMN_ISLAND_ID: when(
-                        col(COLUMN_FILE_ID).isin(island_files),
+                        normalize_path_column(COLUMN_FILE_ID).isin(island_files),
                         lit(island_number + 1),
                     ).otherwise(col(COLUMN_ISLAND_ID)),
                 },
