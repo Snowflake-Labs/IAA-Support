@@ -2,8 +2,10 @@ import streamlit as st
 
 import public.frontend.empty_screen as emptyScreen
 import public.frontend.error_handling as errorHandling
+
 from public.backend import dbx_elements_backend
 from public.backend.globals import *
+
 
 SEARCH_BY_ELEMENT_KEY = "search_by_element"
 SEARCH_BY_CATEGORY_KEY = "search_by_category"
@@ -17,20 +19,21 @@ def validate_search_key(key, value):
     if key not in st.session_state:
         st.session_state[key] = value
 
+
 def initialize_search_keys():
-    validate_search_key(SEARCH_BY_ELEMENT_KEY, '')
+    validate_search_key(SEARCH_BY_ELEMENT_KEY, "")
     validate_search_key(SEARCH_BY_CATEGORY_KEY, ALL_KEY)
     validate_search_key(SEARCH_BY_KIND_KEY, ALL_KEY)
     validate_search_key(SEARCH_BY_SUPPORTED_KEY, ALL_KEY)
     validate_search_key(SEARCH_BY_AUTOMATED_KEY, ALL_KEY)
     validate_search_key(SEARCH_BY_STATUS_KEY, ALL_KEY)
 
-def print_dbx_table(df) -> None:
 
+def print_dbx_table(df) -> None:
     if df is None or df.shape[0] <= 0:
         st.info("No dbx elements detected.")
         return
-    elif df.shape[0] > 1000:
+    if df.shape[0] > 1000:
         st.warning(f"{df.shape[0]} rows found. Showing first 1000.")
         files_df_to_show = df.head(1000)
     else:
@@ -38,9 +41,9 @@ def print_dbx_table(df) -> None:
 
     st.dataframe(files_df_to_show, use_container_width=True, hide_index=True)
 
+
 @errorHandling.executeFunctionWithErrorHandling
 def dbx_elements_review(execution_list) -> None:
-
     if execution_list is None or len(execution_list) <= 0:
         emptyScreen.show()
     else:
@@ -65,10 +68,18 @@ def dbx_elements_review(execution_list) -> None:
                 kind = st.selectbox("Search by element type", key=SEARCH_BY_KIND_KEY, options=kinds)
 
             with col4:
-                supported = st.selectbox("Search by supported", key=SEARCH_BY_SUPPORTED_KEY, options=[ALL_KEY, "True", "False"])
+                supported = st.selectbox(
+                    "Search by supported",
+                    key=SEARCH_BY_SUPPORTED_KEY,
+                    options=[ALL_KEY, "True", "False"],
+                )
 
             with col5:
-                automated = st.selectbox("Search by automated", key=SEARCH_BY_AUTOMATED_KEY, options=[ALL_KEY, "True", "False"])
+                automated = st.selectbox(
+                    "Search by automated",
+                    key=SEARCH_BY_AUTOMATED_KEY,
+                    options=[ALL_KEY, "True", "False"],
+                )
 
             with col6:
                 status = st.selectbox("Search by status", key=SEARCH_BY_STATUS_KEY, options=status_list)

@@ -12,3 +12,5 @@ dependencies:
   - streamlit=1.44.0
   - jira=2.0.0
   - google-api-python-client=2.159.0
+  - networkx=3.4.2
+  - pyvis=0.3.2

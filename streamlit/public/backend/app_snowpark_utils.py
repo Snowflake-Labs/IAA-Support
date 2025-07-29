@@ -47,6 +47,7 @@ _tables_metadata = {
         ("SCALA_READINESS_SCORE", sftype.STRING),
         ("SQL_READINESS_SCORE", sftype.STRING),
         ("THIRD_PARTY_READINESS_SCORE", sftype.STRING),
+        ("SNOWPARK_CONNECT_READINESS_SCORE", sftype.STRING),
     ],
     TABLE_INPUT_FILES_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -80,6 +81,7 @@ _tables_metadata = {
         ("SNOWPARK_VERSION", sftype.STRING),
         ("CELL_ID", sftype.BIGINT),
         ("PARAMETERS_INFO", sftype.VARIANT),
+        ("IS_SNOWPARK_CONNECT_SUPPORTED", sftype.STRING),
     ],
     TABLE_IMPORT_USAGES_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -151,6 +153,7 @@ _tables_metadata = {
         ("SNOWFLAKE_SUPPORTED", sftype.BOOLEAN),
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
+        ("IS_SNOWPARK_CONNECT_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_MAPPINGS_CORE_PYSPARK: [
         ("CATEGORY", sftype.STRING),
@@ -167,6 +170,7 @@ _tables_metadata = {
         ("SNOWFLAKE_SUPPORTED", sftype.BOOLEAN),
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
+        ("IS_SNOWPARK_CONNECT_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_REPORT_URL: [
         ("EXECUTION_ID", sftype.STRING),
@@ -187,6 +191,12 @@ _tables_metadata = {
         ("STATUS_DETAIL", sftype.STRING),
         ("ARGUMENTS", sftype.VARIANT),
         ("LOCATION", sftype.VARIANT),
+        ("INDIRECT_DEPENDENCIES", sftype.STRING),
+        ("TOTAL_INDIRECT_DEPENDENCIES", sftype.BIGINT),
+        ("DIRECT_PARENTS", sftype.STRING),
+        ("TOTAL_DIRECT_PARENTS", sftype.BIGINT),
+        ("INDIRECT_PARENTS", sftype.STRING),
+        ("TOTAL_INDIRECT_PARENTS", sftype.BIGINT),
     ],
     TABLE_DBX_ELEMENTS_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -204,6 +214,18 @@ _tables_metadata = {
         ("SNOWCONVERT_CORE_VERSION", sftype.STRING),
         ("CELL_ID", sftype.BIGINT),
         ("TECHNOLOGY", sftype.STRING),
+    ],
+    TABLE_ARTIFACT_DEPENDENCY_SUMMARY: [
+        ("EXECUTION_ID", sftype.STRING),
+        ("FILE_ID", sftype.STRING),
+        ("ISLAND_ID", sftype.BIGINT),
+        ("TOTAL_USER_CODE_FILE", sftype.BIGINT),
+        ("TOTAL_IO_SOURCES", sftype.BIGINT),
+        ("TOTAL_THIRD_PARTY_LIBRARIES", sftype.BIGINT),
+        ("TOTAL_UNKNOWN_LIBRARIES", sftype.BIGINT),
+        ("TOTAL_SQL_OBJECT", sftype.BIGINT),
+        ("TOTAL_DEPENDENCIES", sftype.BIGINT),
+        ("TOTAL_ISSUES", sftype.BIGINT),
     ],
 }
 

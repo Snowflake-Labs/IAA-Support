@@ -101,7 +101,9 @@ def execution_metrics(execution_ids):
             fig.update_traces(textposition="outside")
 
             st.plotly_chart(
-                fig, use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False}
+                fig,
+                use_container_width=True,
+                config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False},
             )
 
         with files_technology:
@@ -123,7 +125,9 @@ def execution_metrics(execution_ids):
             fig.update_traces(textangle=0, textfont_size=14)
             fig.update_traces(textposition="outside")
             st.plotly_chart(
-                fig, use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False}
+                fig,
+                use_container_width=True,
+                config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False},
             )
 
 
@@ -233,15 +237,9 @@ def _artifact_dependencies_reports(found_executions):
     st.markdown("<br/>", unsafe_allow_html=True)
     artifact_dependency_review(found_executions)
 
-def _dbx_elements_reports(found_executions):
-    title_section = f'<strong style="font-size: 24px;">Dbx Elements</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
-    st.markdown("<br/>", unsafe_allow_html=True)
-    dbx_elements_review(found_executions)
-
 
 def _dbx_elements_reports(found_executions):
-    title_section = f'<strong style="font-size: 24px;">Dbx Elements</strong>'
+    title_section = '<strong style="font-size: 24px;">Dbx Elements</strong>'
     st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     dbx_elements_review(found_executions)

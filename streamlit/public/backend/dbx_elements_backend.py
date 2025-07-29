@@ -1,33 +1,46 @@
-from typing import List
-
 import pandas
-from snowflake.snowpark.dataframe import DataFrame
-from snowflake.snowpark.functions import col
 
 from public.backend import app_snowpark_utils as utils
-from public.backend.globals import TABLE_DBX_ELEMENTS_INVENTORY, COLUMN_EXECUTION_ID, COLUMN_ELEMENT, \
-    COLUMN_CATEGORY, COLUMN_FILE_ID, \
-    FRIENDLY_NAME_CODE_FILE_PATH, COLUMN_KIND, COLUMN_LINE, COLUMN_PACKAGE_NAME, FRIENDLY_NAME_PACKAGE_NAME, \
-    COLUMN_SUPPORTED, COLUMN_STATUS, COLUMN_CELL_ID, FRIENDLY_NAME_CELL_ID, COLUMN_AUTOMATED, ALL_KEY, \
-    FRIENDLY_NAME_TYPE, COLUMN_TYPE
+from public.backend.globals import (
+    ALL_KEY,
+    COLUMN_AUTOMATED,
+    COLUMN_CATEGORY,
+    COLUMN_CELL_ID,
+    COLUMN_ELEMENT,
+    COLUMN_EXECUTION_ID,
+    COLUMN_FILE_ID,
+    COLUMN_KIND,
+    COLUMN_LINE,
+    COLUMN_PACKAGE_NAME,
+    COLUMN_STATUS,
+    COLUMN_SUPPORTED,
+    COLUMN_TYPE,
+    FRIENDLY_NAME_CELL_ID,
+    FRIENDLY_NAME_CODE_FILE_PATH,
+    FRIENDLY_NAME_PACKAGE_NAME,
+    FRIENDLY_NAME_TYPE,
+    TABLE_DBX_ELEMENTS_INVENTORY,
+)
 from public.backend.query_quality_handler import with_table_quality_handler
+from snowflake.snowpark.dataframe import DataFrame
+from snowflake.snowpark.functions import col
 
 
 def get_dbx_elements_inventory_table_data():
     session = utils.get_session()
     table_data = with_table_quality_handler(
-        session.table(TABLE_DBX_ELEMENTS_INVENTORY), TABLE_DBX_ELEMENTS_INVENTORY
+        session.table(TABLE_DBX_ELEMENTS_INVENTORY),
+        TABLE_DBX_ELEMENTS_INVENTORY,
     )
     return table_data
 
 
-def get_dbx_elements_inventory_table_data_by_execution_id(execution_id_list: List) -> DataFrame:
-    data = get_dbx_elements_inventory_table_data() \
-        .where((col(COLUMN_EXECUTION_ID).isin(execution_id_list)))
+def get_dbx_elements_inventory_table_data_by_execution_id(execution_id_list: list) -> DataFrame:
+    data = get_dbx_elements_inventory_table_data().where(col(COLUMN_EXECUTION_ID).isin(execution_id_list))
     return data
 
 
-def get_dbx_elements(execution_id_list: List) -> pandas.DataFrame:
+def get_dbx_elements(execution_id_list: list) -> pandas.DataFrame:
     dbx_data = get_dbx_elements_inventory_table_data_by_execution_id(execution_id_list)
     dbx_data = dbx_data.select(
         col(COLUMN_ELEMENT),
@@ -47,14 +60,14 @@ def get_dbx_elements(execution_id_list: List) -> pandas.DataFrame:
 
 
 def get_dbx_elements_filtered(
-        df: pandas.DataFrame,
-        element: str = None,
-        category: str = None,
-        kind: str = None,
-        supported: str = None,
-        automated: str = None,
-        status: str = None
-    ) -> pandas.DataFrame:
+    df: pandas.DataFrame,
+    element: str = None,
+    category: str = None,
+    kind: str = None,
+    supported: str = None,
+    automated: str = None,
+    status: str = None,
+) -> pandas.DataFrame:
     if element:
         df = df[df[COLUMN_ELEMENT].str.contains(element, case=False, na=False)]
     if category and category != ALL_KEY:
