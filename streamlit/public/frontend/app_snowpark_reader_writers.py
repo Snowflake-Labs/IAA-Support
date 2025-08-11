@@ -6,12 +6,12 @@ import public.frontend.error_handling as errorHandling
 
 from public.backend import io_files_backend, telemetry
 from public.backend.globals import *
+from public.backend.utils import TextType, render_text_with_style
 
 
 @errorHandling.executeFunctionWithErrorHandling
 def review_readers_writers(executionIds):
-    title_section = '<strong style="font-size: 24px;">Reader Writers</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Reader Writers", TextType.PAGE_TITLE)
     st.markdown("<br/>", unsafe_allow_html=True)
     if executionIds is None or len(executionIds) <= 0:
         emptyScreen.show()

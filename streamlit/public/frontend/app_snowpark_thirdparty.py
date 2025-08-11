@@ -6,12 +6,12 @@ import public.frontend.error_handling as errorHandling
 
 from public.backend import telemetry, third_party_usages_backend
 from public.backend.globals import *
+from public.backend.utils import TextType, render_text_with_style
 
 
 @errorHandling.executeFunctionWithErrorHandling
 def third_party_review(executionIds):
-    title_section = '<strong style="font-size: 24px;">Third Party</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Third Party", TextType.PAGE_TITLE)
     st.markdown("<br/>", unsafe_allow_html=True)
     if executionIds is None or len(executionIds) <= 0:
         emptyScreen.show()
@@ -26,10 +26,7 @@ def third_party_review(executionIds):
             executionIds,
         )
 
-        if (
-            CATEGORIES_FILTER in st.session_state
-            and len(st.session_state[CATEGORIES_FILTER]) > 0
-        ):
+        if CATEGORIES_FILTER in st.session_state and len(st.session_state[CATEGORIES_FILTER]) > 0:
             df = df[df[COLUMN_CATEGORY].isin(st.session_state[CATEGORIES_FILTER])]
 
         if df is None or df.shape[0] <= 0:

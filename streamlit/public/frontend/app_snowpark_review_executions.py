@@ -9,6 +9,7 @@ import public.frontend.search_bar as search_bar_component
 from public.backend import files_backend, summary_metrics_backend
 from public.backend.color_bar import *
 from public.backend.globals import *
+from public.backend.utils import TextType, get_font_properties, render_text_with_style
 from public.frontend import empty_screen, error_handling
 from public.frontend.app_artifact_dependency_review import artifact_dependency_review
 from public.frontend.app_dbx_elements_review import dbx_elements_review
@@ -23,7 +24,7 @@ def execution_metrics(execution_ids):
     with st.spinner("General metrics..."):
         st.text(" ")
         st.text(" ")
-        st.subheader("Summary Metrics")
+        render_text_with_style("Summary Metrics", TextType.SUBTITLE)
         st.text(" ")
         st.text(" ")
 
@@ -45,7 +46,7 @@ def execution_metrics(execution_ids):
         col1, col2, col3 = st.columns(3, gap="large")
 
         with col1:
-            st.markdown("Spark API Readiness Score")
+            render_text_with_style("Spark API Readiness Score", TextType.CARD_TITLE)
             score = summary_metrics_backend.get_readiness_score(execution_ids)
             bar_color = get_bar_color(score)
             icon = get_icon(score)
@@ -54,7 +55,7 @@ def execution_metrics(execution_ids):
                 unsafe_allow_html=True,
             )
         with col2:
-            st.markdown("Third Party API Readiness Score")
+            render_text_with_style("Third Party API Readiness Score", TextType.CARD_TITLE)
             score = summary_metrics_backend.get_third_party_readiness_score(
                 execution_ids,
             )
@@ -66,7 +67,7 @@ def execution_metrics(execution_ids):
             )
         with col3:
             score = summary_metrics_backend.get_sql_readiness_score(execution_ids)
-            st.markdown("SQL Readiness Score")
+            render_text_with_style("SQL Readiness Score", TextType.CARD_TITLE)
             bar_color = get_bar_color(score)
             icon = get_icon(score)
             st.markdown(
@@ -80,7 +81,7 @@ def execution_metrics(execution_ids):
         )
 
         loc_technology, files_technology = st.columns(2)
-
+        chart_style = get_font_properties(TextType.CHART_TITLE)
         with loc_technology:
             fig = px.bar(
                 df_loc_technology,
@@ -96,6 +97,8 @@ def execution_metrics(execution_ids):
                 xaxis_title="",
                 yaxis_title="",
                 yaxis={"categoryorder": "total ascending"},
+                title_font_family=chart_style.get("family"),
+                title_font_size=chart_style.get("font_size"),
             )
             fig.update_traces(textangle=0, textfont_size=14)
             fig.update_traces(textposition="outside")
@@ -121,6 +124,8 @@ def execution_metrics(execution_ids):
                 xaxis_title="",
                 yaxis_title="",
                 yaxis={"categoryorder": "total ascending"},
+                title_font_family=chart_style.get("family"),
+                title_font_size=chart_style.get("font_size"),
             )
             fig.update_traces(textangle=0, textfont_size=14)
             fig.update_traces(textposition="outside")
@@ -136,7 +141,7 @@ def select_execution():
     st.text(" ")
     st.text(" ")
     if st.session_state["sidebar_option"] == "Execution":
-        st.markdown("""### Select an Execution""")
+        render_text_with_style("Select an Execution", TextType.PAGE_TITLE)
         st.text(" ")
 
         url = "https://github.com/Snowflake-Labs/IAA-Support/blob/main/docs/UserGuide.md"
@@ -223,8 +228,7 @@ def _home_landing_page():
 
 
 def _dependencies_reports(found_executions):
-    title_section = '<strong style="font-size: 24px;">Dependencies</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Dependencies", TextType.PAGE_TITLE)
     st.markdown("<br/>", unsafe_allow_html=True)
     with st.expander("Import Library Dependency Data Table"):
         rw.import_library_dependency(found_executions)
@@ -232,15 +236,13 @@ def _dependencies_reports(found_executions):
 
 
 def _artifact_dependencies_reports(found_executions):
-    title_section = '<strong style="font-size: 24px;">Artifacts Dependencies</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Artifacts Dependencies", TextType.PAGE_TITLE)
     st.markdown("<br/>", unsafe_allow_html=True)
     artifact_dependency_review(found_executions)
 
 
 def _dbx_elements_reports(found_executions):
-    title_section = '<strong style="font-size: 24px;">Dbx Elements</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Dbx Elements", TextType.PAGE_TITLE)
     st.markdown("<br/>", unsafe_allow_html=True)
     dbx_elements_review(found_executions)
 
@@ -270,8 +272,7 @@ def _handle_review_option(option, found_executions):
 def _code_tree_map(found_executions):
     executions = files_backend.get_input_files_by_execution_id_grouped_by_technology(found_executions)
     total_files = executions[backend.COLUMN_FILES].sum()
-    title_section = '<strong style="font-size: 24px;">Code Tree Map</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Code Tree Map", TextType.PAGE_TITLE)
     st.info(
         f"This assessment has a total of {total_files} files. This treemap can be used to identify folders were most of the code is grouped.",
     )

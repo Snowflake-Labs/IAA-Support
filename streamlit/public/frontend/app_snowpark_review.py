@@ -12,6 +12,7 @@ import public.frontend.error_handling as errorHandling
 from public.backend import app_snowpark_utils as utils
 from public.backend import files_backend, import_backend, report_url_backend, spark_usages_backend, telemetry
 from public.backend.globals import *
+from public.backend.utils import TextType, get_font_properties, render_text_with_style
 from public.frontend.app_snowpark_dependency_report import dependency_report
 from public.frontend.app_snowpark_treemap import buildTreemap
 
@@ -22,7 +23,7 @@ feedbackCreationResponses = []
 def createLinkElement(element):
     query = f'project="SCT" and summary ~ "{element}" ORDER BY created DESC'
     query = urllib.parse.quote(query)
-    return f'[{element.replace("]", "").replace("[", "")}](https://snowflakecomputing.atlassian.net/jira/software/c/projects/SCT/issues/?jql={query})'
+    return f"[{element.replace(']', '').replace('[', '')}](https://snowflakecomputing.atlassian.net/jira/software/c/projects/SCT/issues/?jql={query})"
 
 
 @errorHandling.executeFunctionWithErrorHandling
@@ -32,13 +33,13 @@ def generateInventories(executionIds):
 
 
 def additional_inventory(executionIds):
-    title_additional_inventory = '<strong style="font-size: 20px;">Additional Inventories</strong>'
-    st.markdown(title_additional_inventory, unsafe_allow_html=True)
+    render_text_with_style("Additional Inventories", TextType.SUBTITLE)
     st.markdown(
         """The Snowpark Migration Accelerator (SMA) generates multiple inventory files every time the tool is executed. These inventory files are available to the user in the local “Reports” output folder. All of these files are also available by clicking the Generate Additional Inventory Files checkbox below. After selecting the checkbox, a link to each file will be made available. Click on the filename to download it locally.""",
     )
     if st.checkbox(
-            "Generate Additional Inventory Files", key="generateAdditionalFiles",
+        "Generate Additional Inventory Files",
+        key="generateAdditionalFiles",
     ):
         execid = st.selectbox("Execution", executionIds)
         with st.spinner("Getting SMA output download links..."):
@@ -50,10 +51,8 @@ def additional_inventory(executionIds):
 
 
 def inventory_file(executionIds):
-    title_section = '<strong style="font-size: 24px;">Inventories</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
-    title_inventory_file = '<strong style="font-size: 20px;">Inventory File</strong>'
-    st.markdown(title_inventory_file, unsafe_allow_html=True)
+    render_text_with_style("Inventories", TextType.PAGE_TITLE)
+    render_text_with_style("Inventory File", TextType.SUBTITLE)
     st.markdown(
         """
                 The Inventory File is a list of all files found in this codebase. The number of code lines, comment lines, blank lines, and size (in bytes) is given in this spreadsheet.
@@ -73,23 +72,18 @@ def inventory_file(executionIds):
 
 @errorHandling.executeFunctionWithErrorHandling
 def assesmentReport(executionIds):
-    title_section = '<strong style="font-size: 24px;">Assessment Report</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Assessment Report", TextType.PAGE_TITLE)
     st.markdown("<br/>", unsafe_allow_html=True)
-    dfAllExecutions = (
-        files_backend.get_input_files_by_execution_id_grouped_by_technology(
-            executionIds,
-        )
+    dfAllExecutions = files_backend.get_input_files_by_execution_id_grouped_by_technology(
+        executionIds,
     )
     selectedExecutionId = st.selectbox(
         "Select an Execution ID to generate the report.",
         executionIds,
         key="selectExecId",
     )
-    df_filtered_executions = (
-        files_backend.get_input_files_by_execution_id_grouped_by_technology(
-            [selectedExecutionId],
-        )
+    df_filtered_executions = files_backend.get_input_files_by_execution_id_grouped_by_technology(
+        [selectedExecutionId],
     )
     df_filtered_executions = utils.reset_index(df_filtered_executions)
     st.dataframe(df_filtered_executions)
@@ -104,18 +98,14 @@ def assesmentReport(executionIds):
 
     if len(df_docx) > 0:
         with st.columns(3)[0]:
-            if (
-                df_docx[0][COLUMN_RELATIVE_REPORT_PATH]
-                is not None
-            ):
+            if df_docx[0][COLUMN_RELATIVE_REPORT_PATH] is not None:
                 get_report_download_button(df_docx[0][COLUMN_RELATIVE_REPORT_PATH])
     return total_files
 
 
 @errorHandling.executeFunctionWithErrorHandling
 def mappings(execution_ids):
-    title_section = '<strong style="font-size: 24px;">Mappings</strong>'
-    st.markdown(title_section, unsafe_allow_html=True)
+    render_text_with_style("Mappings", TextType.PAGE_TITLE)
     st.markdown("<br/>", unsafe_allow_html=True)
     df = spark_usages_backend.get_spark_usages_by_execution_id_grouped_by_status(
         execution_ids,
@@ -130,13 +120,15 @@ def mappings(execution_ids):
                 icon="💡",
                 body=f"Visit the [documentation]({DOC_URL}) to better understand the workaround comments.",
             )
-            category = st.selectbox("Pick a category", getUnsuppportedStatusList(),
-                                    format_func=lambda x: re.sub(r"(?<!\bWor)(\w)([A-Z])", r"\1 \2", x))
-
-        df_filtered = (
-            spark_usages_backend.get_spark_usages_by_execution_id_filtered_by_status(
-                execution_ids, category,
+            category = st.selectbox(
+                "Pick a category",
+                getUnsuppportedStatusList(),
+                format_func=lambda x: re.sub(r"(?<!\bWor)(\w)([A-Z])", r"\1 \2", x),
             )
+
+        df_filtered = spark_usages_backend.get_spark_usages_by_execution_id_filtered_by_status(
+            execution_ids,
+            category,
         )
         if df_filtered is not None:
             df_filtered.rename(columns={"TOOLVERSION": "TOOL VERSION"}, inplace=True)
@@ -195,11 +187,10 @@ def mappings_aux(df):
 
 
 @errorHandling.executeFunctionWithErrorHandling
-def sparkInfo(df, executionIds, title_font_size=20):
+def sparkInfo(df, executionIds):
     st.text(" ")
     st.text(" ")
-    readiness_files_title = f'<strong style="font-size: {title_font_size}px;">Readiness Files Distribution</strong>'
-    st.markdown(readiness_files_title, unsafe_allow_html=True)
+    render_text_with_style("Readiness Files Distribution", TextType.PAGE_TITLE)
     with st.columns(2)[0]:
         columnLeft, columnCenter, columnRight = st.columns(3)
         with columnLeft:
@@ -210,13 +201,12 @@ def sparkInfo(df, executionIds, title_font_size=20):
                 value=df[[backend.FRIENDLY_NAME_LINES_OF_CODE]].sum(),
             )
         with columnRight:
-            avg_readiness = (
-                0 if df.empty else df[[backend.COLUMN_READINESS]].mean().round(2)
-            )
+            avg_readiness = 0 if df.empty else df[[backend.COLUMN_READINESS]].mean().round(2)
             st.metric(label="Average Readiness", value=avg_readiness)
     df = utils.reset_index(df)
     styled_df = df.style.applymap(
-        backend.getReadinessBackAndForeColorsStyle, subset=[backend.COLUMN_READINESS],
+        backend.getReadinessBackAndForeColorsStyle,
+        subset=[backend.COLUMN_READINESS],
     )
 
     readyToMigrateCount = len(df[df[backend.COLUMN_READINESS] >= 80])
@@ -269,7 +259,7 @@ def sparkInfo(df, executionIds, title_font_size=20):
 
 
 @errorHandling.executeFunctionWithErrorHandling
-def readinessFile(executionIds, title_font_size=20):
+def readinessFile(executionIds):
     files_with_spark_usages = files_backend.get_files_with_spark_usages_by_execution_id(
         executionIds,
     )
@@ -279,24 +269,26 @@ def readinessFile(executionIds, title_font_size=20):
         )
     )
 
-    input_files_by_execution_id_and_counted_by_technology = utils.reset_index(input_files_by_execution_id_and_counted_by_technology)
-    readiness_by_file_title_section = f'<strong style="font-size: {title_font_size + 4}px;">Readiness by File</strong>'
-    st.markdown(readiness_by_file_title_section, unsafe_allow_html=True)
+    input_files_by_execution_id_and_counted_by_technology = utils.reset_index(
+        input_files_by_execution_id_and_counted_by_technology,
+    )
+    render_text_with_style("Readiness by File", TextType.PAGE_TITLE)
 
-    files_count_title = f'<strong style="font-size: {title_font_size}px;">Files Count by Technology</strong>'
-    st.markdown(files_count_title, unsafe_allow_html=True)
-
+    chart_style = get_font_properties(TextType.CHART_TITLE)
     fig = px.bar(
         input_files_by_execution_id_and_counted_by_technology,
         text_auto=True,
         y=backend.COLUMN_TECHNOLOGY,
         x=backend.COLUMN_COUNT,
+        title="Files Count by Technology",
     )
     fig.update_layout(
         yaxis_title="Technology",
         xaxis_title="Total files count",
         xaxis={"visible": True, "showticklabels": True},
         yaxis={"categoryorder": "total ascending"},
+        title_font_size=chart_style.get("font_size"),
+        title_font_family=chart_style.get("family"),
     )
     fig.update_traces(textangle=0, textfont_size=14)
     st.plotly_chart(fig, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False})
@@ -304,7 +296,7 @@ def readinessFile(executionIds, title_font_size=20):
     if st.checkbox("Show data table", key="bcxShowDataTablefilesBytech"):
         st.dataframe(input_files_by_execution_id_and_counted_by_technology)
 
-    sparkInfo(files_with_spark_usages, executionIds, title_font_size=title_font_size)
+    sparkInfo(files_with_spark_usages, executionIds)
 
 
 @errorHandling.executeFunctionWithErrorHandling
@@ -338,11 +330,15 @@ def review(execution_ids):
                 st.info(
                     f"This assessment has a total of {total_files} files. This treemap can be used to identify folders were most of the code is grouped.",
                 )
-                st.plotly_chart(buildTreemap(execution_ids), use_container_width=True, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False})
+                st.plotly_chart(
+                    buildTreemap(execution_ids),
+                    use_container_width=True,
+                    config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False},
+                )
         with st.expander("Mappings"):
             mappings(execution_ids)
         with st.expander("Readiness by File"):
-            readinessFile(execution_ids, title_font_size=16)
+            readinessFile(execution_ids)
         with st.expander("Import Library Dependency Data Table"):
             import_library_dependency(execution_ids)
         dependency_report(execution_ids)
@@ -357,5 +353,4 @@ def get_report_download_button(report_path):
                 file_name="DetailedReport.docx",
             )
     except:
-        st.warning(
-            "The detailed report could not be generated. Please email us at sma-support@snowflake.com.")
+        st.warning("The detailed report could not be generated. Please email us at sma-support@snowflake.com.")
