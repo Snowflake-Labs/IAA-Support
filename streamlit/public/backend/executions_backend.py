@@ -1,6 +1,30 @@
 from public.backend import app_snowpark_utils as utils
 from public.backend import tables_backend
-from public.backend.globals import *
+from public.backend.globals import (
+    AMOUNT_OF_DAYS_FOR_FILTERING,
+    COLUMN_CLIENT_EMAIL,
+    COLUMN_COMPANY,
+    COLUMN_EXECUTION_ID,
+    COLUMN_EXECUTION_TIMESTAMP,
+    COLUMN_PROJECT_ID,
+    COLUMN_PROJECT_NAME,
+    COLUMN_SNOWPARK_CONNECT_READINESS_SCORE,
+    COLUMN_SPARK_API_READINESS_SCORE,
+    COLUMN_TOOL_NAME,
+    COLUMN_TOTAL_CODE_FILES,
+    COLUMN_TOTAL_LINES_OF_CODE,
+    FRIENDLY_NAME_CLIENT_EMAIL,
+    FRIENDLY_NAME_EXECUTION_ID,
+    FRIENDLY_NAME_EXECUTION_TIMESTAMP,
+    FRIENDLY_NAME_LINES_OF_CODE,
+    FRIENDLY_NAME_PROJECT_ID,
+    FRIENDLY_NAME_PROJECT_NAME,
+    FRIENDLY_NAME_READINESS_SCORE,
+    FRIENDLY_NAME_SELECT,
+    FRIENDLY_NAME_SNOWPARK_CONNECT_READINESS_SCORE,
+    FRIENDLY_NAME_TOOL_NAME,
+    FRIENDLY_NAME_TOTAL_CODE_FILES,
+)
 from snowflake.snowpark.functions import col, lit, lower
 
 
@@ -113,11 +137,36 @@ def get_execution_id_column_as_array(df_with_execution_id):
     return execution_id_list
 
 
-def get_file_companies_data(execution_id_list):
-    executions_table_data = tables_backend.get_execution_info_table_data_by_execution_id(execution_id_list)
-    executions_company = executions_table_data.select(COLUMN_COMPANY).distinct().toPandas()
-    projects_data = executions_company.replace("", None).replace(" ", None)
-    projects_data = projects_data[projects_data[COLUMN_COMPANY].notna()]
-    if projects_data.empty == True:
+def _clean_company_name(company_name: str) -> str:
+    if not company_name:
         return ""
-    return "_".join(projects_data[COLUMN_COMPANY])[:50]
+
+    cleaned_name = str(company_name).replace("/", "_").replace("\\", "_")
+    return "".join(cleaned_name.split())
+
+
+def get_file_companies_data(execution_id_list: list[str], max_length: int = 50) -> str:
+    """Generate a filename-safe string from company names associated with executions.
+
+    This function retrieves company names from executions, cleans them for filename use,
+    and combines them into a single string suitable for file naming.
+
+    Args:
+        execution_id_list: List of execution IDs to retrieve company data for.
+        max_length: Maximum length of the returned string.
+
+    Returns:
+        A filename-safe string containing cleaned company names joined by underscores,
+        truncated to max_length. Returns empty string if no valid companies found.
+
+    """
+    execution_data = tables_backend.get_execution_info_table_data_by_execution_id(execution_id_list)
+    companies_df = execution_data.select(col(COLUMN_COMPANY)).distinct()
+
+    raw_company_names = [row[COLUMN_COMPANY] for row in companies_df.collect() if row[COLUMN_COMPANY]]
+    cleaned_company_names = set(filter(None, map(_clean_company_name, raw_company_names)))
+    if not cleaned_company_names:
+        return ""
+
+    combined_names = "_".join(sorted(cleaned_company_names))
+    return combined_names[:max_length]
