@@ -35,7 +35,8 @@ def get_executions_count_by_tool_name(execution_id_list):
 
     execution_info_table_data_count_by_tool_name = (
         execution_info_table_data.select(
-            col(COLUMN_TOOL_NAME), col(COLUMN_EXECUTION_ID),
+            col(COLUMN_TOOL_NAME),
+            col(COLUMN_EXECUTION_ID),
         )
         .distinct()
         .select(
@@ -73,10 +74,8 @@ def get_hours_from_last_execution(execution_id_list):
     hours = 0
     has_execution_id = execution_selected(execution_id_list)
     if has_execution_id:
-        execution_info_table_data = (
-            tables_backend.get_execution_info_table_data_by_execution_id(
-                execution_id_list,
-            )
+        execution_info_table_data = tables_backend.get_execution_info_table_data_by_execution_id(
+            execution_id_list,
         )
         current_time = lit(datetime.datetime.utcnow())
         hours = (
@@ -108,7 +107,7 @@ def get_hours_from_last_execution(execution_id_list):
     return float(hours)
 
 
-def get_average_readiness_score(execution_id_list):
+def get_average_score(execution_id_list: list[str], column_key: str) -> float:
     has_execution_id = execution_selected(execution_id_list)
     execution_info_table_data = (
         tables_backend.get_execution_info_table_data_by_execution_id(execution_id_list)
@@ -116,58 +115,13 @@ def get_average_readiness_score(execution_id_list):
         else tables_backend.get_execution_info_table_data()
     )
     execution_info_table_data_with_avg = execution_info_table_data.agg(
-        _round(_avg(COLUMN_READINESS_SCORE), 2).alias(COLUMN_AVERAGE_READINESS_SCORE),
+        _round(_avg(column_key), 2).alias("COLUMN_AVERAGE_SCORE"),
     )
-    average_readiness_score = (
-        execution_info_table_data_with_avg.toPandas().AVERAGE_READINESS_SCORE.iloc[0]
-    )
-    return float(average_readiness_score)
+    average_score = execution_info_table_data_with_avg.toPandas().COLUMN_AVERAGE_SCORE.iloc[0]
+    return float(average_score)
 
 
-def get_cumulative_readiness_score(execution_id_list):
-    has_execution_id = execution_selected(execution_id_list)
-    spark_usages_inventory_table_data = (
-        tables_backend.get_spark_usages_inventory_table_data_by_execution_id(
-            execution_id_list,
-        )
-        if has_execution_id
-        else tables_backend.get_spark_usages_inventory_table_data()
-    )
-
-    spark_usages_identifies_count = spark_usages_inventory_table_data.groupBy(
-        COLUMN_EXECUTION_ID,
-    ).agg(_sum(COLUMN_COUNT).alias(COLUMN_USAGES_IDENTIFIED_COUNT))
-
-    spark_usages_supported_count = (
-        spark_usages_inventory_table_data.where(col(COLUMN_SUPPORTED) == TRUE_KEY)
-        .groupBy(COLUMN_EXECUTION_ID)
-        .agg(_sum(COLUMN_COUNT).alias(COLUMN_USAGES_SUPPORTED_COUNT))
-    )
-
-    spark_usages_identifies = spark_usages_identifies_count.join(
-        spark_usages_supported_count, COLUMN_EXECUTION_ID,
-    )
-
-    spark_usages_with_cumulative_readiness_score = spark_usages_identifies.select(
-        _round(
-            (col(COLUMN_USAGES_SUPPORTED_COUNT) / col(COLUMN_USAGES_IDENTIFIED_COUNT))
-            * 100,
-            2,
-        ).alias(COLUMN_CUMULATIVE_READINESS_SCORE),
-    )
-
-    cumulative_readiness_score_series = (
-        spark_usages_with_cumulative_readiness_score.toPandas().CUMULATIVE_READINESS_SCORE
-    )
-    cumulative_readiness_score = (
-        cumulative_readiness_score_series.iloc[0]
-        if len(cumulative_readiness_score_series)
-        else 0
-    )
-    return float(cumulative_readiness_score)
-
-
-def get_lines_of_code_count_by_technology(execution_id_list):
+def get_lines_of_code_count_by_technology(execution_id_list: list[str]):
     has_execution_id = execution_selected(execution_id_list)
     input_files_inventory_table_data = (
         tables_backend.get_input_files_inventory_table_data_by_execution_id(

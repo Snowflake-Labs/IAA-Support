@@ -360,6 +360,7 @@ def paginated(
                         FRIENDLY_NAME_SNOWFLAKE_SUPPORTED,
                         FRIENDLY_NAME_TOOL_SUPPORTED,
                         COLUMN_SUPPORTED,
+                        COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED,
                     ]:
                         data = getSupportedStatus()
                     if col in [FRIENDLY_NAME_MAPPING_STATUS, COLUMN_STATUS]:
@@ -376,6 +377,7 @@ def paginated(
                             FRIENDLY_NAME_SPARK_FULLY_QUALIFIED_NAME,
                             FRIENDLY_NAME_SNOWPARK_FULLY_QUALIFIED_NAME,
                             FRIENDLY_NAME_EXISTING_FEEDBACK,
+                            COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED,
                         ),
                     )
                     if dfEdited.equals(page_to_display) == False:

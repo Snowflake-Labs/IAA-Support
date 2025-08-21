@@ -12,11 +12,13 @@ from public.backend.globals import *
 from snowflake.snowpark.functions import col, lit
 
 
-def getReadinessBackAndForeColorsStyle(readinessValue):
-    if 60 <= readinessValue < 80:
+def getReadinessBackAndForeColorsStyle(readinessValue: float, is_sas_score: bool = False) -> str:
+    top = 90 if is_sas_score else 80
+    mid = 70 if is_sas_score else 60
+    if mid <= readinessValue < top:
         backColor = style.WARNING_COLOR
         foreColor = style.BLACK_COLOR
-    elif readinessValue >= 80:
+    elif readinessValue >= top:
         backColor = style.SUCCESS_COLOR
         foreColor = style.WHITE_COLOR
     else:
@@ -25,18 +27,20 @@ def getReadinessBackAndForeColorsStyle(readinessValue):
 
     return f"background-color: {backColor}; color: {foreColor}"
 
-def generate_output_file_table (download_urls:list):
+
+def generate_output_file_table(download_urls: list):
     urlTable = """
 | Download Additional Inventories | 
 | --- |
 """
-    if (len(download_urls) == 0):
+    if len(download_urls) == 0:
         urlTable += "|No data|"
         return urlTable
 
     for url in download_urls:
         urlTable += f"|{url}|\n"
     return urlTable
+
 
 @st.cache_data(show_spinner=False)
 def getOutputFileTable(execution_id: str, table: str):
@@ -60,8 +64,11 @@ def get_sma_output_download_urls(execution_id: str):
         table_df = getOutputFileTable(execution_id, table_name)
         if table_df.shape[0] > 0:
             output_bytes = getXlsxOutputBytes(table_df)
-            url = utils.get_downloadlink_nomd(file_name, f"{file_name}-{utils.getFileNamePrefix([execution_id])}.xlsx",
-                                              output_bytes)
+            url = utils.get_downloadlink_nomd(
+                file_name,
+                f"{file_name}-{utils.getFileNamePrefix([execution_id])}.xlsx",
+                output_bytes,
+            )
             urls.append(url)
     return urls
 

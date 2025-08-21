@@ -18,6 +18,8 @@ from public.frontend.app_snowpark_treemap import buildTreemap
 
 
 feedbackCreationResponses = []
+snowpark_connect_supported = "Snowpark Connect Supported"
+snowpark_connect_not_supported = "Snowpark Connect Not Supported"
 
 
 def createLinkElement(element):
@@ -106,14 +108,20 @@ def assesmentReport(executionIds):
 @errorHandling.executeFunctionWithErrorHandling
 def mappings(execution_ids):
     render_text_with_style("Mappings", TextType.PAGE_TITLE)
-    st.markdown("<br/>", unsafe_allow_html=True)
     df = spark_usages_backend.get_spark_usages_by_execution_id_grouped_by_status(
         execution_ids,
     )
+    df_snowpark_connect = spark_usages_backend.get_sas_usages_by_execution_id_grouped_by_status(execution_ids)
     total_count_value = df[df["STATUS CATEGORY"] == "Total"]["COUNT"].values[0]
     if not df.empty and total_count_value > 0:
         df = utils.reset_index(df)
-        st.dataframe(df)
+        box1, box2 = st.columns(2)
+        with box1:
+            st.title("Snowpark API")
+            st.dataframe(df)
+        with box2:
+            st.title("Snowpark Connect")
+            st.dataframe(df_snowpark_connect.style.format({FRIENDLY_NAME_PERCENTAGES: lambda x: f"{x:.2f}%"}))
         col1, col2, col3 = st.columns(3)
         with col1:
             st.info(
@@ -125,11 +133,16 @@ def mappings(execution_ids):
                 getUnsuppportedStatusList(),
                 format_func=lambda x: re.sub(r"(?<!\bWor)(\w)([A-Z])", r"\1 \2", x),
             )
-
-        df_filtered = spark_usages_backend.get_spark_usages_by_execution_id_filtered_by_status(
-            execution_ids,
-            category,
-        )
+        if category in (snowpark_connect_supported, snowpark_connect_not_supported):
+            df_filtered = spark_usages_backend.get_spark_usages_by_execution_id_filtered_by_spark_connect_status(
+                execution_ids,
+                category == snowpark_connect_supported,
+            )
+        else:
+            df_filtered = spark_usages_backend.get_spark_usages_by_execution_id_filtered_by_status(
+                execution_ids,
+                category,
+            )
         if df_filtered is not None:
             df_filtered.rename(columns={"TOOLVERSION": "TOOL VERSION"}, inplace=True)
             df_suggestions = utils.paginated(
@@ -137,7 +150,7 @@ def mappings(execution_ids):
                 (backend.color, [backend.COLUMN_SUPPORTED, backend.COLUMN_STATUS], 1),
                 key_prefix="review_mappings_table",
                 editable=True,
-                dropdown_cols=[COLUMN_SUPPORTED, COLUMN_STATUS],
+                dropdown_cols=[COLUMN_SUPPORTED, COLUMN_STATUS, COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED],
             )
             st.info(icon="💡", body=f"[Click here to give us feedback about mappings]({MAPPINGS_FEEDBACK_URL})")
             if df_suggestions is not None:
@@ -187,10 +200,12 @@ def mappings_aux(df):
 
 
 @errorHandling.executeFunctionWithErrorHandling
-def sparkInfo(df, executionIds):
+def sparkInfo(df, execution_ids, is_sas_readiness_enable=False):
     st.text(" ")
     st.text(" ")
-    render_text_with_style("Readiness Files Distribution", TextType.PAGE_TITLE)
+    title = "Snowpark Connect Readiness" if is_sas_readiness_enable else "Readiness"
+    readiness_key = backend.FRIENDLY_NAME_SAS_READINESS if is_sas_readiness_enable else backend.COLUMN_READINESS
+    render_text_with_style(f"{title} Files Distribution", TextType.PAGE_TITLE)
     with st.columns(2)[0]:
         columnLeft, columnCenter, columnRight = st.columns(3)
         with columnLeft:
@@ -201,17 +216,17 @@ def sparkInfo(df, executionIds):
                 value=df[[backend.FRIENDLY_NAME_LINES_OF_CODE]].sum(),
             )
         with columnRight:
-            avg_readiness = 0 if df.empty else df[[backend.COLUMN_READINESS]].mean().round(2)
-            st.metric(label="Average Readiness", value=avg_readiness)
+            avg_readiness = 0 if df.empty else df[[readiness_key]].mean().round(2)
+            st.metric(label=f"Average {title}", value=avg_readiness)
     df = utils.reset_index(df)
     styled_df = df.style.applymap(
-        backend.getReadinessBackAndForeColorsStyle,
-        subset=[backend.COLUMN_READINESS],
+        lambda val: backend.getReadinessBackAndForeColorsStyle(val, is_sas_score=is_sas_readiness_enable),
+        subset=[readiness_key],
     )
 
-    readyToMigrateCount = len(df[df[backend.COLUMN_READINESS] >= 80])
-    migrateWithManualEffort = len(df[df[backend.COLUMN_READINESS].between(60, 80, inclusive="left")])
-    additionalInfoWillBeRequired = len(df[df[backend.COLUMN_READINESS] < 60])
+    readyToMigrateCount = len(df[df[readiness_key] >= 80])
+    migrateWithManualEffort = len(df[df[readiness_key].between(60, 80, inclusive="left")])
+    additionalInfoWillBeRequired = len(df[df[readiness_key] < 60])
 
     pieChartData = pd.DataFrame(
         [
@@ -247,32 +262,40 @@ def sparkInfo(df, executionIds):
     if st.checkbox("Show data table", key="bcxShowDataTableReadinessByFile"):
         st.dataframe(styled_df)
 
-    if st.button(label="Generate Readiness by File", key="sparkInfo"):
+    if st.button(label=f"Generate {title} by File", key="sparkInfo"):
         utils.generateExcelFile(
             styled_df,
-            backend.COLUMN_READINESS,
-            "Download Readiness by File",
-            f"readiness-{utils.getFileNamePrefix(executionIds)}.xlsx",
+            readiness_key,
+            f"Download {title} by File",
+            f"readiness-{utils.getFileNamePrefix(execution_ids)}.xlsx",
         )
-        eventAttributes = {EXECUTIONS: executionIds}
+        eventAttributes = {EXECUTIONS: execution_ids}
         telemetry.logTelemetry(CLICK_GENERATE_READINESS_FILE, eventAttributes)
 
 
 @errorHandling.executeFunctionWithErrorHandling
-def readinessFile(executionIds):
-    files_with_spark_usages = files_backend.get_files_with_spark_usages_by_execution_id(
-        executionIds,
-    )
+def readinessFile(execution_ids, is_sas_readiness_enable=False):
+    if is_sas_readiness_enable:
+        files_with_spark_usages = files_backend.get_count_with_sas_usages_by_execution_id(
+            execution_ids,
+        )
+    else:
+        files_with_spark_usages = files_backend.get_files_with_spark_usages_by_execution_id(
+            execution_ids,
+        )
     input_files_by_execution_id_and_counted_by_technology = (
         files_backend.get_input_files_by_execution_id_and_counted_by_technology(
-            executionIds,
+            execution_ids,
         )
     )
 
     input_files_by_execution_id_and_counted_by_technology = utils.reset_index(
         input_files_by_execution_id_and_counted_by_technology,
     )
-    render_text_with_style("Readiness by File", TextType.PAGE_TITLE)
+    render_text_with_style(
+        f"{'Snowpark Connect Readiness' if is_sas_readiness_enable else 'Readiness'} by File",
+        TextType.PAGE_TITLE,
+    )
 
     chart_style = get_font_properties(TextType.CHART_TITLE)
     fig = px.bar(
@@ -296,7 +319,7 @@ def readinessFile(executionIds):
     if st.checkbox("Show data table", key="bcxShowDataTablefilesBytech"):
         st.dataframe(input_files_by_execution_id_and_counted_by_technology)
 
-    sparkInfo(files_with_spark_usages, executionIds)
+    sparkInfo(files_with_spark_usages, execution_ids, is_sas_readiness_enable)
 
 
 @errorHandling.executeFunctionWithErrorHandling
@@ -338,7 +361,8 @@ def review(execution_ids):
         with st.expander("Mappings"):
             mappings(execution_ids)
         with st.expander("Readiness by File"):
-            readinessFile(execution_ids)
+            sas_readiness_toggle = st.toggle("Snowpark Connect Readiness")
+            readinessFile(execution_ids, is_sas_readiness_enable=sas_readiness_toggle)
         with st.expander("Import Library Dependency Data Table"):
             import_library_dependency(execution_ids)
         dependency_report(execution_ids)
