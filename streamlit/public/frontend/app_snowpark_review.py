@@ -200,47 +200,74 @@ def mappings_aux(df):
 
 
 @errorHandling.executeFunctionWithErrorHandling
-def sparkInfo(df, execution_ids, is_sas_readiness_enable=False):
+def sparkInfo(df, execution_ids):
     st.text(" ")
     st.text(" ")
-    title = "Snowpark Connect Readiness" if is_sas_readiness_enable else "Readiness"
-    readiness_key = backend.FRIENDLY_NAME_SAS_READINESS if is_sas_readiness_enable else backend.COLUMN_READINESS
-    render_text_with_style(f"{title} Files Distribution", TextType.PAGE_TITLE)
+    render_text_with_style("Readiness Files Distribution", TextType.PAGE_TITLE)
     with st.columns(2)[0]:
-        columnLeft, columnCenter, columnRight = st.columns(3)
-        with columnLeft:
+        first_column, second_column, third_column, fourth_column = st.columns(4)
+        with first_column:
             st.metric(label="With Spark", value=df.shape[0])
-        with columnCenter:
+        with second_column:
             st.metric(
                 label="Total Lines With Spark",
                 value=df[[backend.FRIENDLY_NAME_LINES_OF_CODE]].sum(),
             )
-        with columnRight:
-            avg_readiness = 0 if df.empty else df[[readiness_key]].mean().round(2)
-            st.metric(label=f"Average {title}", value=avg_readiness)
+        with third_column:
+            avg_readiness = 0 if df.empty else df[[backend.COLUMN_READINESS]].mean().round(2)
+            st.metric(label="Average Snowpark API Readiness score", value=avg_readiness)
+        with fourth_column:
+            avg_readiness = 0 if df.empty else df[[backend.FRIENDLY_NAME_SAS_READINESS]].mean().round(2)
+            st.metric(label="Average Snowpark Connect Readiness score", value=avg_readiness)
     df = utils.reset_index(df)
     styled_df = df.style.applymap(
-        lambda val: backend.getReadinessBackAndForeColorsStyle(val, is_sas_score=is_sas_readiness_enable),
-        subset=[readiness_key],
+        lambda val: backend.getReadinessBackAndForeColorsStyle(val, is_sas_score=True),
+        subset=[backend.FRIENDLY_NAME_SAS_READINESS],
     )
+    styled_df = styled_df.applymap(
+        lambda val: backend.getReadinessBackAndForeColorsStyle(val, is_sas_score=False),
+        subset=[backend.COLUMN_READINESS],
+    )
+    snowpark_api_chart_column, snowpark_connect_chart_column = st.columns(2)
+    with snowpark_api_chart_column:
+        render_text_with_style("Snowpark API", TextType.CHART_TITLE)
+        display_pie_chart(df, backend.COLUMN_READINESS)
+    with snowpark_connect_chart_column:
+        render_text_with_style("Snowpark Connect", TextType.CHART_TITLE)
+        display_pie_chart(df, backend.FRIENDLY_NAME_SAS_READINESS)
 
-    readyToMigrateCount = len(df[df[readiness_key] >= 80])
-    migrateWithManualEffort = len(df[df[readiness_key].between(60, 80, inclusive="left")])
-    additionalInfoWillBeRequired = len(df[df[readiness_key] < 60])
+    if st.checkbox("Show data table", key="bcxShowDataTableReadinessByFile"):
+        st.dataframe(styled_df)
+
+    if st.button(label="Generate Readiness by File", key="sparkInfo"):
+        utils.generateExcelFile(
+            styled_df,
+            "Readiness",
+            "Download Readiness by File",
+            f"readiness-{utils.getFileNamePrefix(execution_ids)}.xlsx",
+        )
+        eventAttributes = {EXECUTIONS: execution_ids}
+        telemetry.logTelemetry(CLICK_GENERATE_READINESS_FILE, eventAttributes)
+
+
+def display_pie_chart(df: pd.DataFrame, readiness_key: str):
+    ready_to_migrate_count = len(df[df[readiness_key] >= 80])
+    migrate_with_manual_effort = len(df[df[readiness_key].between(60, 80, inclusive="left")])
+    additional_info_will_be_required = len(df[df[readiness_key] < 60])
 
     pieChartData = pd.DataFrame(
         [
             [
-                f"{readyToMigrateCount} {backend.KEY_READY_TO_MIGRATE}",
-                readyToMigrateCount,
+                f"{ready_to_migrate_count} {backend.KEY_READY_TO_MIGRATE}",
+                ready_to_migrate_count,
             ],
             [
-                f"{migrateWithManualEffort} {backend.KEY_MIGRATE_WITH_MANUAL_EFFORT}",
-                migrateWithManualEffort,
+                f"{migrate_with_manual_effort} {backend.KEY_MIGRATE_WITH_MANUAL_EFFORT}",
+                migrate_with_manual_effort,
             ],
             [
-                f"{additionalInfoWillBeRequired} {backend.KEY_ADDITIONAL_INFO_WILL_BE_REQUIRED}",
-                additionalInfoWillBeRequired,
+                f"{additional_info_will_be_required} {backend.KEY_ADDITIONAL_INFO_WILL_BE_REQUIRED}",
+                additional_info_will_be_required,
             ],
         ],
         columns=[backend.COLUMN_TITLE, backend.COLUMN_FILES_COUNT],
@@ -252,37 +279,19 @@ def sparkInfo(df, execution_ids, is_sas_readiness_enable=False):
         title="",
         color=backend.COLUMN_TITLE,
         color_discrete_map={
-            f"{readyToMigrateCount} {backend.KEY_READY_TO_MIGRATE}": backend.style.SUCCESS_COLOR,
-            f"{migrateWithManualEffort} {backend.KEY_MIGRATE_WITH_MANUAL_EFFORT}": backend.style.WARNING_COLOR,
-            f"{additionalInfoWillBeRequired} {backend.KEY_ADDITIONAL_INFO_WILL_BE_REQUIRED}": backend.style.ERROR_COLOR,
+            f"{ready_to_migrate_count} {backend.KEY_READY_TO_MIGRATE}": backend.style.SUCCESS_COLOR,
+            f"{migrate_with_manual_effort} {backend.KEY_MIGRATE_WITH_MANUAL_EFFORT}": backend.style.WARNING_COLOR,
+            f"{additional_info_will_be_required} {backend.KEY_ADDITIONAL_INFO_WILL_BE_REQUIRED}": backend.style.ERROR_COLOR,
         },
     )
-    st.plotly_chart(fig, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False})
-
-    if st.checkbox("Show data table", key="bcxShowDataTableReadinessByFile"):
-        st.dataframe(styled_df)
-
-    if st.button(label=f"Generate {title} by File", key="sparkInfo"):
-        utils.generateExcelFile(
-            styled_df,
-            readiness_key,
-            f"Download {title} by File",
-            f"readiness-{utils.getFileNamePrefix(execution_ids)}.xlsx",
-        )
-        eventAttributes = {EXECUTIONS: execution_ids}
-        telemetry.logTelemetry(CLICK_GENERATE_READINESS_FILE, eventAttributes)
+    st.plotly_chart(fig, config={"modeBarButtonsToRemove": ["toImage"], "displaylogo": False}, key=readiness_key)
 
 
 @errorHandling.executeFunctionWithErrorHandling
-def readinessFile(execution_ids, is_sas_readiness_enable=False):
-    if is_sas_readiness_enable:
-        files_with_spark_usages = files_backend.get_count_with_sas_usages_by_execution_id(
-            execution_ids,
-        )
-    else:
-        files_with_spark_usages = files_backend.get_files_with_spark_usages_by_execution_id(
-            execution_ids,
-        )
+def readiness_file(execution_ids: list[str]) -> None:
+    files_with_spark_usages = files_backend.get_files_with_usages_by_execution_id(
+        execution_ids,
+    )
     input_files_by_execution_id_and_counted_by_technology = (
         files_backend.get_input_files_by_execution_id_and_counted_by_technology(
             execution_ids,
@@ -293,7 +302,7 @@ def readinessFile(execution_ids, is_sas_readiness_enable=False):
         input_files_by_execution_id_and_counted_by_technology,
     )
     render_text_with_style(
-        f"{'Snowpark Connect Readiness' if is_sas_readiness_enable else 'Readiness'} by File",
+        "Readiness by File",
         TextType.PAGE_TITLE,
     )
 
@@ -319,7 +328,7 @@ def readinessFile(execution_ids, is_sas_readiness_enable=False):
     if st.checkbox("Show data table", key="bcxShowDataTablefilesBytech"):
         st.dataframe(input_files_by_execution_id_and_counted_by_technology)
 
-    sparkInfo(files_with_spark_usages, execution_ids, is_sas_readiness_enable)
+    sparkInfo(files_with_spark_usages, execution_ids)
 
 
 @errorHandling.executeFunctionWithErrorHandling
@@ -361,8 +370,7 @@ def review(execution_ids):
         with st.expander("Mappings"):
             mappings(execution_ids)
         with st.expander("Readiness by File"):
-            sas_readiness_toggle = st.toggle("Snowpark Connect Readiness")
-            readinessFile(execution_ids, is_sas_readiness_enable=sas_readiness_toggle)
+            readiness_file(execution_ids)
         with st.expander("Import Library Dependency Data Table"):
             import_library_dependency(execution_ids)
         dependency_report(execution_ids)

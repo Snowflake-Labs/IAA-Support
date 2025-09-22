@@ -1,3 +1,5 @@
+import pandas
+
 from public.backend import tables_backend
 from public.backend.globals import *
 from snowflake.snowpark.functions import (
@@ -77,7 +79,7 @@ def get_input_files_by_execution_id_and_counted_by_technology(execution_id_list)
     return input_files_by_execution_id_counted_by_technology_sorted.toPandas()
 
 
-def get_count_with_sas_usages_by_execution_id(execution_id_list):
+def get_files_with_usages_by_execution_id(execution_id_list: list[str]) -> pandas.DataFrame:
     sas_usages_inventory = tables_backend.get_spark_usages_inventory_table_data_by_execution_id(
         execution_id_list,
     )
@@ -102,19 +104,39 @@ def get_count_with_sas_usages_by_execution_id(execution_id_list):
         sas_usages_inventory.groupBy(COLUMN_FILE_ID)
         .agg(
             _sum(
-                when(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED) == TRUE_KEY, col(COLUMN_COUNT)).otherwise(0),
-            ).alias(COLUMN_SUPPORTED),
+                when(
+                    upper(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED)) == upper(lit(TRUE_KEY)),
+                    col(COLUMN_COUNT),
+                ).otherwise(0),
+            ).alias(COLUMN_SNOWPARK_SUPPORTED),
             _sum(
-                when(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED) == FALSE_KEY, col(COLUMN_COUNT)).otherwise(0),
-            ).alias(COLUMN_NOT_SUPPORTED),
+                when(
+                    upper(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED)) == upper(lit(FALSE_KEY)),
+                    col(COLUMN_COUNT),
+                ).otherwise(0),
+            ).alias(COLUMN_SNOWPARK_NOT_SUPPORTED),
+            _sum(
+                when(col(COLUMN_SUPPORTED) == TRUE_KEY, col(COLUMN_COUNT)).otherwise(0),
+            ).alias(COLUMN_API_SUPPORTED),
+            _sum(
+                when(col(COLUMN_SUPPORTED) == FALSE_KEY, col(COLUMN_COUNT)).otherwise(0),
+            ).alias(COLUMN_API_NOT_SUPPORTED),
+        )
+        .withColumn(
+            COLUMN_SNOWPARK_CONNECT_READINESS_SCORE,
+            _round(
+                when(
+                    (col(COLUMN_SNOWPARK_SUPPORTED) + col(COLUMN_SNOWPARK_NOT_SUPPORTED)) > 0,
+                    col(COLUMN_SNOWPARK_SUPPORTED)
+                    * 100
+                    / (col(COLUMN_SNOWPARK_SUPPORTED) + col(COLUMN_SNOWPARK_NOT_SUPPORTED)),
+                ).otherwise(0),
+            ),
         )
         .withColumn(
             COLUMN_READINESS,
             _round(
-                when(
-                    (col(COLUMN_SUPPORTED) + col(COLUMN_NOT_SUPPORTED)) > 0,
-                    col(COLUMN_SUPPORTED) * 100 / (col(COLUMN_SUPPORTED) + col(COLUMN_NOT_SUPPORTED)),
-                ).otherwise(0),
+                col(COLUMN_API_SUPPORTED) * 100 / (col(COLUMN_API_SUPPORTED) + col(COLUMN_API_NOT_SUPPORTED)),
             ),
         )
     )
@@ -131,85 +153,25 @@ def get_count_with_sas_usages_by_execution_id(execution_id_list):
             COLUMN_EXECUTION_TIMESTAMP,
             COLUMN_CLIENT_EMAIL,
             COLUMN_FILE_ID,
-            COLUMN_SUPPORTED,
-            COLUMN_NOT_SUPPORTED,
+            COLUMN_API_SUPPORTED,
+            COLUMN_API_NOT_SUPPORTED,
             COLUMN_READINESS,
+            COLUMN_SNOWPARK_SUPPORTED,
+            COLUMN_SNOWPARK_NOT_SUPPORTED,
+            COLUMN_SNOWPARK_CONNECT_READINESS_SCORE,
             COLUMN_LINES_OF_CODE,
             COLUMN_TECHNOLOGY,
         )
         .withColumnRenamed(COLUMN_LINES_OF_CODE, FRIENDLY_NAME_LINES_OF_CODE)
         .withColumnRenamed(COLUMN_FILE_ID, FRIENDLY_NAME_SOURCE_FILE)
-        .withColumnRenamed(COLUMN_SUPPORTED, FRIENDLY_NAME_SAS_SUPPORTED)
-        .withColumnRenamed(COLUMN_NOT_SUPPORTED, FRIENDLY_NAME_SAS_NOT_SUPPORTED)
-        .withColumnRenamed(COLUMN_READINESS, FRIENDLY_NAME_SAS_READINESS)
+        .withColumnRenamed(COLUMN_SNOWPARK_SUPPORTED, FRIENDLY_NAME_SAS_SUPPORTED)
+        .withColumnRenamed(COLUMN_SNOWPARK_NOT_SUPPORTED, FRIENDLY_NAME_SAS_NOT_SUPPORTED)
+        .withColumnRenamed(COLUMN_SNOWPARK_CONNECT_READINESS_SCORE, FRIENDLY_NAME_SAS_READINESS)
+        .withColumnRenamed(COLUMN_API_NOT_SUPPORTED, FRIENDLY_NAME_NOT_SUPPORTED)
+        .withColumnRenamed(COLUMN_API_SUPPORTED, COLUMN_SUPPORTED)
     )
 
     return sas_usages_by_file_with_loc_and_friendly_name.toPandas()
-
-
-def get_files_with_spark_usages_by_execution_id(execution_id_list):
-    spark_usages_inventory = tables_backend.get_spark_usages_inventory_table_data_by_execution_id(
-        execution_id_list,
-    )
-    input_files_inventory = tables_backend.get_input_files_inventory_table_data_with_timestamp_and_email(
-        execution_id_list,
-    )
-    input_files_with_new_column_technology = input_files_inventory.select(
-        COLUMN_EXECUTION_ID,
-        COLUMN_EXECUTION_TIMESTAMP,
-        COLUMN_CLIENT_EMAIL,
-        COLUMN_FILE_ID,
-        COLUMN_LINES_OF_CODE,
-        COLUMN_TECHNOLOGY,
-    ).withColumn(
-        COLUMN_TECHNOLOGY,
-        when(col(COLUMN_TECHNOLOGY).isNotNull(), col(COLUMN_TECHNOLOGY)).otherwise(
-            lit(KEY_OTHER),
-        ),
-    )
-
-    spark_usages_by_file = (
-        spark_usages_inventory.groupBy(COLUMN_FILE_ID)
-        .agg(
-            _sum(
-                when(col(COLUMN_SUPPORTED) == TRUE_KEY, col(COLUMN_COUNT)).otherwise(0),
-            ).alias(COLUMN_SUPPORTED),
-            _sum(
-                when(col(COLUMN_SUPPORTED) == FALSE_KEY, col(COLUMN_COUNT)).otherwise(0),
-            ).alias(COLUMN_NOT_SUPPORTED),
-        )
-        .withColumn(
-            COLUMN_READINESS,
-            _round(
-                col(COLUMN_SUPPORTED) * 100 / (col(COLUMN_SUPPORTED) + col(COLUMN_NOT_SUPPORTED)),
-            ),
-        )
-    )
-
-    spark_usages_by_file_join_input_files = spark_usages_by_file.join(
-        right=input_files_with_new_column_technology,
-        on=COLUMN_FILE_ID,
-        how="left",
-    ).sort(col(COLUMN_FILE_ID))
-
-    spark_usages_by_file_with_loc_and_friendly_name = (
-        spark_usages_by_file_join_input_files.select(
-            COLUMN_EXECUTION_ID,
-            COLUMN_EXECUTION_TIMESTAMP,
-            COLUMN_CLIENT_EMAIL,
-            COLUMN_FILE_ID,
-            COLUMN_SUPPORTED,
-            COLUMN_NOT_SUPPORTED,
-            COLUMN_READINESS,
-            COLUMN_LINES_OF_CODE,
-            COLUMN_TECHNOLOGY,
-        )
-        .withColumnRenamed(COLUMN_LINES_OF_CODE, FRIENDLY_NAME_LINES_OF_CODE)
-        .withColumnRenamed(COLUMN_FILE_ID, FRIENDLY_NAME_SOURCE_FILE)
-        .withColumnRenamed(COLUMN_NOT_SUPPORTED, FRIENDLY_NAME_NOT_SUPPORTED)
-    )
-
-    return spark_usages_by_file_with_loc_and_friendly_name.toPandas()
 
 
 def get_input_files_by_execution_id_and_grouped_by_dbc_files(execution_id_list):

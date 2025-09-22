@@ -12,6 +12,7 @@ from snowflake.snowpark.functions import (
     iff,
     lit,
     max,
+    upper,
     when,
 )
 from snowflake.snowpark.functions import (
@@ -107,6 +108,47 @@ def get_hours_from_last_execution(execution_id_list):
     return float(hours)
 
 
+def get_cumulative_readiness_score(execution_id_list: list[str], column_key: str) -> float:
+    has_execution_id = execution_selected(execution_id_list)
+    spark_usages_inventory_table_data = (
+        tables_backend.get_spark_usages_inventory_table_data_by_execution_id(
+            execution_id_list,
+        )
+        if has_execution_id
+        else tables_backend.get_spark_usages_inventory_table_data()
+    )
+
+    spark_usages_identifies_count = spark_usages_inventory_table_data.groupBy(
+        COLUMN_EXECUTION_ID,
+    ).agg(_sum(COLUMN_COUNT).alias(COLUMN_USAGES_IDENTIFIED_COUNT))
+
+    spark_usages_supported_count = (
+        spark_usages_inventory_table_data.where(upper(col(column_key)) == upper(lit(TRUE_KEY)))
+        .groupBy(COLUMN_EXECUTION_ID)
+        .agg(_sum(COLUMN_COUNT).alias(COLUMN_USAGES_SUPPORTED_COUNT))
+    )
+
+    spark_usages_identifies = spark_usages_identifies_count.join(
+        spark_usages_supported_count,
+        COLUMN_EXECUTION_ID,
+    )
+
+    spark_usages_with_cumulative_readiness_score = spark_usages_identifies.select(
+        _round(
+            (col(COLUMN_USAGES_SUPPORTED_COUNT) / col(COLUMN_USAGES_IDENTIFIED_COUNT)) * 100,
+            2,
+        ).alias(COLUMN_CUMULATIVE_READINESS_SCORE),
+    )
+
+    cumulative_readiness_score_series = (
+        spark_usages_with_cumulative_readiness_score.toPandas().CUMULATIVE_READINESS_SCORE
+    )
+    cumulative_readiness_score = (
+        cumulative_readiness_score_series.iloc[0] if len(cumulative_readiness_score_series) else 0
+    )
+    return float(cumulative_readiness_score)
+
+
 def get_average_score(execution_id_list: list[str], column_key: str) -> float:
     has_execution_id = execution_selected(execution_id_list)
     execution_info_table_data = (
@@ -159,7 +201,7 @@ def get_files_count_by_technology(execution_id_list):
     return files_count_by_technology.toPandas()
 
 
-def get_readiness_score(execution_id_list):
+def get_readiness_score(execution_id_list: list[str], column_key: str) -> float:
     has_execution_id = execution_selected(execution_id_list)
     execution_info_table_data = (
         tables_backend.get_execution_info_table_data_by_execution_id(execution_id_list)
@@ -168,7 +210,7 @@ def get_readiness_score(execution_id_list):
     )
     average_readiness_score = (
         execution_info_table_data.agg(
-            _round(_avg(COLUMN_SPARK_API_READINESS_SCORE), 2).alias(
+            _round(_avg(column_key), 2).alias(
                 COLUMN_AVERAGE_READINESS_SCORE,
             ),
         )

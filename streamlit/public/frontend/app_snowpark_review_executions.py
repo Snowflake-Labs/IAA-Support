@@ -43,11 +43,11 @@ def execution_metrics(execution_ids):
             st.metric("Selected Executions", execution_count_metric)
         st.text(" ")
         st.text(" ")
-        col1, col2, col3 = st.columns(3, gap="large")
+        col1, col2, col3, col4 = st.columns(4, gap="large")
 
         with col1:
             render_text_with_style("Spark API Readiness Score", TextType.CARD_TITLE)
-            score = summary_metrics_backend.get_readiness_score(execution_ids)
+            score = summary_metrics_backend.get_readiness_score(execution_ids, COLUMN_SPARK_API_READINESS_SCORE)
             bar_color = get_bar_color(score)
             icon = get_icon(score)
             st.markdown(
@@ -68,6 +68,15 @@ def execution_metrics(execution_ids):
         with col3:
             score = summary_metrics_backend.get_sql_readiness_score(execution_ids)
             render_text_with_style("SQL Readiness Score", TextType.CARD_TITLE)
+            bar_color = get_bar_color(score)
+            icon = get_icon(score)
+            st.markdown(
+                custom_progress_bar(score, bar_color, icon),
+                unsafe_allow_html=True,
+            )
+        with col4:
+            render_text_with_style("Snowpark Connect Readiness Score", TextType.CARD_TITLE)
+            score = summary_metrics_backend.get_readiness_score(execution_ids, COLUMN_SNOWPARK_CONNECT_READINESS_SCORE)
             bar_color = get_bar_color(score)
             icon = get_icon(score)
             st.markdown(
@@ -257,7 +266,7 @@ def _handle_review_option(option, found_executions):
             "Assessment Report": lambda: rw.assesmentReport(found_executions),
             "Code Tree Map": lambda: _code_tree_map(found_executions),
             "Mappings": lambda: rw.mappings(found_executions),
-            "Readiness by File": lambda: rw.readinessFile(found_executions),
+            "Readiness by File": lambda: rw.readiness_file(found_executions),
             "Reader Writers": lambda: review_readers_writers(found_executions),
             "Third Party": lambda: third_party_review(found_executions),
             "Dependencies": lambda: _dependencies_reports(found_executions),
