@@ -471,6 +471,7 @@ SMA_OUTPUT_FILES_NAMES = [
     "InputFilesInventory",
     "IOFilesInventory",
     "Issues_ConnectIssues",
+    "Issues",
     "JoinsInventory",
     "NotebookCellInventory",
     "NotebookSizeInventory",
