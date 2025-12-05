@@ -43,10 +43,12 @@ def generate_output_file_table(download_urls: list):
 
 
 @st.cache_data(show_spinner=False)
-def getOutputFileTable(execution_id: str, table: str):
+def getOutputFileTable(execution_id: str, table: str) -> pd.DataFrame:
     session = utils.get_session()
-    table_inventory = session.table(table).where(col(COLUMN_EXECUTION_ID) == lit(execution_id)).collect()
-    return DataFrame(table_inventory)
+    sf_table = session.table(table)
+    filtered_table = sf_table.where(col(COLUMN_EXECUTION_ID) == lit(execution_id))
+    result_df = filtered_table.to_pandas()
+    return result_df
 
 
 @st.cache_data(show_spinner=False)
@@ -62,14 +64,13 @@ def get_sma_output_download_urls(execution_id: str):
     utils.get_temp_stage.clear()
     for file_name, table_name in zip(SMA_OUTPUT_FILES_NAMES, SMA_OUTPUT_FILES_TABLES, strict=False):
         table_df = getOutputFileTable(execution_id, table_name)
-        if table_df.shape[0] > 0:
-            output_bytes = getXlsxOutputBytes(table_df)
-            url = utils.get_downloadlink_nomd(
-                file_name,
-                f"{file_name}-{utils.getFileNamePrefix([execution_id])}.xlsx",
-                output_bytes,
-            )
-            urls.append(url)
+        output_bytes = getXlsxOutputBytes(table_df)
+        url = utils.get_downloadlink_nomd(
+            file_name,
+            f"{file_name}-{utils.getFileNamePrefix([execution_id])}.xlsx",
+            output_bytes,
+        )
+        urls.append(url)
     return urls
 
 
