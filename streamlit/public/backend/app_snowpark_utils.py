@@ -82,6 +82,7 @@ _tables_metadata = {
         ("CELL_ID", sftype.BIGINT),
         ("PARAMETERS_INFO", sftype.VARIANT),
         ("IS_SNOWPARK_CONNECT_SUPPORTED", sftype.STRING),
+        ("IS_SNOWPARK_CONNECT_TOOL_SUPPORTED", sftype.STRING),
     ],
     TABLE_IMPORT_USAGES_INVENTORY: [
         ("EXECUTION_ID", sftype.STRING),
@@ -154,6 +155,7 @@ _tables_metadata = {
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
         ("IS_SNOWPARK_CONNECT_SUPPORTED", sftype.BOOLEAN),
+        ("IS_SNOWPARK_CONNECT_TOOL_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_MAPPINGS_CORE_PYSPARK: [
         ("CATEGORY", sftype.STRING),
@@ -171,6 +173,7 @@ _tables_metadata = {
         ("MAPPING_STATUS", sftype.STRING),
         ("WORKAROUND_COMMENT", sftype.STRING),
         ("IS_SNOWPARK_CONNECT_SUPPORTED", sftype.BOOLEAN),
+        ("IS_SNOWPARK_CONNECT_TOOL_SUPPORTED", sftype.BOOLEAN),
     ],
     TABLE_REPORT_URL: [
         ("EXECUTION_ID", sftype.STRING),
@@ -360,7 +363,7 @@ def paginated(
                         FRIENDLY_NAME_SNOWFLAKE_SUPPORTED,
                         FRIENDLY_NAME_TOOL_SUPPORTED,
                         COLUMN_SUPPORTED,
-                        COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED,
+                        COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED,
                     ]:
                         data = getSupportedStatus()
                     if col in [FRIENDLY_NAME_MAPPING_STATUS, COLUMN_STATUS]:
@@ -377,7 +380,7 @@ def paginated(
                             FRIENDLY_NAME_SPARK_FULLY_QUALIFIED_NAME,
                             FRIENDLY_NAME_SNOWPARK_FULLY_QUALIFIED_NAME,
                             FRIENDLY_NAME_EXISTING_FEEDBACK,
-                            COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED,
+                            COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED,
                         ),
                     )
                     if dfEdited.equals(page_to_display) == False:

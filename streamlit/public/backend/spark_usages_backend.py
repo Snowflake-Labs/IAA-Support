@@ -29,16 +29,16 @@ def get_sas_usages_by_execution_id_grouped_by_status(execution_id_list):
     )
 
     sas_usages_group_by_status = (
-        spark_usages_inventory.group_by(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED)
+        spark_usages_inventory.group_by(COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED)
         .agg(_sum(COLUMN_COUNT).alias(COLUMN_USAGES))
         .orderBy(col(COLUMN_USAGES).desc())
     )
 
     sas_usages_group_by_status_pandas_dataframe = (
         sas_usages_group_by_status.withColumn(
-            COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED,
-            upper(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED).try_cast(StringType())),
-        ).withColumnRenamed(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED, COLUMN_STATUS)
+            COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED,
+            upper(col(COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED).try_cast(StringType())),
+        ).withColumnRenamed(COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED, COLUMN_STATUS)
     ).toPandas()
     sas_usages_group_by_status_pandas_dataframe[COLUMN_STATUS] = sas_usages_group_by_status_pandas_dataframe[
         COLUMN_STATUS
@@ -108,7 +108,7 @@ def get_spark_usages_by_execution_id_filtered_by_spark_connect_status(execution_
     )
 
     spark_usages_filtered_by_snowpark_connect = spark_usages_inventory.where(
-        col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED).try_cast(BooleanType()) == snowpark_connect_key,
+        col(COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED).try_cast(BooleanType()) == snowpark_connect_key,
     )
 
     return _process(spark_usages_filtered_by_snowpark_connect)
@@ -136,12 +136,12 @@ def _process(spark_usages_table_data):
             COLUMN_SUPPORTED,
             COLUMN_SNOWCONVERT_CORE_VERSION,
             COLUMN_STATUS,
-            COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED,
+            COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED,
         )
         .withColumn(COLUMN_SUPPORTED, upper(col(COLUMN_SUPPORTED)).try_cast(BooleanType()))
         .withColumn(
-            COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED,
-            upper(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED)).try_cast(BooleanType()),
+            COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED,
+            upper(col(COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED)).try_cast(BooleanType()),
         )
         .withColumnRenamed(COLUMN_ELEMENT, FRIENDLY_NAME_SPARK_FULLY_QUALIFIED_NAME)
         .withColumnRenamed(COLUMN_SNOWCONVERT_CORE_VERSION, TOOL_VERSION)

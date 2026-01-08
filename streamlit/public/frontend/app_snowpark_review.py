@@ -150,7 +150,7 @@ def mappings(execution_ids):
                 (backend.color, [backend.COLUMN_SUPPORTED, backend.COLUMN_STATUS], 1),
                 key_prefix="review_mappings_table",
                 editable=True,
-                dropdown_cols=[COLUMN_SUPPORTED, COLUMN_STATUS, COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED],
+                dropdown_cols=[COLUMN_SUPPORTED, COLUMN_STATUS, COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED],
             )
             st.info(icon="💡", body=f"[Click here to give us feedback about mappings]({MAPPINGS_FEEDBACK_URL})")
             if df_suggestions is not None:
@@ -158,15 +158,15 @@ def mappings(execution_ids):
                 """
                 with feedbackCol2:
                     st.warning("Don't forget to submit your feedback before moving to another page.")
-                    
+
                     if st.button("Submit Feedback", key="submit_feedback_review", help= "Submitting feedback will automatically create a Jira ticket."):
                         createdJiraIds, existingJiraIds = submitMappingsFeedback(dfSuggestions, FRIENDLY_NAME_SPARK_FULLY_QUALIFIED_NAME)
                         with feedbackCol1:
                             for key in existingJiraIds.keys():
-                                st.warning(f"There is already an open item for **{key}**, please add your comments [here]({existingJiraIds[key]}).")  
+                                st.warning(f"There is already an open item for **{key}**, please add your comments [here]({existingJiraIds[key]}).")
                             for key in createdJiraIds.keys():
                                 st.info(f"✅ Item for **{key}** has been created, to add additional comments click [here](https://snowflakecomputing.atlassian.net/browse/{createdJiraIds[key]}).")
-                            
+
                             eventAttributes = {EXECUTIONS : executionIds, JIRAIDS : createdJiraIds}
                             telemetry.logTelemetry(CLICK_SUBMIT_MAPPINGS_FEEDBACK, eventAttributes)
                 """

@@ -105,13 +105,13 @@ def get_files_with_usages_by_execution_id(execution_id_list: list[str]) -> panda
         .agg(
             _sum(
                 when(
-                    upper(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED)) == upper(lit(TRUE_KEY)),
+                    upper(col(COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED)) == upper(lit(TRUE_KEY)),
                     col(COLUMN_COUNT),
                 ).otherwise(0),
             ).alias(COLUMN_SNOWPARK_SUPPORTED),
             _sum(
                 when(
-                    upper(col(COLUMN_IS_SNOWPARK_CONNECT_SUPPORTED)) == upper(lit(FALSE_KEY)),
+                    upper(col(COLUMN_IS_SNOWPARK_CONNECT_TOOL_SUPPORTED)) == upper(lit(FALSE_KEY)),
                     col(COLUMN_COUNT),
                 ).otherwise(0),
             ).alias(COLUMN_SNOWPARK_NOT_SUPPORTED),
