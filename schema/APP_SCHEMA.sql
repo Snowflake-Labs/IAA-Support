@@ -1173,387 +1173,6 @@ END;';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_SPARK"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
 
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATAFRAMES_INVENTORY" (
-      "TABLE_NAME" VARCHAR(16777216)
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
-AS '
-DECLARE
-   BACKSLASH_TOKEN := ''\\\\'';
-   SLASH_TOKEN := ''/'';
-   DATAFRAMES_INVENTORY_NAME := ''DataFramesInventory%.json'';
-
-BEGIN
-
-    INSERT INTO DATAFRAMES_INVENTORY(
-    EXECUTION_ID,
-    FULLNAME,
-    NAME,
-    FILE_ID,
-    CELL_ID,
-    LINE,
-    "COLUMN",
-    ASSIGNMENT_NUMBER,
-    RELEVANT_FUNCTION,
-    RELATED_DATAFRAMES,
-    ENTRY_POINTS
-    )
-    SELECT
-    EXECUTION_ID,
-    INVENTORY_CONTENT:FullName,      
-    INVENTORY_CONTENT:Name,      
-    REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
-    INVENTORY_CONTENT:CellId,
-    INVENTORY_CONTENT:Line,
-    INVENTORY_CONTENT:Column,
-    INVENTORY_CONTENT:AssignmentNumber,
-    INVENTORY_CONTENT:RelevantFunction,
-    INVENTORY_CONTENT:RelatedDataFrames,
-    INVENTORY_CONTENT:EntryPoints
-    FROM (
-      SELECT 
-          EXECUTION_ID,
-          INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
-      FROM (
-        SELECT 
-          EXECUTION_ID, INVENTORY_CONTENT
-        FROM IDENTIFIER(:TABLE_NAME)
-        WHERE FILE_NAME ILIKE :DATAFRAMES_INVENTORY_NAME
-      ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
-    );
-
-RETURN ''MERGE_DATAFRAMES_INVENTORY FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATAFRAMES_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATA_TO_IAA_TABLES" (
-      "TABLE_NAME" VARCHAR(16777216)
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
-AS '
-BEGIN
-  BEGIN TRANSACTION;
-    CALL MERGE_EXECUTION_INFO(:table_name);
-    CALL MERGE_INPUT_FILE_INVENTORY(:table_name);
-    CALL MERGE_IMPORT_USAGES_INVENTORY(:table_name);
-    CALL MERGE_IO_FILES_INVENTORY(:table_name);
-    CALL MERGE_ISSUES_CONNECT_INVENTORY(:table_name);
-    CALL MERGE_ISSUES_INVENTORY(:table_name);
-    CALL MERGE_JOINS_INVENTORY(:table_name);
-    CALL MERGE_NOTEBOOK_CELLS_INVENTORY(:table_name);
-    CALL MERGE_NOTEBOOK_SIZE_INVENTORY(:table_name);
-    CALL MERGE_PACKAGE_INVENTORY(:table_name);
-    CALL MERGE_PACKAGE_VERSIONS_INVENTORY(:table_name);
-    CALL MERGE_PANDAS_USAGES_INVENTORY(:table_name);
-    CALL MERGE_SPARK_USAGES_INVENTORY(:table_name);
-    CALL MERGE_SQL_ELEMENTS_INVENTORY(:table_name);
-    CALL MERGE_SQL_EMBEDDED_USAGES_INVENTORY(:table_name);
-    CALL MERGE_SQL_FUNCTIONS_INVENTORY(:table_name);
-    CALL MERGE_THIRD_PARTY_USAGES_INVENTORY(:table_name);
-    CALL MERGE_ARTIFACT_DEPENDENCY_INVENTORY(:table_name);
-    CALL MERGE_DATAFRAMES_INVENTORY(:table_name);
-    CALL MERGE_CHECKPOINTS_INVENTORY(:table_name);
-    CALL MERGE_EXECUTION_FLOW_INVENTORY(:table_name);
-    CALL MERGE_DBX_ELEMENTS_INVENTORY(:table_name);
-    CALL MERGE_ELEMENTS_INVENTORY(:table_name);
-    CALL MERGE_ETLANDBIREPOINTING_INVENTORY(:table_name);
-    CALL MERGE_OBJECT_REFERENCES_INVENTORY(:table_name);
-    CALL MERGE_SQL_ISSUES_INVENTORY(:table_name);
-    CALL MERGE_SQL_OBJECTS_INVENTORY(:table_name);
-    CALL MERGE_TOP_LEVEL_CODE_UNITS_INVENTORY(:table_name);
-  COMMIT;
-  EXCEPTION
-    WHEN STATEMENT_ERROR THEN
-      RETURN OBJECT_CONSTRUCT(''Error type'', ''STATEMENT_ERROR'',
-                          ''SQLCODE'', SQLCODE,
-                          ''SQLERRM'', SQLERRM,
-                          ''SQLSTATE'', SQLSTATE);
-
-  RETURN ''MERGE_DATA_TO_IAA_TABLES FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATA_TO_IAA_TABLES"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DBX_ELEMENTS_INVENTORY" (
-      "TABLE_NAME" VARCHAR(16777216)
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
-AS '
-DECLARE
-    BACKSLASH_TOKEN := ''\\\\'';
-    SLASH_TOKEN := ''/'';
-    DBX_ELEMENTS_INVENTORY_NAME := ''DbxElementsInventory%.json'';
-
-BEGIN
-    INSERT INTO DBX_ELEMENTS_INVENTORY(
-        EXECUTION_ID,
-        ELEMENT,
-        PROJECT_ID,
-        FILE_ID,
-        COUNT,
-        CATEGORY,
-        KIND,
-        LINE,
-        PACKAGE_NAME,
-        SUPPORTED,
-        AUTOMATED,
-        STATUS,
-        SNOWCONVERT_CORE_VERSION,      
-        CELL_ID,
-        TECHNOLOGY
-    )
-    SELECT
-        EXECUTION_ID,
-        INVENTORY_CONTENT:Element,
-        INVENTORY_CONTENT:ProjectId,
-        REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
-        INVENTORY_CONTENT:Count,
-        INVENTORY_CONTENT:Category,
-        INVENTORY_CONTENT:Kind,
-        CASE WHEN INVENTORY_CONTENT:Line = '''' 
-            THEN NULL
-            ELSE INVENTORY_CONTENT:Line
-        END,
-        INVENTORY_CONTENT:PackageName,
-        INVENTORY_CONTENT:Supported,
-        INVENTORY_CONTENT:Automated,
-        INVENTORY_CONTENT:Status,
-        GET_VERSION(INVENTORY_CONTENT:SnowConvertCoreVersion),      
-        CASE WHEN INVENTORY_CONTENT:CellId = '''' 
-            THEN NULL
-            ELSE INVENTORY_CONTENT:CellId
-        END,
-        INVENTORY_CONTENT:Technology
-    FROM (
-        SELECT 
-            EXECUTION_ID,
-            INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
-        FROM (
-            SELECT 
-                EXECUTION_ID,
-                INVENTORY_CONTENT
-            FROM IDENTIFIER(:TABLE_NAME)
-            WHERE FILE_NAME ILIKE :DBX_ELEMENTS_INVENTORY_NAME
-        ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
-    );
-
-RETURN ''DBX_ELEMENTS_INVENTORY FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DBX_ELEMENTS_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ELEMENTS_INVENTORY" (
-      "TABLE_NAME" VARCHAR(16777216)
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
-AS '
-DECLARE
-    ELEMENTS_INVENTORY_NAME STRING DEFAULT ''SnowConvertReports_Elements%.json'';
-
-BEGIN
-    INSERT INTO ELEMENTS_INVENTORY(
-        EXECUTION_ID,
-        SESSION_ID,
-        CATEGORY,
-        GRAMMAR_ELEMENT,
-        FILE_TYPE,
-        TOTAL_COUNT,
-        NOT_CONVERTED_COUNT
-    )
-    SELECT
-      t.EXECUTION_ID,
-      ic.value:SessionID::string,
-      ic.value:Category::string,
-      ic.value:"Grammar Element"::string,
-      ic.value:"File Type"::string,
-      ic.value:"Total Count"::int,
-      ic.value:"Not Converted Count (Self)"::int
-    FROM IDENTIFIER(:table_name) t
-    JOIN LATERAL FLATTEN(INPUT => t.INVENTORY_CONTENT) ic
-    WHERE t.FILE_NAME ILIKE :ELEMENTS_INVENTORY_NAME;
-
-  RETURN ''ELEMENTS_INVENTORY FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ELEMENTS_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ETLANDBIREPOINTING_INVENTORY" (
-      "TABLE_NAME" VARCHAR(16777216)
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
-AS '
-DECLARE
-    ETLANDBIREPOINTING_INVENTORY_NAME STRING DEFAULT ''SnowConvertReports_ETLAndBiRepointing%.json'';
-
-BEGIN
-    INSERT INTO ETLANDBIREPOINTING_INVENTORY(
-        EXECUTION_ID,
-        SESSION_ID,
-        TECHNOLOGY,
-        CATEGORY,
-        SUBTYPE,
-        FULLNAME,
-        FILENAME,
-        STATUS,
-        EWI_COUNT,
-        EWIS,
-        FDM_COUNT,
-        FDMS,
-        PRF_COUNT,
-        PRFS,
-        ENTRY_KIND,
-        ADDITIONAL_INFO
-    )
-    SELECT
-        EXECUTION_ID,
-        ic.value:SessionID ::string,
-        ic.value:Technology ::string,
-        ic.value:Category ::string,
-        ic.value:SubType ::string,
-        ic.value:FullName ::string,
-        ic.value:FileName ::string,
-        ic.value:Status ::string,
-        ic.value:"EWI Count" ::number,
-        ic.value:EWIs ::string,
-        ic.value:"FDM Count" ::number,
-        ic.value:FDMs ::string,
-        ic.value:"PRF Count" ::number,
-        ic.value:PRFs ::string,
-        ic.value:"Entry Kind" ::string,
-        ic.value:"Additional Info" ::string
-    FROM IDENTIFIER(:table_name) t
-    JOIN LATERAL FLATTEN(INPUT => t.INVENTORY_CONTENT) ic
-    WHERE t.FILE_NAME ILIKE :ETLANDBIREPOINTING_INVENTORY_NAME;
-
-  RETURN ''ETL_AND_BIREPOINTING_INVENTORY FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ETLANDBIREPOINTING_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_FLOW_INVENTORY" (
-      "TABLE_NAME" VARCHAR(16777216)
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
-AS '
-DECLARE
-   BACKSLASH_TOKEN := ''\\\\'';
-   SLASH_TOKEN := ''/'';
-   EXECUTION_FLOW_INVENTORY_NAME := ''ExecutionFlowInventory%.json'';
-
-BEGIN
-
-    INSERT INTO EXECUTION_FLOW_INVENTORY(
-      EXECUTION_ID,
-      CALLER,
-      CALLER_TYPE,
-      INVOKED,
-      INVOKED_TYPE,
-      FILE_ID,
-      CELL_ID,
-      LINE,
-      "COLUMN"
-    )
-    SELECT
-      EXECUTION_ID,
-      INVENTORY_CONTENT:Caller,      
-      INVENTORY_CONTENT:CallerType,     
-      INVENTORY_CONTENT:Invoked,      
-      INVENTORY_CONTENT:InvokedType,    
-      REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
-      INVENTORY_CONTENT:CellId,
-      INVENTORY_CONTENT:Line,
-      INVENTORY_CONTENT:Column
-    FROM (
-      SELECT 
-          EXECUTION_ID,
-          INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
-      FROM (
-        SELECT 
-          EXECUTION_ID, INVENTORY_CONTENT
-        FROM IDENTIFIER(:TABLE_NAME)
-        WHERE FILE_NAME ILIKE :EXECUTION_FLOW_INVENTORY_NAME
-      ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
-    );
-
-RETURN ''MERGE_EXECUTION_FLOW_INVENTORY FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_FLOW_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_INFO" (
-      "TABLE_NAME" VARCHAR(16777216)
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
-AS '
-DECLARE
-EXECUTION_INFO_INVENTORY_NAME := ''ExecutionInfo%.json'';
-
-BEGIN
-    INSERT INTO EXECUTION_INFO(
-      EXECUTION_ID,
-      EXECUTION_TIMESTAMP,
-      CUSTOMER_LICENSE,
-      TOOL_VERSION,
-      TOOL_NAME,
-      MARGIN_ERROR,
-      CLIENT_EMAIL,
-      MAPPING_VERSION,
-      CONVERSION_SCORE,
-      SESSION_ID,
-      COMPANY,
-      PROJECT_NAME,
-      PARSING_SCORE,
-      SPARK_API_READINESS_SCORE,
-      PYTHON_READINESS_SCORE,
-      SCALA_READINESS_SCORE,
-      SQL_READINESS_SCORE,
-      THIRD_PARTY_READINESS_SCORE,
-      SNOWPARK_CONNECT_READINESS_SCORE
-    )
-    SELECT
-      EXECUTION_ID,
-      TO_TIMESTAMP_NTZ(EXTRACT_DATE),
-      ic.value:CUSTOMER_LICENSE,
-      GET_VERSION(ic.value:TOOL_VERSION),
-      ic.value:TOOL_NAME,
-      ic.value:MARGIN_ERROR,
-      ic.value:CLIENT_EMAIL,
-      GET_VERSION(ic.value:MAPPING_VERSION),
-      GET_SCORE(ic.value:CONVERSION_SCORE),
-      ic.value:SESSION_ID,
-      ic.value:COMPANY,
-      ic.value:PROJECT_NAME,
-      GET_SCORE(ic.value:PARSING_SCORE),
-      GET_SCORE(ic.value:READINESS_SCORE),
-      GET_SCORE(ic.value:PYTHON_READINESS_SCORE),
-      GET_SCORE(ic.value:SCALA_READINESS_SCORE),
-      GET_SCORE(ic.value:SQL_READINESS_SCORE),
-      GET_SCORE(ic.value:THIRD_PARTY_READINESS_SCORE),
-      GET_SCORE(ic.value:SNOWPARK_CONNECT_READINESS_SCORE)
-    FROM IDENTIFIER(:TABLE_NAME) t
-    JOIN LATERAL FLATTEN(INPUT => t.INVENTORY_CONTENT) ic
-    WHERE t.FILE_NAME ILIKE :EXECUTION_INFO_INVENTORY_NAME;
-
-RETURN ''MERGE_EXECUTION_INFO FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_INFO"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
-
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."INSERT_MAPPINGS_SQL_ELEMENTS" (
       "TABLE_NAME" VARCHAR(16777216)
 )
@@ -2887,6 +2506,387 @@ class DependencyAnalysis:
         return ''\\n''.join(log)';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."PRE_CALC_DEPENDENCY_ANALYSIS"() IS '';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATAFRAMES_INVENTORY" (
+      "TABLE_NAME" VARCHAR(16777216)
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
+AS '
+DECLARE
+   BACKSLASH_TOKEN := ''\\\\'';
+   SLASH_TOKEN := ''/'';
+   DATAFRAMES_INVENTORY_NAME := ''DataFramesInventory%.json'';
+
+BEGIN
+
+    INSERT INTO DATAFRAMES_INVENTORY(
+    EXECUTION_ID,
+    FULLNAME,
+    NAME,
+    FILE_ID,
+    CELL_ID,
+    LINE,
+    "COLUMN",
+    ASSIGNMENT_NUMBER,
+    RELEVANT_FUNCTION,
+    RELATED_DATAFRAMES,
+    ENTRY_POINTS
+    )
+    SELECT
+    EXECUTION_ID,
+    INVENTORY_CONTENT:FullName,      
+    INVENTORY_CONTENT:Name,      
+    REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
+    INVENTORY_CONTENT:CellId,
+    INVENTORY_CONTENT:Line,
+    INVENTORY_CONTENT:Column,
+    INVENTORY_CONTENT:AssignmentNumber,
+    INVENTORY_CONTENT:RelevantFunction,
+    INVENTORY_CONTENT:RelatedDataFrames,
+    INVENTORY_CONTENT:EntryPoints
+    FROM (
+      SELECT 
+          EXECUTION_ID,
+          INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
+      FROM (
+        SELECT 
+          EXECUTION_ID, INVENTORY_CONTENT
+        FROM IDENTIFIER(:TABLE_NAME)
+        WHERE FILE_NAME ILIKE :DATAFRAMES_INVENTORY_NAME
+      ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
+    );
+
+RETURN ''MERGE_DATAFRAMES_INVENTORY FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATAFRAMES_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATA_TO_IAA_TABLES" (
+      "TABLE_NAME" VARCHAR(16777216)
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
+AS '
+BEGIN
+  BEGIN TRANSACTION;
+    CALL MERGE_EXECUTION_INFO(:table_name);
+    CALL MERGE_INPUT_FILE_INVENTORY(:table_name);
+    CALL MERGE_IMPORT_USAGES_INVENTORY(:table_name);
+    CALL MERGE_IO_FILES_INVENTORY(:table_name);
+    CALL MERGE_ISSUES_CONNECT_INVENTORY(:table_name);
+    CALL MERGE_ISSUES_INVENTORY(:table_name);
+    CALL MERGE_JOINS_INVENTORY(:table_name);
+    CALL MERGE_NOTEBOOK_CELLS_INVENTORY(:table_name);
+    CALL MERGE_NOTEBOOK_SIZE_INVENTORY(:table_name);
+    CALL MERGE_PACKAGE_INVENTORY(:table_name);
+    CALL MERGE_PACKAGE_VERSIONS_INVENTORY(:table_name);
+    CALL MERGE_PANDAS_USAGES_INVENTORY(:table_name);
+    CALL MERGE_SPARK_USAGES_INVENTORY(:table_name);
+    CALL MERGE_SQL_ELEMENTS_INVENTORY(:table_name);
+    CALL MERGE_SQL_EMBEDDED_USAGES_INVENTORY(:table_name);
+    CALL MERGE_SQL_FUNCTIONS_INVENTORY(:table_name);
+    CALL MERGE_THIRD_PARTY_USAGES_INVENTORY(:table_name);
+    CALL MERGE_ARTIFACT_DEPENDENCY_INVENTORY(:table_name);
+    CALL MERGE_DATAFRAMES_INVENTORY(:table_name);
+    CALL MERGE_CHECKPOINTS_INVENTORY(:table_name);
+    CALL MERGE_EXECUTION_FLOW_INVENTORY(:table_name);
+    CALL MERGE_DBX_ELEMENTS_INVENTORY(:table_name);
+    CALL MERGE_ELEMENTS_INVENTORY(:table_name);
+    CALL MERGE_ETLANDBIREPOINTING_INVENTORY(:table_name);
+    CALL MERGE_OBJECT_REFERENCES_INVENTORY(:table_name);
+    CALL MERGE_SQL_ISSUES_INVENTORY(:table_name);
+    CALL MERGE_SQL_OBJECTS_INVENTORY(:table_name);
+    CALL MERGE_TOP_LEVEL_CODE_UNITS_INVENTORY(:table_name);
+  COMMIT;
+  EXCEPTION
+    WHEN STATEMENT_ERROR THEN
+      RETURN OBJECT_CONSTRUCT(''Error type'', ''STATEMENT_ERROR'',
+                          ''SQLCODE'', SQLCODE,
+                          ''SQLERRM'', SQLERRM,
+                          ''SQLSTATE'', SQLSTATE);
+
+  RETURN ''MERGE_DATA_TO_IAA_TABLES FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DATA_TO_IAA_TABLES"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DBX_ELEMENTS_INVENTORY" (
+      "TABLE_NAME" VARCHAR(16777216)
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
+AS '
+DECLARE
+    BACKSLASH_TOKEN := ''\\\\'';
+    SLASH_TOKEN := ''/'';
+    DBX_ELEMENTS_INVENTORY_NAME := ''DbxElementsInventory%.json'';
+
+BEGIN
+    INSERT INTO DBX_ELEMENTS_INVENTORY(
+        EXECUTION_ID,
+        ELEMENT,
+        PROJECT_ID,
+        FILE_ID,
+        COUNT,
+        CATEGORY,
+        KIND,
+        LINE,
+        PACKAGE_NAME,
+        SUPPORTED,
+        AUTOMATED,
+        STATUS,
+        SNOWCONVERT_CORE_VERSION,      
+        CELL_ID,
+        TECHNOLOGY
+    )
+    SELECT
+        EXECUTION_ID,
+        INVENTORY_CONTENT:Element,
+        INVENTORY_CONTENT:ProjectId,
+        REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
+        INVENTORY_CONTENT:Count,
+        INVENTORY_CONTENT:Category,
+        INVENTORY_CONTENT:Kind,
+        CASE WHEN INVENTORY_CONTENT:Line = '''' 
+            THEN NULL
+            ELSE INVENTORY_CONTENT:Line
+        END,
+        INVENTORY_CONTENT:PackageName,
+        INVENTORY_CONTENT:Supported,
+        INVENTORY_CONTENT:Automated,
+        INVENTORY_CONTENT:Status,
+        GET_VERSION(INVENTORY_CONTENT:SnowConvertCoreVersion),      
+        CASE WHEN INVENTORY_CONTENT:CellId = '''' 
+            THEN NULL
+            ELSE INVENTORY_CONTENT:CellId
+        END,
+        INVENTORY_CONTENT:Technology
+    FROM (
+        SELECT 
+            EXECUTION_ID,
+            INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
+        FROM (
+            SELECT 
+                EXECUTION_ID,
+                INVENTORY_CONTENT
+            FROM IDENTIFIER(:TABLE_NAME)
+            WHERE FILE_NAME ILIKE :DBX_ELEMENTS_INVENTORY_NAME
+        ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
+    );
+
+RETURN ''DBX_ELEMENTS_INVENTORY FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_DBX_ELEMENTS_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ELEMENTS_INVENTORY" (
+      "TABLE_NAME" VARCHAR(16777216)
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
+AS '
+DECLARE
+    ELEMENTS_INVENTORY_NAME STRING DEFAULT ''SnowConvertReports_Elements%.json'';
+
+BEGIN
+    INSERT INTO ELEMENTS_INVENTORY(
+        EXECUTION_ID,
+        SESSION_ID,
+        CATEGORY,
+        GRAMMAR_ELEMENT,
+        FILE_TYPE,
+        TOTAL_COUNT,
+        NOT_CONVERTED_COUNT
+    )
+    SELECT
+      t.EXECUTION_ID,
+      ic.value:SessionID::string,
+      ic.value:Category::string,
+      ic.value:"Grammar Element"::string,
+      ic.value:"File Type"::string,
+      ic.value:"Total Count"::int,
+      ic.value:"Not Converted Count (Self)"::int
+    FROM IDENTIFIER(:table_name) t
+    JOIN LATERAL FLATTEN(INPUT => t.INVENTORY_CONTENT) ic
+    WHERE t.FILE_NAME ILIKE :ELEMENTS_INVENTORY_NAME;
+
+  RETURN ''ELEMENTS_INVENTORY FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ELEMENTS_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ETLANDBIREPOINTING_INVENTORY" (
+      "TABLE_NAME" VARCHAR(16777216)
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
+AS '
+DECLARE
+    ETLANDBIREPOINTING_INVENTORY_NAME STRING DEFAULT ''SnowConvertReports_ETLAndBiRepointing%.json'';
+
+BEGIN
+    INSERT INTO ETLANDBIREPOINTING_INVENTORY(
+        EXECUTION_ID,
+        SESSION_ID,
+        TECHNOLOGY,
+        CATEGORY,
+        SUBTYPE,
+        FULLNAME,
+        FILENAME,
+        STATUS,
+        EWI_COUNT,
+        EWIS,
+        FDM_COUNT,
+        FDMS,
+        PRF_COUNT,
+        PRFS,
+        ENTRY_KIND,
+        ADDITIONAL_INFO
+    )
+    SELECT
+        EXECUTION_ID,
+        ic.value:SessionID ::string,
+        ic.value:Technology ::string,
+        ic.value:Category ::string,
+        ic.value:SubType ::string,
+        ic.value:FullName ::string,
+        ic.value:FileName ::string,
+        ic.value:Status ::string,
+        ic.value:"EWI Count" ::number,
+        ic.value:EWIs ::string,
+        ic.value:"FDM Count" ::number,
+        ic.value:FDMs ::string,
+        ic.value:"PRF Count" ::number,
+        ic.value:PRFs ::string,
+        ic.value:"Entry Kind" ::string,
+        ic.value:"Additional Info" ::string
+    FROM IDENTIFIER(:table_name) t
+    JOIN LATERAL FLATTEN(INPUT => t.INVENTORY_CONTENT) ic
+    WHERE t.FILE_NAME ILIKE :ETLANDBIREPOINTING_INVENTORY_NAME;
+
+  RETURN ''ETL_AND_BIREPOINTING_INVENTORY FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ETLANDBIREPOINTING_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_FLOW_INVENTORY" (
+      "TABLE_NAME" VARCHAR(16777216)
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
+AS '
+DECLARE
+   BACKSLASH_TOKEN := ''\\\\'';
+   SLASH_TOKEN := ''/'';
+   EXECUTION_FLOW_INVENTORY_NAME := ''ExecutionFlowInventory%.json'';
+
+BEGIN
+
+    INSERT INTO EXECUTION_FLOW_INVENTORY(
+      EXECUTION_ID,
+      CALLER,
+      CALLER_TYPE,
+      INVOKED,
+      INVOKED_TYPE,
+      FILE_ID,
+      CELL_ID,
+      LINE,
+      "COLUMN"
+    )
+    SELECT
+      EXECUTION_ID,
+      INVENTORY_CONTENT:Caller,      
+      INVENTORY_CONTENT:CallerType,     
+      INVENTORY_CONTENT:Invoked,      
+      INVENTORY_CONTENT:InvokedType,    
+      REPLACE(INVENTORY_CONTENT:FileId, :BACKSLASH_TOKEN, :SLASH_TOKEN),
+      INVENTORY_CONTENT:CellId,
+      INVENTORY_CONTENT:Line,
+      INVENTORY_CONTENT:Column
+    FROM (
+      SELECT 
+          EXECUTION_ID,
+          INVENTORY_CONTENT_JSON.VALUE AS INVENTORY_CONTENT
+      FROM (
+        SELECT 
+          EXECUTION_ID, INVENTORY_CONTENT
+        FROM IDENTIFIER(:TABLE_NAME)
+        WHERE FILE_NAME ILIKE :EXECUTION_FLOW_INVENTORY_NAME
+      ), TABLE(FLATTEN(INVENTORY_CONTENT)) INVENTORY_CONTENT_JSON
+    );
+
+RETURN ''MERGE_EXECUTION_FLOW_INVENTORY FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_FLOW_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_INFO" (
+      "TABLE_NAME" VARCHAR(16777216)
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}}'
+AS '
+DECLARE
+EXECUTION_INFO_INVENTORY_NAME := ''ExecutionInfo%.json'';
+
+BEGIN
+    INSERT INTO EXECUTION_INFO(
+      EXECUTION_ID,
+      EXECUTION_TIMESTAMP,
+      CUSTOMER_LICENSE,
+      TOOL_VERSION,
+      TOOL_NAME,
+      MARGIN_ERROR,
+      CLIENT_EMAIL,
+      MAPPING_VERSION,
+      CONVERSION_SCORE,
+      SESSION_ID,
+      COMPANY,
+      PROJECT_NAME,
+      PARSING_SCORE,
+      SPARK_API_READINESS_SCORE,
+      PYTHON_READINESS_SCORE,
+      SCALA_READINESS_SCORE,
+      SQL_READINESS_SCORE,
+      THIRD_PARTY_READINESS_SCORE,
+      SNOWPARK_CONNECT_READINESS_SCORE
+    )
+    SELECT
+      EXECUTION_ID,
+      TO_TIMESTAMP_NTZ(EXTRACT_DATE),
+      ic.value:CUSTOMER_LICENSE,
+      GET_VERSION(ic.value:TOOL_VERSION),
+      ic.value:TOOL_NAME,
+      ic.value:MARGIN_ERROR,
+      ic.value:CLIENT_EMAIL,
+      GET_VERSION(ic.value:MAPPING_VERSION),
+      GET_SCORE(ic.value:CONVERSION_SCORE),
+      ic.value:SESSION_ID,
+      ic.value:COMPANY,
+      ic.value:PROJECT_NAME,
+      GET_SCORE(ic.value:PARSING_SCORE),
+      GET_SCORE(ic.value:READINESS_SCORE),
+      GET_SCORE(ic.value:PYTHON_READINESS_SCORE),
+      GET_SCORE(ic.value:SCALA_READINESS_SCORE),
+      GET_SCORE(ic.value:SQL_READINESS_SCORE),
+      GET_SCORE(ic.value:THIRD_PARTY_READINESS_SCORE),
+      GET_SCORE(ic.value:SNOWPARK_CONNECT_READINESS_SCORE)
+    FROM IDENTIFIER(:TABLE_NAME) t
+    JOIN LATERAL FLATTEN(INPUT => t.INVENTORY_CONTENT) ic
+    WHERE t.FILE_NAME ILIKE :EXECUTION_INFO_INVENTORY_NAME;
+
+RETURN ''MERGE_EXECUTION_INFO FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_EXECUTION_INFO"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":38}} ';
 
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_EXECUTION" (
 )
