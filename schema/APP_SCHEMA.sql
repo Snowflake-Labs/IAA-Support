@@ -1514,128 +1514,6 @@ END;';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_ARTIFACT_DEPENDENCY_INVENTORY"(VARCHAR) IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}} ';
 
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_EXECUTION" (
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}}'
-AS 'BEGIN
-COPY INTO "ASSESSMENTS_FILES_RAW"  (
-      "EXECUTION_ID"
-    , "EXTRACT_DATE"
-    , "FILE_NAME"
-    , "INVENTORY_CONTENT"
-) FROM (
-    SELECT
-          SPLIT_PART(metadata$filename, ''/'', 1)
-        , metadata$FILE_LAST_MODIFIED
-        , CASE
-            WHEN SPLIT_PART(metadata$filename, ''/'', 2) = ''SnowConvertReports''
-            THEN CONCAT(''SnowConvertReports_'', SPLIT_PART(metadata$filename, ''/'', 3))
-            ELSE SPLIT_PART(metadata$filename, ''/'', 2)
-          END
-        , $1
-    FROM @"SMA_EXECUTIONS"
-    (PATTERN => ''.*\\.json$'')
-)
-FILE_FORMAT = "JSON";
-
-COPY INTO "REPORT_URL"  (
-      "EXECUTION_ID"
-    , "FILE_NAME"
-    , "RELATIVE_REPORT_PATH"
-) FROM (
-    SELECT
-          SPLIT_PART(metadata$filename, ''/'', 1)
-        , SPLIT_PART(metadata$filename, ''/'', 2)
-        , metadata$filename
-
-    FROM @"SMA_EXECUTIONS"
-    (PATTERN => ''.*\\.docx$'')
-)
-FILE_FORMAT = "DOCX_FORMAT";
-
-RETURN ''Upload successfully'';
-
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_EXECUTION"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_MAPPINGS" (
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}}'
-AS 'BEGIN
-COPY INTO "ALL_MAPPINGS_CORE_RAW"  (
-      "VERSION"
-    , "FOLDER"
-    , "FILE_NAME"
-    , "FILE_CONTENT"
-) FROM (
-    SELECT
-          SPLIT_PART(metadata$filename, ''/'', 1)
-        , SPLIT_PART(metadata$filename, ''/'', 2)
-        , SPLIT_PART(metadata$filename, ''/'', 3)
-        , $1
-    FROM @"SMA_MAPPINGS"
-    (PATTERN => ''.*\\.json$'')
-)
-FILE_FORMAT = "JSON";
-
-RETURN ''Upload successfully'';
-
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_MAPPINGS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MAPPINGS_CORE" (
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}}'
-AS 'DECLARE 
-
-TABLE_NAME varchar DEFAULT concat(''STREAM_DATA_'' , DATE_PART(epoch_second, CURRENT_TIMESTAMP()));
-
-BEGIN
-CREATE OR REPLACE TEMPORARY TABLE IDENTIFIER(:TABLE_NAME) (
-    VERSION STRING,
-    FOLDER STRING,
-    FILE_NAME STRING,
-    FILE_CONTENT VARIANT
-    );
-INSERT INTO IDENTIFIER(:TABLE_NAME) SELECT VERSION, FOLDER, FILE_NAME, FILE_CONTENT FROM ALL_MAPPINGS_CORE_STREAM;
-
-CALL INSERT_MAPPINGS_EWI_CATALOG(:TABLE_NAME);
-CALL INSERT_MAPPINGS_LIBRARY(:TABLE_NAME);
-CALL INSERT_MAPPINGS_PANDAS(:TABLE_NAME);
-CALL INSERT_MAPPINGS_PYSPARK(:TABLE_NAME);
-CALL INSERT_MAPPINGS_SPARK(:TABLE_NAME);
-CALL INSERT_MAPPINGS_SQL_ELEMENTS(:TABLE_NAME);
-CALL INSERT_MAPPINGS_SQL_FUNCTIONS(:TABLE_NAME);
-CALL INSERT_MAPPINGS_DBX_ELEMENTS(:TABLE_NAME);
-
-RETURN ''INSERT_MAPPINGS_CORE_TABLES FINISHED'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MAPPINGS_CORE"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}} ';
-
-CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."START_IAA_MECHANISM" (
-)
-RETURNS VARCHAR(16777216)
-LANGUAGE SQL
-AS 'BEGIN
-  ALTER TASK INSERT_COMPUTED_DEPENDENCIES RESUME;
-  ALTER TASK UPDATE_IAA_TABLES_TASK RESUME;
-  ALTER TASK REFRESH_MAPPINGS_CORE_TASK RESUME;
-  CALL REFRESH_MANUAL_MAPPINGS();
-  
-  RETURN ''Initialization completed'';
-END;';
-
-COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."START_IAA_MECHANISM"() IS '';
-
 CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."MERGE_CHECKPOINTS_INVENTORY" (
       "TABLE_NAME" VARCHAR(16777216)
 )
@@ -3073,6 +2951,128 @@ class DependencyAnalysis:
         return ''\\n''.join(log)';
 
 COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."PRE_CALC_DEPENDENCY_ANALYSIS"() IS '';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_EXECUTION" (
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}}'
+AS 'BEGIN
+COPY INTO "ASSESSMENTS_FILES_RAW"  (
+      "EXECUTION_ID"
+    , "EXTRACT_DATE"
+    , "FILE_NAME"
+    , "INVENTORY_CONTENT"
+) FROM (
+    SELECT
+          SPLIT_PART(metadata$filename, ''/'', 1)
+        , metadata$FILE_LAST_MODIFIED
+        , CASE
+            WHEN SPLIT_PART(metadata$filename, ''/'', 2) = ''SnowConvertReports''
+            THEN CONCAT(''SnowConvertReports_'', SPLIT_PART(metadata$filename, ''/'', 3))
+            ELSE SPLIT_PART(metadata$filename, ''/'', 2)
+          END
+        , $1
+    FROM @"SMA_EXECUTIONS"
+    (PATTERN => ''.*\\.json$'')
+)
+FILE_FORMAT = "JSON";
+
+COPY INTO "REPORT_URL"  (
+      "EXECUTION_ID"
+    , "FILE_NAME"
+    , "RELATIVE_REPORT_PATH"
+) FROM (
+    SELECT
+          SPLIT_PART(metadata$filename, ''/'', 1)
+        , SPLIT_PART(metadata$filename, ''/'', 2)
+        , metadata$filename
+
+    FROM @"SMA_EXECUTIONS"
+    (PATTERN => ''.*\\.docx$'')
+)
+FILE_FORMAT = "DOCX_FORMAT";
+
+RETURN ''Upload successfully'';
+
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_EXECUTION"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_MAPPINGS" (
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}}'
+AS 'BEGIN
+COPY INTO "ALL_MAPPINGS_CORE_RAW"  (
+      "VERSION"
+    , "FOLDER"
+    , "FILE_NAME"
+    , "FILE_CONTENT"
+) FROM (
+    SELECT
+          SPLIT_PART(metadata$filename, ''/'', 1)
+        , SPLIT_PART(metadata$filename, ''/'', 2)
+        , SPLIT_PART(metadata$filename, ''/'', 3)
+        , $1
+    FROM @"SMA_MAPPINGS"
+    (PATTERN => ''.*\\.json$'')
+)
+FILE_FORMAT = "JSON";
+
+RETURN ''Upload successfully'';
+
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MANUAL_MAPPINGS"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MAPPINGS_CORE" (
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+COMMENT = '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}}'
+AS 'DECLARE 
+
+TABLE_NAME varchar DEFAULT concat(''STREAM_DATA_'' , DATE_PART(epoch_second, CURRENT_TIMESTAMP()));
+
+BEGIN
+CREATE OR REPLACE TEMPORARY TABLE IDENTIFIER(:TABLE_NAME) (
+    VERSION STRING,
+    FOLDER STRING,
+    FILE_NAME STRING,
+    FILE_CONTENT VARIANT
+    );
+INSERT INTO IDENTIFIER(:TABLE_NAME) SELECT VERSION, FOLDER, FILE_NAME, FILE_CONTENT FROM ALL_MAPPINGS_CORE_STREAM;
+
+CALL INSERT_MAPPINGS_EWI_CATALOG(:TABLE_NAME);
+CALL INSERT_MAPPINGS_LIBRARY(:TABLE_NAME);
+CALL INSERT_MAPPINGS_PANDAS(:TABLE_NAME);
+CALL INSERT_MAPPINGS_PYSPARK(:TABLE_NAME);
+CALL INSERT_MAPPINGS_SPARK(:TABLE_NAME);
+CALL INSERT_MAPPINGS_SQL_ELEMENTS(:TABLE_NAME);
+CALL INSERT_MAPPINGS_SQL_FUNCTIONS(:TABLE_NAME);
+CALL INSERT_MAPPINGS_DBX_ELEMENTS(:TABLE_NAME);
+
+RETURN ''INSERT_MAPPINGS_CORE_TABLES FINISHED'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."REFRESH_MAPPINGS_CORE"() IS '{"origin":"sf_sit","name":"iaa","version":{"major":0,"minor":9,"patch":47}} ';
+
+CREATE OR REPLACE PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."START_IAA_MECHANISM" (
+)
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+AS 'BEGIN
+  ALTER TASK INSERT_COMPUTED_DEPENDENCIES RESUME;
+  ALTER TASK UPDATE_IAA_TABLES_TASK RESUME;
+  ALTER TASK REFRESH_MAPPINGS_CORE_TASK RESUME;
+  CALL REFRESH_MANUAL_MAPPINGS();
+  
+  RETURN ''Initialization completed'';
+END;';
+
+COMMENT ON PROCEDURE "SNOW_DB"."SNOW_SCHEMA"."START_IAA_MECHANISM"() IS '';
 
 CREATE OR REPLACE TABLE "SNOW_DB"."SNOW_SCHEMA"."ALL_MAPPINGS_CORE_RAW"
 (
