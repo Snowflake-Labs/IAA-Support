@@ -175,16 +175,16 @@ def _select_sidebar_option(option):
 def create_side_bar():
     options = [
         ("Execution", _select_sidebar_option),
+        ("Mappings", _select_sidebar_option),
+        ("Reader Writers", _select_sidebar_option),
+        ("Dbx Elements", _select_sidebar_option),
+        ("Artifacts Dependencies", _select_sidebar_option),
+        ("Readiness by File", _select_sidebar_option),
         ("Inventories", _select_sidebar_option),
         ("Assessment Report", _select_sidebar_option),
         ("Code Tree Map", _select_sidebar_option),
-        ("Mappings", _select_sidebar_option),
-        ("Readiness by File", _select_sidebar_option),
-        ("Reader Writers", _select_sidebar_option),
         ("Third Party", _select_sidebar_option),
         ("Dependencies", _select_sidebar_option),
-        ("Artifacts Dependencies", _select_sidebar_option),
-        ("Dbx Elements", _select_sidebar_option),
     ]
     st.sidebar.button(
         "Home",
@@ -201,6 +201,8 @@ def create_side_bar():
         st.session_state.selected_option = "Execution"
 
     for label, action in options:
+        if label == "Inventories":
+            st.sidebar.divider()
         if st.session_state.selected_option == label:
             st.sidebar.markdown(
                 f"<button style='background-color: #E4F5FF; border: solid 1px #0068C9; padding: 5.5px; width: 100%; border-radius: 7px; outline: none;"
@@ -252,6 +254,8 @@ def _artifact_dependencies_reports(found_executions):
 
 def _dbx_elements_reports(found_executions):
     render_text_with_style("Dbx Elements", TextType.PAGE_TITLE)
+    title_section = '<strong style="font-size: 24px;">Dbx Elements</strong>'
+    st.markdown(title_section, unsafe_allow_html=True)
     st.markdown("<br/>", unsafe_allow_html=True)
     dbx_elements_review(found_executions)
 
