@@ -14,6 +14,7 @@ import snowflake.snowpark.dataframe
 from public.backend import artifact_dependency_backend as artifacts
 from public.backend.artifact_dependency_backend import (
     get_artifacts_dependency_table_data,
+    get_artifacts_summary_table_data,
     get_islands_summary,
 )
 from public.backend.globals import *
@@ -68,7 +69,7 @@ def print_summary_table(
     else:
         files_df_to_show = df
 
-    styled_df = files_df_to_show.style.applymap(
+    styled_df = files_df_to_show.style.map(
         change_color_if_has_issues,
         subset=[FRIENDLY_NAME_TOTAL_ISSUES],
     )
@@ -209,28 +210,27 @@ def print_islands_summary(islands: list, execution_id: str) -> None:
 
 def get_graph_information(execution_id: str) -> (nx.Graph, list):
     graph = nx.Graph()
+
+    summary_data = get_artifacts_summary_table_data([execution_id])
+    for row in summary_data.select(COLUMN_FILE_ID).toPandas().iterrows():
+        file = row[1][COLUMN_FILE_ID]
+        if file and file not in graph:
+            graph.add_node(file)
+
+    # Add edges only for UserCodeFile dependencies (file A imports file B).
     artifacts_data = get_artifacts_dependency_table_data([execution_id])
     pandas_data = artifacts_data.toPandas()
-    index = 1
     for row in pandas_data.iterrows():
         if row[1][COLUMN_TYPE] == USER_CODE_FILE_ARTIFACT_DEPENDENCY_TYPE_KEY:
             file = row[1][COLUMN_FILE_ID]
             dependency = row[1][COLUMN_DEPENDENCY]
 
-            # add main file as a node
-            if file not in graph:
-                graph.add_node(file)
-
-            # If a dependency exists, we add it and create the edge
             if dependency:
                 if dependency not in graph:
                     graph.add_node(dependency)
 
                 graph.add_edge(file, dependency, title=f"{file} imports {dependency}")
 
-            index += 1
-
-    # --- Find the "Islands" (connected components) ---
     islands = list(nx.connected_components(graph))
     return graph, islands
 

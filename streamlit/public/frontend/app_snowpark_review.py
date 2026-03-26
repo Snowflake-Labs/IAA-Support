@@ -220,11 +220,11 @@ def sparkInfo(df, execution_ids):
             avg_readiness = 0 if df.empty else df[[backend.FRIENDLY_NAME_SAS_READINESS]].mean().round(2)
             st.metric(label="Average Snowpark Connect Readiness score", value=avg_readiness)
     df = utils.reset_index(df)
-    styled_df = df.style.applymap(
+    styled_df = df.style.map(
         lambda val: backend.getReadinessBackAndForeColorsStyle(val, is_sas_score=True),
         subset=[backend.FRIENDLY_NAME_SAS_READINESS],
     )
-    styled_df = styled_df.applymap(
+    styled_df = styled_df.map(
         lambda val: backend.getReadinessBackAndForeColorsStyle(val, is_sas_score=False),
         subset=[backend.COLUMN_READINESS],
     )
