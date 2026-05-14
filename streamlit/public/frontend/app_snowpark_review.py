@@ -93,15 +93,39 @@ def assesmentReport(executionIds):
 
     df_docx = report_url_backend.get_table_report_url([selectedExecutionId])
 
-    if df_docx is None or len(df_docx) == 0 or df_docx[0][COLUMN_RELATIVE_REPORT_PATH] is None:
+    detailed_path = next(
+        (
+            row[COLUMN_RELATIVE_REPORT_PATH]
+            for row in df_docx
+            if row[COLUMN_FILE_NAME] == "DetailedReport.docx" and row[COLUMN_RELATIVE_REPORT_PATH] is not None
+        ),
+        None,
+    )
+    scai_path = next(
+        (
+            row[COLUMN_RELATIVE_REPORT_PATH]
+            for row in df_docx
+            if row[COLUMN_FILE_NAME] == "SnowConvertReports" and row[COLUMN_RELATIVE_REPORT_PATH] is not None
+        ),
+        None,
+    )
+
+    if detailed_path is None and scai_path is None:
         st.warning(
-            "The detailed report could not be generated. Please email us at sma-support@snowflake.com.",
+            "No reports are available for this execution. Please email us at sma-support@snowflake.com.",
         )
 
-    if len(df_docx) > 0:
-        with st.columns(3)[0]:
-            if df_docx[0][COLUMN_RELATIVE_REPORT_PATH] is not None:
-                get_report_download_button(df_docx[0][COLUMN_RELATIVE_REPORT_PATH])
+    col1, col2, _ = st.columns(3)
+    with col1:
+        if detailed_path:
+            get_report_download_button(detailed_path)
+        else:
+            st.button("Download Detailed Report", disabled=True)
+    with col2:
+        if scai_path:
+            get_scai_report_download_button(scai_path)
+        else:
+            st.button("Download SCAI Assessment Report", disabled=True)
     return total_files
 
 
@@ -376,13 +400,32 @@ def review(execution_ids):
         dependency_report(execution_ids)
 
 
-def get_report_download_button(report_path):
+def _render_report_download(
+    report_path: str,
+    label: str,
+    error_message: str,
+    file_name: str | None = None,
+) -> None:
     try:
+        resolved_name = file_name or report_path.split("/")[-1]
         with utils.get_session().file.get_stream(f"@{SMA_EXECUTIONS_STAGE}/{report_path}") as file:
-            st.download_button(
-                label="Download Detailed Report",
-                data=file,
-                file_name="DetailedReport.docx",
-            )
+            st.download_button(label=label, data=file, file_name=resolved_name)
     except:
-        st.warning("The detailed report could not be generated. Please email us at sma-support@snowflake.com.")
+        st.warning(error_message)
+
+
+def get_report_download_button(report_path: str) -> None:
+    _render_report_download(
+        report_path,
+        "Download Detailed Report",
+        "The detailed report could not be generated. Please email us at sma-support@snowflake.com.",
+        file_name="DetailedReport.docx",
+    )
+
+
+def get_scai_report_download_button(report_path: str) -> None:
+    _render_report_download(
+        report_path,
+        "Download SCAI Assessment Report",
+        "The SCAI Assessment Report could not be generated. Please email us at sma-support@snowflake.com.",
+    )
