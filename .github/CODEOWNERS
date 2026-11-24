@@ -1,8 +1,8 @@
 # Default owners for everything in the repo
-*                       @sfc-gh-cazofeifamadrigal @sfc-gh-dmadrizvillagra
+*                       @sfc-gh-cazofeifamadrigal
 
 # Deployment scripts and Python requirements
-/deployment/            @sfc-gh-cazofeifamadrigal @sfc-gh-dmadrizvillagra
+/deployment/            @sfc-gh-cazofeifamadrigal
 
 # Mapping files
-/maps/                  @sfc-gh-cazofeifamadrigal @sfc-gh-dmadrizvillagra
+/maps/                  @sfc-gh-cazofeifamadrigal
